@@ -3,15 +3,34 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 window.addEventListener('load', () => {
 
-   // ===== Ensure autoplay on mobile (iOS/Android) =====
-  const vid = document.querySelector('.hero-video');
-  if (vid) {
-    const tryPlay = () => vid.play().catch(() => {});
-    tryPlay();
-    ['touchstart','click','visibilitychange'].forEach(ev => {
-      document.addEventListener(ev, () => tryPlay(), { once: true, passive: true });
-    });
-  }
+  // ===== Ensure autoplay on mobile (iOS/Android) =====
+const vid = document.querySelector('.hero-video');
+if (vid) {
+  // Make absolutely sure the right flags are set for iOS
+  vid.muted = true;
+  vid.autoplay = true;
+  vid.playsInline = true;                 // JS property
+  vid.setAttribute('playsinline', '');    // HTML attribute (Safari)
+  vid.setAttribute('webkit-playsinline', '');
+
+  const tryPlay = () => {
+    const p = vid.play();
+    if (p && p.catch) p.catch(() => {});  // swallow autoplay promise rejections
+  };
+
+  // Try immediately
+  tryPlay();
+
+  // Try again when the video is actually ready
+  ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach(ev => {
+    vid.addEventListener(ev, tryPlay, { once: true });
+  });
+
+  // Try on first user gesture or when tab becomes visible
+  ['pointerdown','touchstart','click','visibilitychange'].forEach(ev => {
+    document.addEventListener(ev, () => tryPlay(), { once: true, passive: true });
+  });
+}
   
   if (window.gsap) {
     gsap.registerPlugin(ScrollTrigger);
