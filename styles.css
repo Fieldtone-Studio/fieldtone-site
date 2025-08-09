@@ -42,34 +42,64 @@ a{color:var(--ink);text-decoration:none}
   pointer-events: auto;
 }
 
-/* Simple, robust hamburger (desktop + mobile) */
-.menu-toggle{
+/* Hamburger Button */
+.menu-toggle {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 36px;
   height: 28px;
   padding: 0;
   margin-left: 12px;
-  border: 0;
+  border: none;
   background: transparent;
   cursor: pointer;
-
-  /* kill any accidental inline characters/whitespace */
-  line-height: 0;
-  font-size: 0;
 }
 
-.menu-toggle span{
+.menu-toggle span {
   display: block;
+  position: absolute;
+  width: 20px;
   height: 2px;
-  width: 100%;
   background: var(--ink, #f6f6f6);
   border-radius: 2px;
   transition: transform .25s ease, opacity .2s ease;
 }
 
-/* stack the bars with equal gaps */
-.menu-toggle span + span { margin-top: 6px; }
+/* Evenly spaced bars */
+.menu-toggle span:nth-child(1) {
+  transform: translateY(-6px);
+}
+.menu-toggle span:nth-child(2) {
+  transform: translateY(0);
+}
+.menu-toggle span:nth-child(3) {
+  transform: translateY(6px);
+}
+
+/* Open state — clean centered X */
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* Mobile size adjustments */
+@media (max-width: 768px) {
+  .menu-toggle {
+    width: 32px;
+    height: 24px;
+    margin-left: 8px;
+  }
+  .menu-toggle span {
+    width: 18px;
+  }
+}
 
 /* X animation */
 .menu-toggle[aria-expanded="true"] span:nth-child(1){
