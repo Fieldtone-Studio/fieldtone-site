@@ -42,69 +42,57 @@ a{color:var(--ink);text-decoration:none}
   pointer-events: auto;
 }
 
-/* Simple, robust hamburger (desktop + mobile) */
-.menu-toggle {
+/* HAMBURGER (final, unclipped) */
+.menu-toggle{
   position: relative;
   display: inline-block;
-  width: 48px; /* wider to fit rotated bars */
+  width: 44px;           /* extra room so the X never hits the edge */
   height: 36px;
   padding: 0;
   margin-left: 12px;
+  margin-right: 6px;     /* small buffer from viewport edge */
   border: 0;
   background: transparent;
   cursor: pointer;
-  line-height: 0;
+  line-height: 0;        /* no stray inline height */
   font-size: 0;
-  overflow: visible; /* let rotated lines extend outside */
+  overflow: visible;     /* allow rotated tips to extend */
 }
 
-.menu-toggle span {
+.menu-toggle span{
   display: block;
+  width: 28px;           /* shorter than the button width */
   height: 2px;
-  width: 100%; /* full width to avoid clipping */
+  margin: 0 auto;        /* center the bars horizontally */
   background: var(--ink, #f6f6f6);
   border-radius: 2px;
+  transform-origin: 50% 50%;
   transition: transform .25s ease, opacity .2s ease;
 }
 
-/* stack the bars */
+/* equal gap between bars */
 .menu-toggle span + span { margin-top: 6px; }
 
-/* X animation */
-.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+/* X animation (all transform-based) */
+.menu-toggle[aria-expanded="true"] span:nth-child(1){
   transform: translateY(8px) rotate(45deg);
 }
-.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+.menu-toggle[aria-expanded="true"] span:nth-child(2){
   opacity: 0;
 }
-.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+.menu-toggle[aria-expanded="true"] span:nth-child(3){
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Mobile tweaks so it doesn’t look oversized */
+/* Mobile size */
 @media (max-width: 768px){
   .menu-toggle{
-    width: 32px;
-    height: 24px;
-    margin-left: 8px;
+    width: 38px;
+    height: 30px;
+    margin-right: 4px;
   }
+  .menu-toggle span{ width: 26px; }
   .menu-toggle span + span { margin-top: 5px; }
-}
-.menu-toggle span:nth-child(1) { top: 8px; }
-.menu-toggle span:nth-child(2) { top: 15px; }
-.menu-toggle span:nth-child(3) { bottom: 8px; }
-
-/* X animation */
-.menu-toggle[aria-expanded="true"] span:nth-child(1) {
-  top: 15px;
-  transform: rotate(45deg);
-}
-.menu-toggle[aria-expanded="true"] span:nth-child(2) {
-  opacity: 0;
-}
-.menu-toggle[aria-expanded="true"] span:nth-child(3) {
-  bottom: 15px;
-  transform: rotate(-45deg);
 }
 
 /* Dropdown panel */
