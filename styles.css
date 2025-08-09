@@ -10,7 +10,19 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:I
 img,video{max-width:100%;display:block}
 a{color:var(--ink);text-decoration:none}
 .nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;backdrop-filter:saturate(120%) blur(10px);background:rgba(15,15,16,0.4);z-index:20;border-bottom:1px solid rgba(255,255,255,0.06)}
-.nav .brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.6px}
+.nav .brand img {
+    height: 32px; /* adjust if too big/small */
+    width: auto;
+    display: block;
+    vertical-align: middle;
+    margin-top: -2px; /* fine-tune vertical alignment */
+}
+@media (max-width: 768px) {
+    .nav .brand img {
+        height: 24px; /* smaller logo on mobile */
+        margin-top: 0;
+    }
+}
 .nav a{margin-left:20px;color:var(--muted)}
 .nav a:hover{color:var(--ink)}
 
