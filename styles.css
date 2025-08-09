@@ -247,7 +247,7 @@ a{color:var(--ink);text-decoration:none}
   display: none;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.55));
+  background: none;
   pointer-events: none;
   z-index: 9;
 }
