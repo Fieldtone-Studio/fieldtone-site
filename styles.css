@@ -42,29 +42,55 @@ a{color:var(--ink);text-decoration:none}
   pointer-events: auto;
 }
 
-/* ===== Hamburger + dropdown menu ===== */
-.menu-toggle {
+/* Simple, robust hamburger (desktop + mobile) */
+.menu-toggle{
   position: relative;
-  display: inline-block;  /* visible on desktop and mobile */
-  width: 40px;
-  height: 32px;
+  display: inline-block;
+  width: 36px;
+  height: 28px;
+  padding: 0;
+  margin-left: 12px;
   border: 0;
   background: transparent;
   cursor: pointer;
-  padding: 0;
-  margin-left: 12px;
+
+  /* kill any accidental inline characters/whitespace */
+  line-height: 0;
+  font-size: 0;
 }
 
-.menu-toggle span {
-  position: absolute;
-  left: 6px;
-  right: 6px;
+.menu-toggle span{
+  display: block;
   height: 2px;
+  width: 100%;
   background: var(--ink, #f6f6f6);
   border-radius: 2px;
-  transition: transform .25s ease, opacity .2s ease, top .25s ease, bottom .25s ease;
+  transition: transform .25s ease, opacity .2s ease;
 }
 
+/* stack the bars with equal gaps */
+.menu-toggle span + span { margin-top: 6px; }
+
+/* X animation */
+.menu-toggle[aria-expanded="true"] span:nth-child(1){
+  transform: translateY(8px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(2){
+  opacity: 0;
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(3){
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile tweaks so it doesn’t look oversized */
+@media (max-width: 768px){
+  .menu-toggle{
+    width: 32px;
+    height: 24px;
+    margin-left: 8px;
+  }
+  .menu-toggle span + span { margin-top: 5px; }
+}
 .menu-toggle span:nth-child(1) { top: 8px; }
 .menu-toggle span:nth-child(2) { top: 15px; }
 .menu-toggle span:nth-child(3) { bottom: 8px; }
