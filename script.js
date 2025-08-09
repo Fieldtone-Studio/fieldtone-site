@@ -14,10 +14,16 @@ function enableHeroAutoplay(){
   vid.setAttribute('webkit-playsinline','');
 
   const tryPlay = () => {
-    const p = vid.play();
-    if (p && p.catch) p.catch(() => {}); // swallow policy rejections
-  };
-
+  const p = vid.play();
+  if (p && p.catch) {
+    p.catch(() => {
+      // If it fails, keep listening for *any* gesture
+      ['pointerdown','touchstart','click','scroll'].forEach(ev => {
+        window.addEventListener(ev, () => vid.play(), { once: true, passive: true });
+      });
+    });
+  }
+};
   // Try early + when ready + on first gesture/visibility/bfcache
   document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
   ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach(ev => {
