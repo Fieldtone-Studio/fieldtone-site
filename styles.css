@@ -43,30 +43,30 @@ a{color:var(--ink);text-decoration:none}
 }
 
 /* Simple, robust hamburger (desktop + mobile) */
-.menu-toggle{
+.menu-toggle {
   position: relative;
   display: inline-block;
-  width: 36px;
-  height: 28px;
+  width: 44px; /* was 36–40px, now wider to avoid clipping */
+  height: 36px; /* give it a bit more vertical space too */
   padding: 0;
   margin-left: 12px;
   border: 0;
   background: transparent;
   cursor: pointer;
-
-  /* kill any accidental inline characters/whitespace */
   line-height: 0;
   font-size: 0;
 }
 
-.menu-toggle span{
+.menu-toggle span {
   display: block;
   height: 2px;
-  width: 100%;
+  width: calc(100% - 12px); /* keep the bars inset from edges */
+  margin: 0 auto; /* center them horizontally */
   background: var(--ink, #f6f6f6);
   border-radius: 2px;
   transition: transform .25s ease, opacity .2s ease;
 }
+
 
 /* stack the bars with equal gaps */
 .menu-toggle span + span { margin-top: 6px; }}
