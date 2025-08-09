@@ -126,6 +126,14 @@ a{color:var(--ink);text-decoration:none}
   .menu, .menu-toggle span { transition: none; }
 }
 
+/* Show menu on hover - desktop only */
+@media (min-width: 1025px) {
+  .nav:hover .menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
 .nav a{margin-left:20px;color:var(--muted)}
 .nav a:hover{color:var(--ink)}
 
