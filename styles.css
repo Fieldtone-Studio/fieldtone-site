@@ -240,33 +240,28 @@ a{color:var(--ink);text-decoration:none}
 
 /* Mobile-only prompt (with fade) */
 .hero-taptoPlay{
-  position:absolute; inset:0;
-  display:none;                           /* hidden on desktop by default */
-  align-items:center; justify-content:center;
-  background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.55));
-  z-index:9;                              /* under .hero-copy (z-index:10) */
-  pointer-events:none;                    /* don't block taps */
-  opacity:1;                              /* start visible */
-  visibility:visible;
-  transition:opacity .35s ease, visibility .35s linear .35s;
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:30px; /* push it near bottom */
+  top:auto;    /* unset top positioning */
+  display:none;
+  justify-content:center;
+  background:linear-gradient(to bottom, rgba(0,0,0,.0), rgba(0,0,0,.55));
+  pointer-events:none;
+  z-index:9;
 }
+
 .hero-taptoPlay span{
-  font-size:14px; letter-spacing:.12em; text-transform:uppercase;
-  padding:8px 12px; border:1px solid rgba(255,255,255,.35); border-radius:999px;
-  color:#f6f6f6; opacity:.9;
+  font-size:14px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;
+  color:#f6f6f6;
+  opacity:.9;
 }
-
-/* Show only on phones */
-@media (max-width: 768px){
-  .hero-taptoPlay{ display:flex; }
-}
-
-/* Fade out once playing */
-.hero.is-playing .hero-taptoPlay{
-  opacity:0;
-  visibility:hidden;                      /* hides after fade completes */
-}
-
 .hero-copy{position:relative;z-index:10;text-align:center;max-width:1000px;padding:0 24px;margin-top:40px}
 .hero-copy h1{font-family:'Playfair Display',serif;font-weight:700;line-height:1.1;font-size: clamp(32px, 5vw, 56px);margin:0 0 12px}
 .hero-copy p{color:var(--muted);font-weight:300;margin:0 0 24px}
