@@ -20,22 +20,23 @@ window.addEventListener('load', () => {
       });
     });
   }
- // ===== Hamburger menu toggle + overlay/ESC close =====
+// ===== Hamburger menu toggle + overlay/ESC close =====
 const menuToggle = document.querySelector('.menu-toggle');
 const nav        = document.querySelector('.nav');
 const menuLinks  = document.querySelectorAll('.menu a');
 const overlay    = document.querySelector('.menu-overlay');
 
-function openMenu() {
+function openMenu(){
   menuToggle.setAttribute('aria-expanded', 'true');
   nav.classList.add('menu-open');
-  // prevent background scroll
+  overlay.classList.add('is-visible');             // <- add this
   document.body.style.overflow = 'hidden';
 }
 
-function closeMenu() {
+function closeMenu(){
   menuToggle.setAttribute('aria-expanded', 'false');
   nav.classList.remove('menu-open');
+  overlay.classList.remove('is-visible');          // <- add this
   document.body.style.overflow = '';
 }
 
