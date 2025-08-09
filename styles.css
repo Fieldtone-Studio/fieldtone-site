@@ -46,8 +46,8 @@ a{color:var(--ink);text-decoration:none}
 .menu-toggle {
   position: relative;
   display: inline-block;
-  width: 44px; /* was 36–40px, now wider to avoid clipping */
-  height: 36px; /* give it a bit more vertical space too */
+  width: 48px; /* wider to fit rotated bars */
+  height: 36px;
   padding: 0;
   margin-left: 12px;
   border: 0;
@@ -55,30 +55,29 @@ a{color:var(--ink);text-decoration:none}
   cursor: pointer;
   line-height: 0;
   font-size: 0;
+  overflow: visible; /* let rotated lines extend outside */
 }
 
 .menu-toggle span {
   display: block;
   height: 2px;
-  width: calc(100% - 12px); /* keep the bars inset from edges */
-  margin: 0 auto; /* center them horizontally */
+  width: 100%; /* full width to avoid clipping */
   background: var(--ink, #f6f6f6);
   border-radius: 2px;
   transition: transform .25s ease, opacity .2s ease;
 }
 
-
-/* stack the bars with equal gaps */
-.menu-toggle span + span { margin-top: 6px; }}
+/* stack the bars */
+.menu-toggle span + span { margin-top: 6px; }
 
 /* X animation */
-.menu-toggle[aria-expanded="true"] span:nth-child(1){
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
-.menu-toggle[aria-expanded="true"] span:nth-child(2){
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
   opacity: 0;
 }
-.menu-toggle[aria-expanded="true"] span:nth-child(3){
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 
