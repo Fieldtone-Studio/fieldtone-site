@@ -1,7 +1,7 @@
 // Fieldtone interactions
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* === Autoplay helper (OUTSIDE the load block) === */
+/* === Autoplay helper (outside the load block) === */
 function enableHeroAutoplay(){
   const vid = document.querySelector('.hero-video');
   if (!vid) return;
@@ -14,24 +14,22 @@ function enableHeroAutoplay(){
   vid.setAttribute('webkit-playsinline','');
 
   const tryPlay = () => {
-  const p = vid.play();
-  if (p && p.catch) {
-    p.catch(() => {
-      // If it fails, keep listening for *any* gesture
-      ['pointerdown','touchstart','click','scroll'].forEach(ev => {
-        window.addEventListener(ev, () => vid.play(), { once: true, passive: true });
+    const p = vid.play();
+    if (p && p.catch) {
+      p.catch(() => {
+        // If blocked, start on the first user gesture/scroll
+        ['pointerdown','touchstart','click','scroll'].forEach(ev => {
+          window.addEventListener(ev, () => vid.play().catch(()=>{}), { once: true, passive: true });
+        });
       });
-    });
-  }
-};
-  // Try early + when ready + on first gesture/visibility/bfcache
+    }
+  };
+
+  // Try early + when ready; no vid.load() to avoid flicker
   document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
-  ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach(ev => {
-    vid.addEventListener(ev, tryPlay, { once: true });
-  });
-  ['pointerdown','touchstart','click','visibilitychange','pageshow'].forEach(ev => {
-    window.addEventListener(ev, tryPlay, { once: true, passive: true });
-  });
+  vid.addEventListener('canplay', tryPlay, { once: true });
+  // Handle tab restore/bfcache on mobile
+  window.addEventListener('pageshow', tryPlay, { once: true });
 }
 
 // Fire the helper
@@ -79,10 +77,12 @@ window.addEventListener('load', () => {
     document.body.style.overflow = '';
   }
 
-  menuToggle.addEventListener('click', () => {
-    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-    expanded ? closeMenu() : openMenu();
-  });
+  if (menuToggle){
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      expanded ? closeMenu() : openMenu();
+    });
+  }
 
   menuLinks.forEach(link => link.addEventListener('click', closeMenu));
   if (overlay) overlay.addEventListener('click', closeMenu);
