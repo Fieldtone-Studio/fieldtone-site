@@ -2,6 +2,17 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 window.addEventListener('load', () => {
+
+   // ===== Ensure autoplay on mobile (iOS/Android) =====
+  const vid = document.querySelector('.hero-video');
+  if (vid) {
+    const tryPlay = () => vid.play().catch(() => {});
+    tryPlay();
+    ['touchstart','click','visibilitychange'].forEach(ev => {
+      document.addEventListener(ev, () => tryPlay(), { once: true, passive: true });
+    });
+  }
+  
   if (window.gsap) {
     gsap.registerPlugin(ScrollTrigger);
     gsap.from('.hero-copy h1', {y: 20, opacity: 0, duration: 1.1, ease: 'power2.out'});
