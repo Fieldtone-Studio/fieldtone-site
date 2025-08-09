@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fieldtone-studio.com/sitemap.xml
