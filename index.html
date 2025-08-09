@@ -42,9 +42,17 @@
 
   <section class="hero">
     <div class="overlay"></div>
-    <video class="hero-video" autoplay muted loop playsinline poster="assets/hero_poster.jpg">
-      <source src="assets/hero_loop.mp4" type="video/mp4">
-    </video>
+   <video class="hero-video"
+       autoplay
+       muted
+       loop
+       playsinline
+       preload="metadata"
+       poster="assets/hero_poster.jpg"
+       disablepictureinpicture
+       disableremoteplayback>
+  <source src="assets/fieldtone_hero.mp4" type="video/mp4">
+</video>
     <div class="hero-copy">
       <h1>Cinematic visuals that move hearts<br>and move properties.</h1>
       <p>We craft photorealistic, emotionally resonant CGI for architecture and design.</p>
