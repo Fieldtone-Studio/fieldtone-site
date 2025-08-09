@@ -215,6 +215,7 @@ a{color:var(--ink);text-decoration:none}
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
 }
 
 .nav a{margin-left:20px;color:var(--muted)}
