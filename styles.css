@@ -24,6 +24,24 @@ a{color:var(--ink);text-decoration:none}
     }
 }
 
+/* Click‑to‑close overlay (hidden by default) */
+.menu-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 18;        /* under the header (which is 20), above page content */
+}
+
+/* Show overlay when menu is open */
+.nav.menu-open .menu-overlay{
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* ===== Hamburger + dropdown menu ===== */
 .menu-toggle {
   position: relative;
