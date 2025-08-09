@@ -6,6 +6,24 @@ function enableHeroAutoplay(){
   const vid = document.querySelector('.hero-video');
   if (!vid) return;
 
+  // Mobile tap-to-play marker
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    const markPlaying = () => hero.classList.add('is-playing');
+    vid.addEventListener('playing', markPlaying, { once:true });
+    vid.addEventListener('canplay', () => {
+      if (!vid.paused) markPlaying();
+    }, { once:true });
+
+    // If autoplay gets blocked, first interaction starts video and hides prompt
+    ['pointerdown','touchstart','click','scroll'].forEach(ev=>{
+      window.addEventListener(ev, () => {
+        vid.play().catch(()=>{});
+        markPlaying();
+      }, { once:true, passive:true });
+    });
+  }
+
   // Ensure flags before play()
   vid.muted = true;
   vid.autoplay = true;
@@ -14,10 +32,10 @@ function enableHeroAutoplay(){
   vid.setAttribute('webkit-playsinline','');
 
   const tryPlay = () => {
-    const p = vid.play();
-    if (p && p.catch) p.catch(() => {}); // swallow policy rejections
-  };
-
+  const p = vid.play();
+  if (p && p.catch) p.catch(() => {}); 
+  markPlaying(); // hide prompt right away
+};
   // Try early + when ready + on first gesture/visibility/bfcache
   document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
   ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach(ev => {
