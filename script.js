@@ -1,0 +1,23 @@
+// Fieldtone interactions
+document.getElementById('year').textContent = new Date().getFullYear();
+
+window.addEventListener('load', () => {
+  if (window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from('.hero-copy h1', {y: 20, opacity: 0, duration: 1.1, ease: 'power2.out'});
+    gsap.from('.hero-copy p', {y: 16, opacity: 0, delay: 0.2, duration: 1, ease: 'power2.out'});
+    gsap.from('.btn', {y: 12, opacity: 0, delay: 0.35, duration: .8, ease: 'power2.out'});
+    gsap.utils.toArray('.card').forEach((el, i) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 24,
+        duration: 0.9,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+        }
+      });
+    });
+  }
+});

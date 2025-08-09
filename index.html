@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fieldtone Studio — Cinematic Architectural Visualization</title>
+  <meta name="description" content="Fieldtone Studio creates cinematic, emotionally resonant architectural CGI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">Fieldtone</div>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="overlay"></div>
+    <video class="hero-video" autoplay muted loop playsinline poster="assets/hero_poster.jpg">
+      <source src="assets/hero_loop.mp4" type="video/mp4">
+    </video>
+    <div class="hero-copy">
+      <h1>Cinematic visuals that move hearts<br>and move properties.</h1>
+      <p>We craft photorealistic, emotionally resonant CGI for architecture and design.</p>
+      <a class="btn" href="#work">See Selected Work</a>
+    </div>
+  </section>
+
+  <section id="work" class="work">
+    <h2>Selected Work</h2>
+    <div class="grid">
+      <a class="card" href="#" title="Project One">
+        <img src="assets/p1.jpg" alt="Project One">
+        <div class="card-caption">Project One — Exterior Still</div>
+      </a>
+      <a class="card" href="#" title="Project Two">
+        <img src="assets/p2.jpg" alt="Project Two">
+        <div class="card-caption">Project Two — Interior Mood</div>
+      </a>
+      <a class="card" href="#" title="Project Three">
+        <img src="assets/p3.jpg" alt="Project Three">
+        <div class="card-caption">Project Three — Urban Scene</div>
+      </a>
+      <a class="card" href="#" title="Project Four">
+        <img src="assets/p4.jpg" alt="Project Four">
+        <div class="card-caption">Project Four — Aerial Atmosphere</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="about-inner">
+      <h2>About Fieldtone</h2>
+      <p>Fieldtone is a boutique visualization studio specializing in cinematic, emotionally resonant architectural CGI. We partner with architects, interior designers, and developers worldwide to translate intent into evocative imagery—balancing technical precision with atmosphere, light, and narrative.</p>
+      <ul class="badges">
+        <li>Remote-first</li>
+        <li>Stills & Animation</li>
+        <li>Urban-scale Environments</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:hello@fieldtone-studio.com">hello@fieldtone-studio.com</a></p>
+    <p>Instagram: <a href="https://instagram.com/fieldtone_studio" target="_blank" rel="noopener">fieldtone_studio</a></p>
+  </section>
+
+  <footer class="footer">
+    <div>© <span id="year"></span> Fieldtone Studio</div>
+  </footer>
+</body>
+</html>
