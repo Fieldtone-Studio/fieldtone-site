@@ -16,17 +16,9 @@
     const hero = document.querySelector('.hero');
     const markPlaying = () => hero && hero.classList.add('is-playing');
 
-    // mark playing when we can
     vid.addEventListener('playing', markPlaying, { once: true });
-    vid.addEventListener(
-      'canplay',
-      () => {
-        if (!vid.paused) markPlaying();
-      },
-      { once: true }
-    );
+    vid.addEventListener('canplay', () => { if (!vid.paused) markPlaying(); }, { once: true });
 
-    // make it autoplay-friendly
     vid.muted = true;
     vid.autoplay = true;
     vid.playsInline = true;
@@ -39,12 +31,11 @@
       markPlaying();
     };
 
-    // attempt early + when ready + on first gesture/visibility/bfcache
     document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
-    ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'].forEach((ev) =>
+    ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach(ev =>
       vid.addEventListener(ev, tryPlay, { once: true })
     );
-    ['pointerdown', 'touchstart', 'click', 'visibilitychange', 'pageshow'].forEach((ev) =>
+    ['pointerdown','touchstart','click','visibilitychange','pageshow'].forEach(ev =>
       window.addEventListener(ev, tryPlay, { once: true, passive: true })
     );
   }
@@ -52,138 +43,143 @@
   window.addEventListener('load', enableHeroAutoplay);
 
   // ---------------------------
-  // On window load
+  // Window load: Loader + rest
   // ---------------------------
   window.addEventListener('load', () => {
-
-  // === Fieldtone Full-screen Loader Controller ===
-(function () {
-  const loader = document.getElementById('loader');
-  if (!loader) return;
-
-  const img = loader.querySelector('.logo-img');
-
-  // prevent scroll
-  document.body.style.overflow = 'hidden';
-
-  const WORD_DELAY = 600;
-  const GLOW_DELAY = 1200;
-
-  // start underline
-  requestAnimationFrame(() => loader.classList.add('active'));
-
-  // fade logo
-  setTimeout(() => {
-    if (img) img.classList.add('show');
-  }, WORD_DELAY);
-
-  // optional glow
-  setTimeout(() => {
-    loader.classList.add('glow');
-    setTimeout(() => loader.classList.remove('glow'), 400);
-  }, GLOW_DELAY);
-
-  // finish + remove loader
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-      document.body.style.overflow = '';
-    }, 1800); // total timing (adjust if needed)
-  });
-})();
-    
-    // ===== GSAP animations =====
-window.addEventListener('fieldtone:loaderDone', () => {
-  if (window.gsap) {
-      // basic entrances (no ScrollTrigger needed)
-      gsap.from('.hero-copy h1', { y: 20, opacity: 0, duration: 1.1, ease: 'power2.out' });
-      gsap.from('.hero-copy p', { y: 16, opacity: 0, delay: 0.2, duration: 1, ease: 'power2.out' });
-      gsap.from('.btn', { y: 12, opacity: 0, delay: 0.35, duration: 0.8, ease: 'power2.out' });
-
-      // Scroll-driven only if the plugin is present
-      if (window.ScrollTrigger) {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Cards
-        gsap.utils.toArray('.card').forEach((el) => {
-          gsap.from(el, {
-            opacity: 0,
-            y: 24,
-            duration: 0.9,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: el, start: 'top 85%' }
-          });
-        });
-
-        // About section – subtle staggered fade-up
-        ScrollTrigger.batch('#about .fade-up', {
-          start: 'top 85%',
-          onEnter: (batch) => {
-            gsap.to(batch, {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              ease: 'power2.out',
-              stagger: 0.08
-            });
-          }
-        });
-
-        // Contact title/wrapper fade-ups
-        ScrollTrigger.batch('#contact .fade-up', {
-          start: 'top 85%',
-          onEnter: (batch) => {
-            gsap.to(batch, {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              ease: 'power2.out',
-              stagger: 0.08
-            });
-          }
-        });
-
-        // Contact icons pop-in
-        ScrollTrigger.batch('#contact .contact-icons a', {
-          start: 'top 90%',
-          onEnter: (icons) => {
-            gsap.fromTo(
-              icons,
-              { opacity: 0, y: 12, scale: 0.9 },
-              { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out', stagger: 0.06 }
-            );
-          }
-        });
-      }
-    }
-
-    // ===== IntersectionObserver fallback for generic .fade-up
-    // (exclude About & Contact which GSAP handles)
-    (function setupFadeUp() {
-      const els = document.querySelectorAll('.fade-up:not(#about .fade-up):not(#contact .fade-up)');
-      if (!els.length) return;
-
-      if (
-        window.matchMedia &&
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ) {
-        els.forEach((el) => el.classList.add('visible'));
+    // ===== Full-screen Loader Controller =====
+    (function () {
+      const loader = document.getElementById('loader');
+      if (!loader) {
+        // If no loader in DOM, just fire the event so GSAP runs
+        window.dispatchEvent(new CustomEvent('fieldtone:loaderDone'));
         return;
       }
 
-      const io = new IntersectionObserver(
-        (entries, obs) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
-      );
+      const img = loader.querySelector('.logo-img');
 
-      els.forEach((el) => io.observe(el));
+      // lock scroll while loader is visible
+      document.body.style.overflow = 'hidden';
+
+      // timings
+      const WORD_DELAY = 600;
+      const GLOW_DELAY = 1200;
+      const HIDE_DELAY = 1800; // total duration before fade out
+
+      // start underline sweep (center -> out)
+      requestAnimationFrame(() => loader.classList.add('active'));
+
+      // fade the logo image
+      setTimeout(() => { if (img) img.classList.add('show'); }, WORD_DELAY);
+
+      // optional glow pulse
+      setTimeout(() => {
+        loader.classList.add('glow');
+        setTimeout(() => loader.classList.remove('glow'), 400);
+      }, GLOW_DELAY);
+
+      // finish: hide loader, unlock scroll, notify
+      const finish = () => {
+        loader.classList.add('hidden');
+        document.body.style.overflow = '';
+        window.dispatchEvent(new CustomEvent('fieldtone:loaderDone'));
+      };
+
+      // fail-safe: always finish after HIDE_DELAY
+      setTimeout(finish, HIDE_DELAY);
+
+      // allow click to skip if anything stalls
+      loader.addEventListener('click', finish);
     })();
+
+    // ===== GSAP animations (run AFTER loader) =====
+    window.addEventListener('fieldtone:loaderDone', () => {
+      if (window.gsap) {
+        // basic entrances (no ScrollTrigger needed)
+        gsap.from('.hero-copy h1', { y: 20, opacity: 0, duration: 1.1, ease: 'power2.out' });
+        gsap.from('.hero-copy p',  { y: 16, opacity: 0, delay: 0.2, duration: 1, ease: 'power2.out' });
+        gsap.from('.btn',          { y: 12, opacity: 0, delay: 0.35, duration: .8, ease: 'power2.out' });
+
+        if (window.ScrollTrigger) {
+          gsap.registerPlugin(ScrollTrigger);
+
+          // Cards
+          gsap.utils.toArray('.card').forEach((el) => {
+            gsap.from(el, {
+              opacity: 0,
+              y: 24,
+              duration: 0.9,
+              ease: 'power2.out',
+              scrollTrigger: { trigger: el, start: 'top 85%' }
+            });
+          });
+
+          // About section – subtle staggered fade-up
+          ScrollTrigger.batch('#about .fade-up', {
+            start: 'top 85%',
+            onEnter: (batch) => {
+              gsap.to(batch, {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power2.out',
+                stagger: 0.08
+              });
+            }
+          });
+
+          // Contact title/wrapper fade-ups
+          ScrollTrigger.batch('#contact .fade-up', {
+            start: 'top 85%',
+            onEnter: (batch) => {
+              gsap.to(batch, {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power2.out',
+                stagger: 0.08
+              });
+            }
+          });
+
+          // Contact icons pop-in
+          ScrollTrigger.batch('#contact .contact-icons a', {
+            start: 'top 90%',
+            onEnter: (icons) => {
+              gsap.fromTo(
+                icons,
+                { opacity: 0, y: 12, scale: 0.9 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out', stagger: 0.06 }
+              );
+            }
+          });
+        }
+      }
+
+      // ===== IntersectionObserver fallback for generic .fade-up
+      // (exclude About & Contact which GSAP handles)
+      (function setupFadeUp() {
+        const els = document.querySelectorAll('.fade-up:not(#about .fade-up):not(#contact .fade-up)');
+        if (!els.length) return;
+
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          els.forEach((el) => el.classList.add('visible'));
+          return;
+        }
+
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        els.forEach((el) => io.observe(el));
+      })();
+    });
 
     // ===== Hamburger menu toggle + overlay/ESC close =====
     const nav = document.querySelector('.nav');
@@ -213,8 +209,6 @@ window.addEventListener('fieldtone:loaderDone', () => {
     }
     if (overlay) overlay.addEventListener('click', closeMenu);
     menuLinks.forEach((link) => link.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu();
-    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
   });
 })();
