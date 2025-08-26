@@ -291,31 +291,85 @@ h2{font-family:'Playfair Display',serif;font-size: clamp(26px,3.6vw,40px);margin
 .badges{display:flex;gap:10px;list-style:none;padding:0;margin:16px 0 0}
 .badges li{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 12px;color:var(--muted)}
 
+:root{
+  --brand-red: #E74C3C;     /* Fieldtone accent */
+  --icon-color: #fff;       /* default icon color on dark bg */
+  --focus-ring: 0 0 0 3px rgba(231,76,60,.35);
+}
+
 .contact {
   text-align: center;
   padding: 2rem 0;
 }
 
+.contact h2{
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* ICON ROW */
 .contact-icons {
-  margin-top: 1rem;
+  margin-top: 0.25rem;
   display: inline-flex;
   gap: 20px;
-  color: #fff; /* white icons for dark background */
+  color: var(--icon-color);
+  position: relative;
+  padding-bottom: 14px; /* room for underline */
 }
 
+/* links behave like buttons */
 .contact-icons a {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
   border-radius: 50%;
-  transition: transform .2s ease, opacity .2s ease, color .2s ease;
+  outline: none;
+  transition: transform .25s ease, opacity .25s ease, color .25s ease;
 }
 
-.contact-icons a:hover {
+/* hover/active */
+.contact-icons a:hover,
+.contact-icons a:active {
   transform: scale(1.15);
-  opacity: 0.85;
-  color: #E74C3C; /* hover color = Fieldtone red accent */
+  opacity: 0.9;
+  color: var(--brand-red);          /* icons inherit currentColor */
 }
 
+/* keyboard focus */
+.contact-icons a:focus-visible{
+  box-shadow: var(--focus-ring);
+}
+
+/* Cinematic underline: center → out, with glow & smooth retract */
+.contact-icons::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0); /* hidden */
+  width: 70%;
+  height: 2px;
+  background-color: var(--brand-red);
+  box-shadow:
+    0 0 8px rgba(231,76,60,0.85),
+    0 0 16px rgba(231,76,60,0.45);
+  opacity: 0;
+  transition:
+    transform 0.5s cubic-bezier(.22,.61,.36,1),
+    opacity 0.5s cubic-bezier(.22,.61,.36,1);
+  transform-origin: center;
+}
+
+/* show on hover */
+.contact-icons:hover::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+/* graceful retract (already handled by transition back to scaleX(0)) */
+
+/* Footer unchanged */
 .footer {
   padding: 28px 24px;
   color: var(--muted);
@@ -323,6 +377,15 @@ h2{font-family:'Playfair Display',serif;font-size: clamp(26px,3.6vw,40px);margin
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 
+/* Motion sensitivity */
+@media (prefers-reduced-motion: reduce){
+  .contact-icons a,
+  .contact-icons::after{
+    transition: none !important;
+  }
+}
+
+/* Your existing responsive rule */
 @media (max-width: 800px) {
   .card { grid-column: span 12; }
 }
