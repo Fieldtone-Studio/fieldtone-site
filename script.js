@@ -55,8 +55,59 @@
   // On window load
   // ---------------------------
   window.addEventListener('load', () => {
+
+    // === Fieldtone Full-screen Loader Controller ===
+(function () {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+
+  const body = document.body;
+  const MIN_SHOW = 900;   // min time the loader stays visible (ms)
+  const MAX_WAIT = 6000;  // hard cap in case 'load' runs late (ms)
+  let done = false;
+  const startedAt = performance.now();
+
+  // Lock page scrolling while loader is visible (extra safety on iOS)
+  const lockScroll = () => { body.style.overflow = 'hidden'; };
+  const unlockScroll = () => { body.style.overflow = ''; };
+
+  lockScroll();
+
+  // Kick the underline growth on the next frame
+  requestAnimationFrame(() => loader.classList.add('active'));
+
+  // Finish sequence: respect MIN_SHOW, fade loader, restore scroll
+  const finish = () => {
+    if (done) return;
+    done = true;
+
+    const elapsed = performance.now() - startedAt;
+    const wait = Math.max(0, MIN_SHOW - elapsed);
+
+    setTimeout(() => {
+  loader.classList.add('hidden');
+  loader.setAttribute('aria-busy', 'false');
+  unlockScroll();
+
+  // Smooth removal after opacity transition
+  setTimeout(() => loader.style.display = 'none', 800);
+}, wait);
+  };
+
+  // Prefer full page load; also add a hard timeout as a failsafe
+  window.addEventListener('load', finish, { once: true });
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(finish, MAX_WAIT);
+  }, { once: true });
+
+  // Optional: allow user to click the loader to skip if something stalls
+  loader.addEventListener('click', finish);
+})();
+
+    
     // ===== GSAP animations =====
-    if (window.gsap) {
+window.addEventListener('fieldtone:loaderDone', () => {
+  if (window.gsap) {
       // basic entrances (no ScrollTrigger needed)
       gsap.from('.hero-copy h1', { y: 20, opacity: 0, duration: 1.1, ease: 'power2.out' });
       gsap.from('.hero-copy p', { y: 16, opacity: 0, delay: 0.2, duration: 1, ease: 'power2.out' });
