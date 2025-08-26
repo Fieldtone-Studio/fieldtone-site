@@ -108,6 +108,3 @@ window.addEventListener('load', () => {
       }
     });
   }
-
-  // ... (keep your IntersectionObserver + menu code as-is)
-});
