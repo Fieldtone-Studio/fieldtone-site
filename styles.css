@@ -77,6 +77,22 @@ a{color:var(--ink);text-decoration:none}
 #loader.active .underline-left,
 #loader.active .underline-right {
   width: 80px; /* grow outward */
+  
+  /* Accessibility: disable underline animation, replace with fade-in */
+@media (prefers-reduced-motion: reduce) {
+  #loader .underline-half {
+    transition: none;
+    width: 40px; /* short static line instead of animated sweep */
+  }
+
+  #loader .logo-word {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  #loader.active .logo-word {
+    opacity: 1; /* smooth fade-in for the brand word */
+  }
 }
 
 /* Click-to-close overlay (hidden by default) */
