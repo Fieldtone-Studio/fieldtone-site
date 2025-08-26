@@ -25,69 +25,56 @@ a{color:var(--ink);text-decoration:none}
 }
 
 /* === Fieldtone Loader Styles (logo image) === */
-#loader {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #0f0f10; /* site background */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Loader base */
+#loader{
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh;
+  background: #0f0f10;
+  display: flex; align-items: center; justify-content: center;
   z-index: 9999;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+  transition: opacity .8s ease, visibility .8s ease;
 }
 
-#loader.hidden {
+/* When we hide it, make it inert so it won't block clicks/scroll */
+#loader.hidden{
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }
 
-.logo-img {
-  max-width: 240px;
-  height: auto;
-  display: block;
+/* Logo image (back to normal) */
+.logo-img{
+  max-width: 240px; height: auto; display: block;
   margin: 0 auto 14px;
-  opacity: 1 !important;
+  opacity: 0;
   transform: translateY(6px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity .6s ease, transform .6s ease;
 }
 
-#loader .logo-img.show {
+/* When JS says show */
+#loader .logo-img.show{
   opacity: 1;
   transform: none;
 }
 
-.logo-underline {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
-
-.underline-half {
-  display: block;
-  height: 3px;
-  width: 0;
-  background: #E74C3C;
+/* Underline */
+.logo-underline{ display:flex; justify-content:center; gap:6px; }
+.underline-half{
+  display:block; height:3px; width:0;
+  background: var(--brand-red, #E74C3C);
   transition: width 1s cubic-bezier(.77,0,.18,1);
 }
-
 #loader.active .underline-left,
-#loader.active .underline-right {
-  width: 80px;
-}
+#loader.active .underline-right{ width:80px; }
 
-/* when JS says the logo should fade in */
-#loader .logo-img.show{ opacity:1; transform:none; }
-
-/* optional soft glow pulse */
+/* Optional glow */
 #loader.glow .logo-underline{
   box-shadow:
     0 0 8px rgba(231,76,60,.75),
     0 0 16px rgba(231,76,60,.45);
 }
 
-/* accessibility: reduce motion = no sweeps */
+/* Reduced motion: skip sweeps */
 @media (prefers-reduced-motion: reduce){
   .underline-half{ transition:none; width:80px; }
   #loader .logo-img{ transition:none; opacity:1; transform:none; }
