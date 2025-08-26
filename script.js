@@ -43,168 +43,199 @@
   window.addEventListener('load', enableHeroAutoplay);
 
   // ---------------------------
-  // Window load: Loader + rest
+  // Loader (cinematic)
   // ---------------------------
   window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    if (!loader) return;
 
-    // === Fieldtone Full-screen Loader Controller (cinematic timing) ===
-    (function () {
-      const loader = document.getElementById('loader');
-      if (!loader) return;
+    const img = loader.querySelector('.logo-img');
 
-      const img = loader.querySelector('.logo-img');
+    // lock scroll
+    document.body.classList.add('noscroll');
 
-      // Lock scroll while the loader is visible
-      document.body.classList.add('noscroll');
+    // timings (ms)
+    const LOGO_DELAY = 650;    // slower logo rise
+    const GLOW_DELAY = 1300;   // glow peak
+    const MIN_SHOW   = 2800;   // total screen time for loader
 
-      // Timings (ms)
-      const LOGO_DELAY = 500;   // when the logo fades in
-      const GLOW_DELAY = 1100;  // when the soft glow peaks
-      const MIN_SHOW   = 2600;  // how long the loader stays on screen
+    // 1) start underline (GPU smooth via CSS)
+    requestAnimationFrame(() => loader.classList.add('active'));
 
-      // 1) start underline sweep (center → out)
-      requestAnimationFrame(() => loader.classList.add('active'));
+    // 2) fade + rise the logo
+    setTimeout(() => { if (img) img.classList.add('show'); }, LOGO_DELAY);
 
-      // 2) fade the logo wordmark up
-      setTimeout(() => { if (img) img.classList.add('show'); }, LOGO_DELAY);
+    // 3) soft glow pulse
+    setTimeout(() => {
+      loader.classList.add('glow');
+      setTimeout(() => loader.classList.remove('glow'), 500);
+    }, GLOW_DELAY);
 
-      // 3) soft glow pulse
-      setTimeout(() => {
-        loader.classList.add('glow');
-        setTimeout(() => loader.classList.remove('glow'), 450);
-      }, GLOW_DELAY);
+    // 4) finish (hide + unlock + signal)
+    const finish = () => {
+      loader.classList.add('hidden');
+      document.body.classList.remove('noscroll');
+      window.dispatchEvent(new Event('fieldtone:loaderDone'));
+    };
 
-      // 4) finish: hide loader, unlock scroll, signal GSAP to begin
-      const finish = () => {
-        loader.classList.add('hidden');               // fades out via CSS
-        document.body.classList.remove('noscroll');   // allow scroll again
-        window.dispatchEvent(new Event('fieldtone:loaderDone')); // GSAP hook
-      };
+    setTimeout(finish, MIN_SHOW);
+    loader.addEventListener('click', finish); // optional skip
+  });
 
-      setTimeout(finish, MIN_SHOW);
+  // ---------------------------
+  // GSAP animations (run AFTER loader)
+  // ---------------------------
+  window.addEventListener('fieldtone:loaderDone', () => {
+    if (!window.gsap) return;
 
-      // Optional: allow click to skip if something stalls
-      loader.addEventListener('click', finish);
-    })();
+    // cinematic, slower entrances
+    gsap.from('.hero-copy h1', { y: 28, opacity: 0, duration: 1.45, ease: 'power2.out' });
+    gsap.from('.hero-copy p',  { y: 22, opacity: 0, delay: 0.2, duration: 1.3, ease: 'power2.out' });
+    gsap.from('.btn',          { y: 16, opacity: 0, delay: 0.4, duration: 1.0, ease: 'power2.out' });
 
-    // ===== GSAP animations (run AFTER loader) =====
-    window.addEventListener('fieldtone:loaderDone', () => {
-      if (window.gsap) {
-        // basic entrances (no ScrollTrigger needed)
-        gsap.from('.hero-copy h1', { y: 20, opacity: 0, duration: 1.1, ease: 'power2.out' });
-        gsap.from('.hero-copy p',  { y: 16, opacity: 0, delay: 0.2, duration: 1, ease: 'power2.out' });
-        gsap.from('.btn',          { y: 12, opacity: 0, delay: 0.35, duration: .8, ease: 'power2.out' });
+    if (window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
 
-        if (window.ScrollTrigger) {
-          gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.card').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0, y: 24, duration: 1.0, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' }
+        });
+      });
 
-          // Cards
-          gsap.utils.toArray('.card').forEach((el) => {
-            gsap.from(el, {
-              opacity: 0,
-              y: 24,
-              duration: 0.9,
-              ease: 'power2.out',
-              scrollTrigger: { trigger: el, start: 'top 85%' }
-            });
-          });
-
-          // About section – subtle staggered fade-up
-          ScrollTrigger.batch('#about .fade-up', {
-            start: 'top 85%',
-            onEnter: (batch) => {
-              gsap.to(batch, {
-                opacity: 1,
-                y: 0,
-                duration: 0.9,
-                ease: 'power2.out',
-                stagger: 0.08
-              });
-            }
-          });
-
-          // Contact title/wrapper fade-ups
-          ScrollTrigger.batch('#contact .fade-up', {
-            start: 'top 85%',
-            onEnter: (batch) => {
-              gsap.to(batch, {
-                opacity: 1,
-                y: 0,
-                duration: 0.9,
-                ease: 'power2.out',
-                stagger: 0.08
-              });
-            }
-          });
-
-          // Contact icons pop-in
-          ScrollTrigger.batch('#contact .contact-icons a', {
-            start: 'top 90%',
-            onEnter: (icons) => {
-              gsap.fromTo(
-                icons,
-                { opacity: 0, y: 12, scale: 0.9 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out', stagger: 0.06 }
-              );
-            }
+      ScrollTrigger.batch('#about .fade-up', {
+        start: 'top 85%',
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1, y: 0, duration: 1.0, ease: 'power2.out', stagger: 0.08
           });
         }
-      }
+      });
 
-      // ===== IntersectionObserver fallback for generic .fade-up
-      // (exclude About & Contact which GSAP handles)
-      (function setupFadeUp() {
-        const els = document.querySelectorAll('.fade-up:not(#about .fade-up):not(#contact .fade-up)');
-        if (!els.length) return;
-
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          els.forEach((el) => el.classList.add('visible'));
-          return;
+      ScrollTrigger.batch('#contact .fade-up', {
+        start: 'top 85%',
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1, y: 0, duration: 1.0, ease: 'power2.out', stagger: 0.08
+          });
         }
+      });
 
-        const io = new IntersectionObserver(
-          (entries, obs) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return;
-              entry.target.classList.add('visible');
-              obs.unobserve(entry.target);
-            });
-          },
-          { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
-        );
-
-        els.forEach((el) => io.observe(el));
-      })();
-    });
-
-    // ===== Hamburger menu toggle + overlay/ESC close =====
-    const nav = document.querySelector('.nav');
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menuLinks = document.querySelectorAll('.menu a');
-    const overlay = document.querySelector('.menu-overlay');
-
-    function openMenu() {
-      if (!nav) return;
-      nav.classList.add('menu-open');
-      if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
-      if (!nav) return;
-      nav.classList.remove('menu-open');
-      if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    if (menuToggle) {
-      menuToggle.addEventListener('click', () => {
-        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-        expanded ? closeMenu() : openMenu();
+      ScrollTrigger.batch('#contact .contact-icons a', {
+        start: 'top 90%',
+        onEnter: (icons) => {
+          gsap.fromTo(
+            icons,
+            { opacity: 0, y: 12, scale: 0.92 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power2.out', stagger: 0.06 }
+          );
+        }
       });
     }
-    if (overlay) overlay.addEventListener('click', closeMenu);
-    menuLinks.forEach((link) => link.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+    // IntersectionObserver fallback for any other .fade-up
+    (function setupFadeUp() {
+      const els = document.querySelectorAll('.fade-up:not(#about .fade-up):not(#contact .fade-up)');
+      if (!els.length) return;
+
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach((el) => el.classList.add('visible'));
+        return;
+      }
+
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+      );
+
+      els.forEach((el) => io.observe(el));
+    })();
   });
+
+  // ---------------------------
+  // Hamburger menu + overlay/ESC
+  // ---------------------------
+  const nav = document.querySelector('.nav');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menuLinks = document.querySelectorAll('.menu a');
+  const overlay = document.querySelector('.menu-overlay');
+
+  function openMenu() {
+    if (!nav) return;
+    nav.classList.add('menu-open');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    if (!nav) return;
+    nav.classList.remove('menu-open');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      expanded ? closeMenu() : openMenu();
+    });
+  }
+  if (overlay) overlay.addEventListener('click', closeMenu);
+  menuLinks.forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+  // ---------------------------
+  // Cinematic custom cursor (desktop only)
+  // ---------------------------
+  (function setupCursor(){
+    const canUse = matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if (!canUse) return;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+
+    let rafId = null;
+    let targetX = window.innerWidth/2, targetY = window.innerHeight/2;
+    let curX = targetX, curY = targetY;
+
+    const move = (e) => {
+      targetX = e.clientX; targetY = e.clientY;
+      cursor.style.opacity = '1';
+      if (rafId) return;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    function tick(){
+      // ease follow
+      curX += (targetX - curX) * 0.22;
+      curY += (targetY - curY) * 0.22;
+      cursor.style.transform = `translate(${curX}px, ${curY}px) translate(-50%, -50%)`;
+      // keep animating until very close
+      if (Math.abs(targetX - curX) > 0.1 || Math.abs(targetY - curY) > 0.1){
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = null;
+      }
+    }
+
+    window.addEventListener('mousemove', move, { passive:true });
+
+    // grow on interactive targets
+    const hotSelectors = 'a, button, .btn, .menu-toggle, .card';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hotSelectors)) cursor.classList.add('cursor-hot');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hotSelectors)) cursor.classList.remove('cursor-hot');
+    });
+
+    // hide when leaving window
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+  })();
 })();
