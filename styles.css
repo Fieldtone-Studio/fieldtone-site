@@ -24,88 +24,52 @@ a{color:var(--ink);text-decoration:none}
     }
 }
 
-/* === Fieldtone Loader Styles === */
-#loader {
-  position: fixed;
-  inset: 0;
-  width: 100vw;   /* full width */
-  height: 100vh;  /* full height */
-  overflow: hidden; /* block internal scrolling */
-  background: #0f0f10; /* match site bg */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999; /* stay on top */
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+/* === Fieldtone Loader Styles (logo image) === */
+#loader{
+  position:fixed; inset:0;
+  width:100vw; height:100vh;
+  background:#0f0f10;            /* match site bg */
+  display:flex; align-items:center; justify-content:center;
+  z-index:9999;
+  transition:opacity .8s ease, visibility .8s ease;
+  overscroll-behavior:none;       /* inert surface */
+}
+#loader.hidden{ opacity:0; visibility:hidden; }
+
+/* stack */
+.loader-logo{ text-align:center; color:#f6f6f6; }
+.logo-img{
+  height:48px; width:auto; display:block; margin:0 auto 14px;
+  opacity:0; transform:translateY(6px);
+  transition:opacity .6s ease, transform .6s ease;
 }
 
-
-#loader.hidden {
-  opacity: 0;
-  visibility: hidden;
+/* underline */
+.logo-underline{ display:flex; justify-content:center; gap:6px; }
+.underline-half{
+  display:block; height:3px; width:0;
+  background:var(--brand-red, #E74C3C);
+  transition:width 1s cubic-bezier(.77,0,.18,1);
 }
 
-.loader-logo {
-  text-align: center;
-  color: #f6f6f6;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 6vw, 48px);
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.logo-word {
-  display: block;
-  margin-bottom: 12px;
-}
-
-.logo-underline {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-}
-
-.underline-half {
-  display: block;
-  height: 3px;
-  background: #E74C3C; /* brand red */
-  width: 0;
-  transition: width 1s cubic-bezier(.77,0,.18,1);
-}
-
-/* grow the underline when we mark the loader active */
+/* when loader "activates" */
 #loader.active .underline-left,
-#loader.active .underline-right {
-  width: 80px; /* grow outward */
-  
-  /* Accessibility: disable underline animation, replace with fade-in */
-@media (prefers-reduced-motion: reduce) {
-  #loader .underline-half {
-    transition: none;
-    width: 40px; /* short static line instead of animated sweep */
-  }
+#loader.active .underline-right{ width:80px; }
 
-  #loader .logo-word {
-    opacity: 0;
-    transition: opacity 1.2s ease;
-  }
+/* when JS says the logo should fade in */
+#loader .logo-img.show{ opacity:1; transform:none; }
 
-  #loader.active .logo-word {
-    opacity: 1; /* smooth fade-in for the brand word */
-  }
-
-  /* JS-triggered word fade-in */
-#loader .logo-word.show { 
-  opacity: 1;                /* mirrors #loader.active .logo-word */
-}
-
-/* Optional glow pulse when JS adds .glow */
-#loader.glow .underline-half {
+/* optional soft glow pulse */
+#loader.glow .logo-underline{
   box-shadow:
-    0 0 10px rgba(231,76,60,.85),
-    0 0 24px rgba(231,76,60,.45);
+    0 0 8px rgba(231,76,60,.75),
+    0 0 16px rgba(231,76,60,.45);
 }
 
+/* accessibility: reduce motion = no sweeps */
+@media (prefers-reduced-motion: reduce){
+  .underline-half{ transition:none; width:80px; }
+  #loader .logo-img{ transition:none; opacity:1; transform:none; }
 }
 
 /* Click-to-close overlay (hidden by default) */
