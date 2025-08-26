@@ -292,100 +292,112 @@ h2{font-family:'Playfair Display',serif;font-size: clamp(26px,3.6vw,40px);margin
 .badges li{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 12px;color:var(--muted)}
 
 :root{
-  --brand-red: #E74C3C;     /* Fieldtone accent */
-  --icon-color: #fff;       /* default icon color on dark bg */
+  --brand-red: #E74C3C;           /* Fieldtone accent */
+  --icon-color: #fff;             /* default icon color on dark bg */
   --focus-ring: 0 0 0 3px rgba(231,76,60,.35);
 }
 
-.contact {
-  text-align: center;
-  padding: 2rem 0;
+.contact{
+  text-align:center;
+  padding:2rem 0;
 }
 
 .contact h2{
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size:2rem;
+  margin-bottom:1rem;
 }
 
 /* ICON ROW */
-.contact-icons {
-  margin-top: 0.25rem;
-  display: inline-flex;
-  gap: 20px;
-  color: var(--icon-color);
-  position: relative;
-  padding-bottom: 14px; /* room for underline */
+.contact-icons{
+  margin-top:.25rem;
+  display:inline-flex;
+  gap:20px;
+  color:var(--icon-color);
+  position:relative;
+  padding-bottom:14px;            /* room for underline */
 }
 
-/* links behave like buttons */
-.contact-icons a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  border-radius: 50%;
-  outline: none;
-  transition: transform .25s ease, opacity .25s ease, color .25s ease;
+/* icons behave like buttons */
+.contact-icons a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  border-radius:50%;
+  outline:none;
+  /* luxe easing */
+  transition:
+    transform .28s cubic-bezier(.25,.8,.25,1),
+    opacity   .28s cubic-bezier(.25,.8,.25,1),
+    color     .28s cubic-bezier(.25,.8,.25,1);
 }
 
-/* hover/active */
 .contact-icons a:hover,
-.contact-icons a:active {
-  transform: scale(1.15);
-  opacity: 0.9;
-  color: var(--brand-red);          /* icons inherit currentColor */
+.contact-icons a:active{
+  transform:scale(1.15);
+  opacity:.92;
+  color:var(--brand-red);         /* SVGs use currentColor */
 }
 
 /* keyboard focus */
 .contact-icons a:focus-visible{
-  box-shadow: var(--focus-ring);
+  box-shadow:var(--focus-ring);
 }
 
-/* Cinematic underline: center → out, with glow & smooth retract */
-.contact-icons::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0); /* hidden */
-  width: 70%;
-  height: 2px;
-  background-color: var(--brand-red);
+/* CINEMATIC UNDERLINE — grows center→out with glow */
+.contact-icons::after{
+  content:"";
+  position:absolute;
+  bottom:0; left:50%;
+  transform:translateX(-50%) scaleX(0);   /* hidden */
+  transform-origin:center;                /* grow from middle */
+  width:70%;
+  height:2px;
+  background-color:var(--brand-red);
   box-shadow:
-    0 0 8px rgba(231,76,60,0.85),
-    0 0 16px rgba(231,76,60,0.45);
-  opacity: 0;
+    0 0 8px  rgba(231,76,60,.85),
+    0 0 16px rgba(231,76,60,.45);         /* glow */
+  opacity:0;
+  /* slight delay so icons grow first */
   transition:
-    transform 0.5s cubic-bezier(.22,.61,.36,1),
-    opacity 0.5s cubic-bezier(.22,.61,.36,1);
-  transform-origin: center;
+    transform .5s cubic-bezier(.22,.61,.36,1) .08s,
+    opacity   .5s cubic-bezier(.22,.61,.36,1) .08s;
 }
 
 /* show on hover */
-.contact-icons:hover::after {
-  transform: translateX(-50%) scaleX(1);
-  opacity: 1;
+.contact-icons:hover::after{
+  transform:translateX(-50%) scaleX(1);
+  opacity:1;
+  /* on hover, remove delay so leaving feels snappy */
+  transition:
+    transform .5s cubic-bezier(.22,.61,.36,1),
+    opacity   .5s cubic-bezier(.22,.61,.36,1);
 }
 
-/* graceful retract (already handled by transition back to scaleX(0)) */
-
-/* Footer unchanged */
-.footer {
-  padding: 28px 24px;
-  color: var(--muted);
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.06);
+/* Footer (unchanged) */
+.footer{
+  padding:28px 24px;
+  color:var(--muted);
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
 }
 
-/* Motion sensitivity */
+/* MOBILE TWEAKS */
+@media (max-width: 640px){
+  .contact-icons{ gap:16px; padding-bottom:12px; }
+  .contact-icons::after{ width:50%; }     /* shorter underline */
+  .contact-icons svg{ width:22px; height:22px; }
+}
+
+/* REDUCED MOTION */
 @media (prefers-reduced-motion: reduce){
   .contact-icons a,
   .contact-icons::after{
-    transition: none !important;
+    transition:none !important;
   }
 }
 
-/* Your existing responsive rule */
-@media (max-width: 800px) {
-  .card { grid-column: span 12; }
+/* your existing grid rule */
+@media (max-width: 800px){
+  .card{ grid-column:span 12; }
 }
