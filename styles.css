@@ -25,48 +25,57 @@ a{color:var(--ink);text-decoration:none}
 }
 
 /* === Fieldtone Loader Styles (logo image) === */
-#loader{
-  position:fixed; inset:0;
-  width:100vw; height:100vh;
-  background:#0f0f10;            /* match site bg */
-  display:flex; align-items:center; justify-content:center;
-  z-index:9999;
-  transition:opacity .8s ease, visibility .8s ease;
-  overscroll-behavior:none;       /* inert surface */
+#loader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0f0f10; /* site background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
-#loader.hidden{ opacity:0; visibility:hidden; }
 
-/* stack */
-.loader-logo{ text-align:center; color:#f6f6f6; }
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
 
-/* Scale the logo and animate its reveal */
-.logo-img{
-  max-width: 240px;    /* adjust to taste (e.g., 200–320px) */
+.logo-img {
+  max-width: 240px;
   height: auto;
   display: block;
   margin: 0 auto 14px;
   opacity: 0;
   transform: translateY(6px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-#loader .logo-img.show{ opacity:1; transform:none; }
-
-/* Hard lock page scroll while loader is up */
-body.loading{ overflow: hidden; }
-
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-/* underline */
-.logo-underline{ display:flex; justify-content:center; gap:6px; }
-.underline-half{
-  display:block; height:3px; width:0;
-  background:var(--brand-red, #E74C3C);
-  transition:width 1s cubic-bezier(.77,0,.18,1);
+#loader .logo-img.show {
+  opacity: 1;
+  transform: none;
 }
 
-/* when loader "activates" */
+.logo-underline {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.underline-half {
+  display: block;
+  height: 3px;
+  width: 0;
+  background: #E74C3C;
+  transition: width 1s cubic-bezier(.77,0,.18,1);
+}
+
 #loader.active .underline-left,
-#loader.active .underline-right{ width:80px; }
+#loader.active .underline-right {
+  width: 80px;
+}
 
 /* when JS says the logo should fade in */
 #loader .logo-img.show{ opacity:1; transform:none; }
