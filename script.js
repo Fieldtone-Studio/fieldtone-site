@@ -61,78 +61,35 @@
   const loader = document.getElementById('loader');
   if (!loader) return;
 
-  const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const body = document.body;
-
-  // --- timings ---
-  const MIN_SHOW = prefersReduce ? 500 : 900;   // kinder timing if reduced motion
-  const MAX_WAIT = 6000;                       // hard cap
-  const startAt = performance.now();
-
-  // --- lock scrolling immediately ---
-  const lockScroll = () => { body.style.overflow = 'hidden'; };
-  const unlockScroll = () => { body.style.overflow = ''; };
-  lockScroll();
-
-  // --- grab logo image ---
   const img = loader.querySelector('.logo-img');
 
-  // --- turn the loader "on" ---
-  if (prefersReduce) {
-    loader.classList.add('active');
-    if (img) img.classList.add('show'); // no animation, show immediately
-  } else {
-    const WORD_DELAY = 600;   // ms after underline starts
-    const GLOW_DELAY = 1200;  // ms optional pulse
+  // prevent scroll
+  document.body.style.overflow = 'hidden';
 
-    // 1) kick underline growth
-    requestAnimationFrame(() => {
-      loader.classList.add('active');
-    });
+  const WORD_DELAY = 600;
+  const GLOW_DELAY = 1200;
 
-    // 2) fade in the real logo
+  // start underline
+  requestAnimationFrame(() => loader.classList.add('active'));
+
+  // fade logo
+  setTimeout(() => {
+    if (img) img.classList.add('show');
+  }, WORD_DELAY);
+
+  // optional glow
+  setTimeout(() => {
+    loader.classList.add('glow');
+    setTimeout(() => loader.classList.remove('glow'), 400);
+  }, GLOW_DELAY);
+
+  // finish + remove loader
+  window.addEventListener('load', () => {
     setTimeout(() => {
-      if (img) img.classList.add('show');
-    }, WORD_DELAY);
-
-    // 3) optional glow pulse
-    setTimeout(() => {
-      loader.classList.add('glow');
-      setTimeout(() => loader.classList.remove('glow'), 400);
-    }, GLOW_DELAY);
-  }
-
-  // --- finish sequence ---
-  let done = false;
-  const finish = () => {
-    if (done) return;
-    done = true;
-
-    const elapsed = performance.now() - startAt;
-    const wait = Math.max(0, MIN_SHOW - elapsed);
-
-    setTimeout(() => {
-      loader.classList.add('hidden');   // fade out
-      loader.setAttribute('aria-busy', 'false');
-      unlockScroll();
-
-      // remove loader from flow after fade
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 800);
-    }, wait);
-  };
-
-  // Normal completion
-  window.addEventListener('load', finish, { once: true });
-
-  // Failsafe (if load hangs)
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(finish, MAX_WAIT);
-  }, { once: true });
-
-  // Allow click to skip if something stalls
-  loader.addEventListener('click', finish);
+      loader.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 1800); // total timing (adjust if needed)
+  });
 })();
     
     // ===== GSAP animations =====
