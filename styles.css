@@ -285,11 +285,63 @@ h2{font-family:'Playfair Display',serif;font-size: clamp(26px,3.6vw,40px);margin
 .card:hover img{transform:scale(1.03)}
 .card-caption{position:absolute;left:12px;bottom:12px;background:rgba(15,15,16,.6);padding:8px 12px;border-radius:999px;font-size:14px;color:var(--muted);border:1px solid rgba(255,255,255,.07)}
 
-.about{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)}
-.about-inner{max-width:900px;margin:0 auto}
-.about p{color:var(--muted);line-height:1.8}
-.badges{display:flex;gap:10px;list-style:none;padding:0;margin:16px 0 0}
-.badges li{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 12px;color:var(--muted)}
+/* === ABOUT SECTION === */
+.about {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.about-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3.6vw, 40px);
+  margin-bottom: 24px;
+}
+
+.about p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  justify-content: center;
+}
+
+.badges li {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: var(--muted);
+  font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+.badges li:hover {
+  color: var(--ink);
+  border-color: var(--brand-red);
+  box-shadow: 0 0 8px rgba(231,76,60,.5);
+}
+
+/* Fade-up base (used by About) */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+}
 
 :root{
   --brand-red: #E74C3C;           /* Fieldtone accent */
