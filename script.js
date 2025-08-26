@@ -61,9 +61,9 @@
       document.body.style.overflow = 'hidden';
 
       // timings
-      const WORD_DELAY = 600;
-      const GLOW_DELAY = 1200;
-      const HIDE_DELAY = 1800; // total duration before fade out
+      const WORD_DELAY = 1800;
+      const GLOW_DELAY = 2400;
+      const HIDE_DELAY = 3000; // total duration before fade out
 
       // start underline sweep (center -> out)
       requestAnimationFrame(() => loader.classList.add('active'));
