@@ -2,13 +2,15 @@
 // Fieldtone — Interactions (FULL)
 // ===========================
 (function () {
+  // ---------------------------------
   // © year
+  // ---------------------------------
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ---------------------------
-  // Hero autoplay
-  // ---------------------------
+  // ---------------------------------
+  // Hero autoplay (mobile-safe)
+  // ---------------------------------
   function enableHeroAutoplay() {
     const vid = document.querySelector('.hero-video');
     if (!vid) return;
@@ -21,49 +23,62 @@
     vid.setAttribute('playsinline', '');
     vid.setAttribute('webkit-playsinline', '');
 
-    ['playing', 'canplay'].forEach(ev => vid.addEventListener(ev, markPlaying, { once:true }));
+    ['playing', 'canplay'].forEach(ev =>
+      vid.addEventListener(ev, markPlaying, { once: true })
+    );
 
-    const tryPlay = () => { const p = vid.play(); if (p && p.catch) p.catch(() => {}); };
-    document.addEventListener('DOMContentLoaded', tryPlay, { once:true });
+    const tryPlay = () => {
+      const p = vid.play();
+      if (p && p.catch) p.catch(() => {});
+    };
+    document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
   }
   document.addEventListener('DOMContentLoaded', enableHeroAutoplay);
 
-  // ---------------------------
+  // ---------------------------------
   // Loader (cinematic timings)
-  // ---------------------------
+  // ---------------------------------
   window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
     if (!loader) return;
+
     const img = loader.querySelector('.logo-img');
     const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // lock scroll while visible
     document.body.classList.add('noscroll');
 
-    // start underline sweep
+    // 1) start underline sweep (center→out), handled by CSS on .active
     requestAnimationFrame(() => loader.classList.add('active'));
 
-    // logo fade (slower for cinematic)
+    // 2) wordmark fade (slow & smooth)
     const LOGO_DELAY = prefersReduce ? 0 : 700;
     setTimeout(() => { if (img) img.classList.add('show'); }, LOGO_DELAY);
 
-    // total show time before fade-out
-    const MIN_SHOW = prefersReduce ? 500 : 3000;
+    // 3) optional glow pulse bump for extra drama
+    if (!prefersReduce) {
+      setTimeout(() => {
+        loader.classList.add('glow');
+        setTimeout(() => loader.classList.remove('glow'), 500);
+      }, 1200);
+    }
 
+    // 4) finish after a cinematic beat
+    const MIN_SHOW = prefersReduce ? 500 : 3000;
     const finish = () => {
-      loader.classList.add('hidden');            // CSS fades it out
-      document.body.classList.remove('noscroll'); // unlock scroll
+      loader.classList.add('hidden');              // CSS fades out
+      document.body.classList.remove('noscroll');  // unlock scroll
       window.dispatchEvent(new Event('fieldtone:loaderDone')); // start GSAP
     };
-
     setTimeout(finish, MIN_SHOW);
-    // optional: click to skip if needed
+
+    // allow click-to-skip (just in case)
     loader.addEventListener('click', finish);
   });
 
-  // ---------------------------
+  // ---------------------------------
   // GSAP entrances (slower, cinematic)
-  // ---------------------------
+  // ---------------------------------
   window.addEventListener('fieldtone:loaderDone', () => {
     if (!window.gsap) return;
 
@@ -77,7 +92,10 @@
       // Cards
       gsap.utils.toArray('.card').forEach((el) => {
         gsap.from(el, {
-          opacity: 0, y: 24, duration: 0.9, ease: 'power2.out',
+          opacity: 0,
+          y: 24,
+          duration: 0.9,
+          ease: 'power2.out',
           scrollTrigger: { trigger: el, start: 'top 85%' }
         });
       });
@@ -112,9 +130,9 @@
     }
   });
 
-  // ---------------------------
-  // IntersectionObserver fallback for generic .fade-up
-  // ---------------------------
+  // ---------------------------------
+  // IntersectionObserver fallback (.fade-up)
+  // ---------------------------------
   (function setupFadeUpFallback() {
     const els = document.querySelectorAll('.fade-up:not(#about .fade-up):not(#contact .fade-up)');
     if (!els.length) return;
@@ -136,9 +154,9 @@
     els.forEach((el) => io.observe(el));
   })();
 
-  // ---------------------------
+  // ---------------------------------
   // Hamburger + overlay
-  // ---------------------------
+  // ---------------------------------
   const nav = document.querySelector('.nav');
   const menuToggle = document.querySelector('.menu-toggle');
   const overlay = document.querySelector('.menu-overlay');
@@ -166,37 +184,120 @@
   menuLinks.forEach(a => a.addEventListener('click', closeMenu));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
-  // ---------------------------
-  // Custom Cursor (desktop) with buttery trailing
-  // ---------------------------
+  // ---------------------------------
+  // Custom Cursor (desktop) + trail + magnetic hover
+  // ---------------------------------
   (function customCursor(){
-    if (!window.matchMedia('(pointer:fine)').matches) return; // desktop only
+    // Only on pointer-precision devices
+    if (!window.matchMedia('(pointer:fine)').matches) return;
 
-    const c = document.createElement('div');
-    c.className = 'custom-cursor';
-    document.body.appendChild(c);
+    // Read accent from CSS vars so it always matches theme
+    const css = getComputedStyle(document.documentElement);
+    const ACCENT = (css.getPropertyValue('--brand-red') || '#E74C3C').trim();
 
-    let targetX = 0, targetY = 0;
-    let x = 0, y = 0;
+    // Build cursor
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.style.position = 'fixed';
+    cursor.style.left = '0';
+    cursor.style.top = '0';
+    cursor.style.width = '18px';
+    cursor.style.height = '18px';
+    cursor.style.border = `2px solid ${ACCENT}`;
+    cursor.style.borderRadius = '50%';
+    cursor.style.pointerEvents = 'none';
+    cursor.style.zIndex = '99999';
+    cursor.style.transform = 'translate(-50%,-50%)';
+    cursor.style.opacity = '0';
+    cursor.style.transition = 'opacity .25s ease, transform .12s ease';
+
+    document.body.appendChild(cursor);
+
+    // Trail dots (buttery ghost)
+    const DOTS = 8;
+    const dots = [];
+    for (let i = 0; i < DOTS; i++) {
+      const d = document.createElement('div');
+      d.className = 'cursor-dot';
+      d.style.position = 'fixed';
+      d.style.left = '0';
+      d.style.top = '0';
+      d.style.width = '6px';
+      d.style.height = '6px';
+      d.style.borderRadius = '50%';
+      d.style.pointerEvents = 'none';
+      d.style.zIndex = '99998';
+      d.style.background = ACCENT;
+      d.style.opacity = String(0.22 - i * 0.02); // fade out over the trail
+      d.style.transform = 'translate(-50%,-50%)';
+      document.body.appendChild(d);
+      dots.push(d);
+    }
+
+    let targetX = 0, targetY = 0;   // where the mouse actually is
+    let x = 0, y = 0;               // where the main circle is
     let visible = false;
 
-    const speed = 0.22; // higher = snappier; lower = floatier
+    // Smoothness for big circle & lag for trail
+    const MAIN_EASE = 0.25;         // higher = snappier
+    const TRAIL_EASE = 0.18;
+
     function raf(){
-      x += (targetX - x) * speed;
-      y += (targetY - y) * speed;
-      c.style.transform = `translate(${x - 0}px, ${y - 0}px) translate(-50%,-50%)`;
+      // move main circle
+      x += (targetX - x) * MAIN_EASE;
+      y += (targetY - y) * MAIN_EASE;
+      cursor.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
+
+      // move dots with cascading lag
+      let px = x, py = y;
+      dots.forEach((d, i) => {
+        px += (targetX - px) * (TRAIL_EASE - i * 0.012);
+        py += (targetY - py) * (TRAIL_EASE - i * 0.012);
+        d.style.transform = `translate(${px}px, ${py}px) translate(-50%,-50%)`;
+      });
+
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
 
-    // show on first move
+    // Show/hide on presence
     const onMove = (e) => {
       targetX = e.clientX;
       targetY = e.clientY;
-      if (!visible){ c.style.opacity = 1; visible = true; }
+      if (!visible){
+        cursor.style.opacity = '1';
+        dots.forEach(d => d.style.opacity = d.style.opacity); // keep their set opacity
+        visible = true;
+      }
     };
     document.addEventListener('mousemove', onMove, { passive:true });
-    document.addEventListener('mouseenter', () => (c.style.opacity = 1));
-    document.addEventListener('mouseleave', () => (c.style.opacity = 0));
+    document.addEventListener('mouseenter', () => (cursor.style.opacity = '1'));
+    document.addEventListener('mouseleave', () => (cursor.style.opacity = '0'));
+
+    // Magnetic hover on interactive bits
+    const magnets = document.querySelectorAll('.btn, .menu a, .card, .brand a');
+    magnets.forEach(el => {
+      let hoverRAF = 0;
+      const strength = 16; // px pull towards cursor
+      const enter = () => cursor.style.transform += ' scale(1.25)';
+      const leave = () => cursor.style.transform = cursor.style.transform.replace(' scale(1.25)', '');
+
+      const onMouseMove = (e) => {
+        cancelAnimationFrame(hoverRAF);
+        hoverRAF = requestAnimationFrame(() => {
+          const rect = el.getBoundingClientRect();
+          const relX = e.clientX - (rect.left + rect.width / 2);
+          const relY = e.clientY - (rect.top + rect.height / 2);
+          const pullX = Math.max(-strength, Math.min(strength, relX * 0.15));
+          const pullY = Math.max(-strength, Math.min(strength, relY * 0.15));
+          el.style.transform = `translate(${pullX}px, ${pullY}px)`;
+        });
+      };
+      const onLeave = () => { el.style.transform = 'translate(0,0)'; leave(); };
+
+      el.addEventListener('mouseenter', enter);
+      el.addEventListener('mousemove', onMouseMove);
+      el.addEventListener('mouseleave', onLeave);
+    });
   })();
 })();
