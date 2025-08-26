@@ -291,24 +291,6 @@ h2{font-family:'Playfair Display',serif;font-size: clamp(26px,3.6vw,40px);margin
 .badges{display:flex;gap:10px;list-style:none;padding:0;margin:16px 0 0}
 .badges li{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 12px;color:var(--muted)}
 
-/* ---------- CINEMATIC FADE-UP (added) ---------- */
-/* Base hidden state */
-.fade-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
-}
-/* Active state (when visible) */
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* Respect motion preferences */
-@media (prefers-reduced-motion: reduce){
-  .fade-up { transition: none; transform: none; opacity: 1; }
-}
-/* ---------- /FADE-UP ---------- */
-
 :root{
   --brand-red: #E74C3C;           /* Fieldtone accent */
   --icon-color: #fff;             /* default icon color on dark bg */
@@ -379,4 +361,43 @@ h2{font-family:'Playfair Display',serif;font-size: clamp(26px,3.6vw,40px);margin
   /* slight delay so icons grow first */
   transition:
     transform .5s cubic-bezier(.22,.61,.36,1) .08s,
-    opacity   .5
+    opacity   .5s cubic-bezier(.22,.61,.36,1) .08s;
+}
+
+/* show on hover */
+.contact-icons:hover::after{
+  transform:translateX(-50%) scaleX(1);
+  opacity:1;
+  /* on hover, remove delay so leaving feels snappy */
+  transition:
+    transform .5s cubic-bezier(.22,.61,.36,1),
+    opacity   .5s cubic-bezier(.22,.61,.36,1);
+}
+
+/* Footer (unchanged) */
+.footer{
+  padding:28px 24px;
+  color:var(--muted);
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+/* MOBILE TWEAKS */
+@media (max-width: 640px){
+  .contact-icons{ gap:16px; padding-bottom:12px; }
+  .contact-icons::after{ width:50%; }     /* shorter underline */
+  .contact-icons svg{ width:22px; height:22px; }
+}
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce){
+  .contact-icons a,
+  .contact-icons::after{
+    transition:none !important;
+  }
+}
+
+/* your existing grid rule */
+@media (max-width: 800px){
+  .card{ grid-column:span 12; }
+}
