@@ -291,10 +291,38 @@ h2{font-family:'Playfair Display',serif;font-size: clamp(26px,3.6vw,40px);margin
 .badges{display:flex;gap:10px;list-style:none;padding:0;margin:16px 0 0}
 .badges li{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 12px;color:var(--muted)}
 
-.contact{text-align:center}
-.contact a{border-bottom:1px dashed rgba(255,255,255,.26);padding-bottom:2px}
-.footer{padding:28px 24px;color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,0.06)}
+.contact {
+  text-align: center;
+  padding: 2rem 0;
+}
 
-@media (max-width: 800px){
-  .card{grid-column:span 12}
+.contact-icons {
+  margin-top: 1rem;
+  display: inline-flex;
+  gap: 20px;
+  color: #fff; /* white icons for dark background */
+}
+
+.contact-icons a {
+  display: inline-flex;
+  padding: 10px;
+  border-radius: 50%;
+  transition: transform .2s ease, opacity .2s ease, color .2s ease;
+}
+
+.contact-icons a:hover {
+  transform: scale(1.15);
+  opacity: 0.85;
+  color: #E74C3C; /* hover color = Fieldtone red accent */
+}
+
+.footer {
+  padding: 28px 24px;
+  color: var(--muted);
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+@media (max-width: 800px) {
+  .card { grid-column: span 12; }
 }
