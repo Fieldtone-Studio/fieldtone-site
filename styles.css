@@ -24,7 +24,10 @@ a{color:var(--ink);text-decoration:none}
     }
 }
 
-/* === Fieldtone Loader Styles (logo image) === */
+/* ===== Fieldtone Loader Styles (logo image) ===== */
+/* prevent page scroll while loader is showing */
+body.noscroll{ overflow:hidden; height:100vh; }
+
 /* Loader base */
 #loader{
   position: fixed; inset: 0;
@@ -42,7 +45,10 @@ a{color:var(--ink);text-decoration:none}
   pointer-events: none;
 }
 
-/* Logo image (back to normal) */
+/* Center the content */
+.loader-logo{ text-align:center; }
+
+/* Logo image */
 .logo-img{
   max-width: 240px; height: auto; display: block;
   margin: 0 auto 14px;
