@@ -93,6 +93,19 @@ a{color:var(--ink);text-decoration:none}
   #loader.active .logo-word {
     opacity: 1; /* smooth fade-in for the brand word */
   }
+
+  /* JS-triggered word fade-in */
+#loader .logo-word.show { 
+  opacity: 1;                /* mirrors #loader.active .logo-word */
+}
+
+/* Optional glow pulse when JS adds .glow */
+#loader.glow .underline-half {
+  box-shadow:
+    0 0 10px rgba(231,76,60,.85),
+    0 0 24px rgba(231,76,60,.45);
+}
+
 }
 
 /* Click-to-close overlay (hidden by default) */
