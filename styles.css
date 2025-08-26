@@ -38,10 +38,22 @@ a{color:var(--ink);text-decoration:none}
 
 /* stack */
 .loader-logo{ text-align:center; color:#f6f6f6; }
+
+/* Scale the logo and animate its reveal */
 .logo-img{
-  height:48px; width:auto; display:block; margin:0 auto 14px;
-  opacity:0; transform:translateY(6px);
-  transition:opacity .6s ease, transform .6s ease;
+  max-width: 240px;    /* adjust to taste (e.g., 200–320px) */
+  height: auto;
+  display: block;
+  margin: 0 auto 14px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+#loader .logo-img.show{ opacity:1; transform:none; }
+
+/* Hard lock page scroll while loader is up */
+body.loading{ overflow: hidden; }
+
 }
 
 /* underline */
