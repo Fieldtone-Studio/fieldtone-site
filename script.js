@@ -46,47 +46,50 @@
   // Window load: Loader + rest
   // ---------------------------
   window.addEventListener('load', () => {
-    // === Fieldtone Full-screen Loader Controller (cinematic timing) ===
-(function () {
-  const loader = document.getElementById('loader');
-  if (!loader) return;
+    // ===== Full-screen Loader Controller =====
+    (function () {
+      const loader = document.getElementById('loader');
+      if (!loader) {
+        // If no loader in DOM, just fire the event so GSAP runs
+        window.dispatchEvent(new CustomEvent('fieldtone:loaderDone'));
+        return;
+      }
 
-  const img = loader.querySelector('.logo-img');
+      const img = loader.querySelector('.logo-img');
 
-  // Lock scroll while the loader is visible
-  document.body.classList.add('noscroll');
+      // lock scroll while loader is visible
+      document.body.style.overflow = 'hidden';
 
-  // Timings (ms) — tweak to taste
-  const LOGO_DELAY = 500;   // when the logo fades in
-  const GLOW_DELAY = 1100;  // when the soft glow peaks
-  const MIN_SHOW   = 2600;  // how long the loader stays on screen (cinematic)
-  // Note: CSS handles the fade-out duration (opacity transition .8s)
+      // timings
+      const WORD_DELAY = 600;
+      const GLOW_DELAY = 1200;
+      const HIDE_DELAY = 1800; // total duration before fade out
 
-  // 1) start underline sweep (center → out)
-  requestAnimationFrame(() => loader.classList.add('active'));
+      // start underline sweep (center -> out)
+      requestAnimationFrame(() => loader.classList.add('active'));
 
-  // 2) fade the logo wordmark up
-  setTimeout(() => { if (img) img.classList.add('show'); }, LOGO_DELAY);
+      // fade the logo image
+      setTimeout(() => { if (img) img.classList.add('show'); }, WORD_DELAY);
 
-  // 3) soft glow pulse (buttery smooth via CSS GPU transforms)
-  setTimeout(() => {
-    loader.classList.add('glow');
-    setTimeout(() => loader.classList.remove('glow'), 450);
-  }, GLOW_DELAY);
+      // optional glow pulse
+      setTimeout(() => {
+        loader.classList.add('glow');
+        setTimeout(() => loader.classList.remove('glow'), 400);
+      }, GLOW_DELAY);
 
-  // 4) finish: hide loader, unlock scroll, signal GSAP to begin
-  const finish = () => {
-    loader.classList.add('hidden');            // fades out via CSS
-    document.body.classList.remove('noscroll'); // allow scroll again
-    window.dispatchEvent(new Event('fieldtone:loaderDone')); // your GSAP hook
-  };
+      // finish: hide loader, unlock scroll, notify
+      const finish = () => {
+        loader.classList.add('hidden');
+        document.body.style.overflow = '';
+        window.dispatchEvent(new CustomEvent('fieldtone:loaderDone'));
+      };
 
-  // Let it breathe for a cinematic beat
-  setTimeout(finish, MIN_SHOW);
+      // fail-safe: always finish after HIDE_DELAY
+      setTimeout(finish, HIDE_DELAY);
 
-  // Optional: allow click to skip if something stalls
-  loader.addEventListener('click', finish);
-})();
+      // allow click to skip if anything stalls
+      loader.addEventListener('click', finish);
+    })();
 
     // ===== GSAP animations (run AFTER loader) =====
     window.addEventListener('fieldtone:loaderDone', () => {
