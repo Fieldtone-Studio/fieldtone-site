@@ -48,7 +48,7 @@ a{color:var(--ink);text-decoration:none}
   height: auto;
   display: block;
   margin: 0 auto 14px;
-  opacity: 0;
+  opacity: 1 !important;
   transform: translateY(6px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
