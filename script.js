@@ -32,10 +32,10 @@ function enableHeroAutoplay(){
   vid.setAttribute('webkit-playsinline','');
 
   const tryPlay = () => {
-  const p = vid.play();
-  if (p && p.catch) p.catch(() => {}); 
-  markPlaying(); // hide prompt right away
-};
+    const p = vid.play();
+    if (p && p.catch) p.catch(() => {});
+    markPlaying(); // hide prompt right away
+  };
   // Try early + when ready + on first gesture/visibility/bfcache
   document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
   ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach(ev => {
@@ -71,6 +71,28 @@ window.addEventListener('load', () => {
     });
   }
 
+  // ===== Cinematic fade-up (IntersectionObserver) =====
+  (function setupFadeUp(){
+    const els = document.querySelectorAll('.fade-up');
+    if (!els.length) return;
+
+    // Respect reduced motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(el => el.classList.add('visible'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target); // fire once per element
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+    els.forEach(el => io.observe(el));
+  })();
+
   // ===== Hamburger menu toggle + overlay/ESC close =====
   const menuToggle = document.querySelector('.menu-toggle');
   const nav        = document.querySelector('.nav');
@@ -91,10 +113,12 @@ window.addEventListener('load', () => {
     document.body.style.overflow = '';
   }
 
-  menuToggle.addEventListener('click', () => {
-    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-    expanded ? closeMenu() : openMenu();
-  });
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      expanded ? closeMenu() : openMenu();
+    });
+  }
 
   menuLinks.forEach(link => link.addEventListener('click', closeMenu));
   if (overlay) overlay.addEventListener('click', closeMenu);
