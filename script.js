@@ -62,75 +62,71 @@
   if (!loader) return;
 
   const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   const body = document.body;
-  const MIN_SHOW = prefersReduce ? 500 : 900;  // kinder timing when reduced motion
-  const MAX_WAIT = 6000;                       // hard cap in case 'load' runs late
-  let done = false;
-  const startedAt = performance.now();
 
-  // Lock page scrolling while loader is visible (extra safety on iOS)
-  const lockScroll = () => { body.style.overflow = 'hidden'; };
-  const unlockScroll = () => { body.style.overflow = ''; };
+  // --- timings ---
+  const MIN_SHOW  = prefersReduce ? 500 : 900;   // kinder if reduced motion
+  const MAX_WAIT  = 6000;                        // hard cap
+  const startAt   = performance.now();
+
+  // --- lock scrolling immediately ---
+  const lockScroll   = () => { body.style.overflow = 'hidden'; };
+  const unlockScroll = () => { body.style.overflow = '';      };
   lockScroll();
 
-  // -- Turn the loader "on" with cinematic staging --
+  // ===== Turn the loader "on" with cinematic staging =====
   if (prefersReduce) {
-    // Accessibility: no motion – show everything immediately
+    // no motion: show everything at once
     loader.classList.add('active');
-    const word = loader.querySelector('.logo-word');
-    if (word) word.classList.add('show');  // fade-in state without delay
+    const img = loader.querySelector('.logo-img');
+    if (img) img.classList.add('show');
   } else {
-    // Timed sequence: underline → word fade → (optional) glow
-    const word = loader.querySelector('.logo-word');
+    const img = loader.querySelector('.logo-img');
 
-    // Tweakable timings (ms)
-    const UNDERLINE_START = 0;     // start immediately
-    const WORD_DELAY      = 600;   // after underline has grown a bit
-    const GLOW_DELAY      = 1200;  // optional pulse before we fade the loader out
+    // tweakable beats (ms)
+    const WORD_DELAY = 600;   // fade logo shortly after underline begins
+    const GLOW_DELAY = 1200;  // optional glow pulse before fade-out
 
     // 1) kick underline growth first (center → outward)
     requestAnimationFrame(() => {
       loader.classList.add('active'); // triggers underline sweep
     });
 
-    // 2) fade in the "FIELDTONE" word after a beat
-    setTimeout(() => {
-      if (word) word.classList.add('show');
-    }, WORD_DELAY);
+    // 2) fade in the real logo
+    setTimeout(() => { if (img) img.classList.add('show'); }, WORD_DELAY);
 
-    // 3) optional: add a subtle glow pulse on the underline
+    // 3) optional glow pulse
     setTimeout(() => {
       loader.classList.add('glow');
-      // remove the glow after a short moment so it doesn't linger
       setTimeout(() => loader.classList.remove('glow'), 400);
     }, GLOW_DELAY);
   }
 
-  // Finish sequence: respect MIN_SHOW, fade loader, restore scroll
+  // ===== Finish sequence: respect MIN_SHOW, fade loader, restore scroll =====
+  let done = false;
   const finish = () => {
-    if (done) return;
-    done = true;
+    if (done) return; done = true;
 
-    const elapsed = performance.now() - startedAt;
-    const wait = Math.max(0, MIN_SHOW - elapsed);
+    const elapsed = performance.now() - startAt;
+    const wait    = Math.max(0, MIN_SHOW - elapsed);
 
     setTimeout(() => {
-      loader.classList.add('hidden');       // triggers CSS fade-out
+      loader.classList.add('hidden');                  // CSS fade-out
       loader.setAttribute('aria-busy', 'false');
       unlockScroll();
-      // After the CSS transition, remove from flow entirely
+
+      // remove from flow after the transition ends
       setTimeout(() => { loader.style.display = 'none'; }, 900);
     }, wait);
   };
 
-  // Prefer full page load; also add a hard timeout as a failsafe
-  window.addEventListener('load', finish, { once: true });
+  // normal completion and failsafe cap
+  window.addEventListener('load', finish, { once:true });
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(finish, MAX_WAIT);
-  }, { once: true });
+  }, { once:true });
 
-  // Optional: allow user to click the loader to skip if something stalls
+  // allow click to skip if anything stalls
   loader.addEventListener('click', finish);
 })();
     
