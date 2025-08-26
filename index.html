@@ -39,23 +39,29 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-   <!-- === Fieldtone Full-screen Loader (step 1: HTML) === -->
-  <div id="loader" aria-live="polite" aria-busy="true">
-    <div class="loader-logo" role="img" aria-label="Fieldtone">
-      <!-- Text logo (fast, no image dependency) -->
-      <span class="logo-word" aria-hidden="true">FIELDTONE</span>
+   <!-- === Fieldtone Full-screen Loader (logo image) === -->
+<div id="loader" aria-live="polite" aria-busy="true">
+  <div class="loader-logo" role="img" aria-label="Fieldtone">
+    <!-- Your real logo image -->
+    <img
+      class="logo-img"
+      src="FIELDTONE_Text _Logo_Loading_Page.png"
+      alt="Fieldtone Logo"
+      decoding="async"
+      fetchpriority="high"
+    />
 
-      <!-- Cinematic underline that grows from the center → outward -->
-      <span class="logo-underline" aria-hidden="true">
-        <span class="underline-half underline-left"></span>
-        <span class="underline-half underline-right"></span>
-      </span>
-    </div>
-
-    <!-- Optional: if JS is disabled, don’t block the page -->
-    <noscript><style>#loader{display:none !important}</style></noscript>
+    <!-- Cinematic underline -->
+    <span class="logo-underline" aria-hidden="true">
+      <span class="underline-half underline-left"></span>
+      <span class="underline-half underline-right"></span>
+    </span>
   </div>
-  <!-- === /Loader === -->
+
+  <!-- If JS is disabled, don’t block the page -->
+  <noscript><style>#loader{display:none!important}</style></noscript>
+</div>
+<!-- === /Loader === -->
   
   <header class="nav">
     <!-- Click-to-close overlay -->
