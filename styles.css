@@ -32,7 +32,7 @@ body.noscroll{ overflow:hidden; height:100vh; }
 #loader{
   position: fixed; inset: 0;
   width: 100vw; height: 100vh;
-  background: #0f0f10;
+  background: #000000;
   display: flex; align-items: center; justify-content: center;
   z-index: 9999;
   transition: opacity .8s ease, visibility .8s ease;
@@ -50,7 +50,7 @@ body.noscroll{ overflow:hidden; height:100vh; }
 
 /* Logo image */
 .logo-img{
-  max-width: 240px; height: auto; display: block;
+  max-width: 360px; height: auto; display: block;
   margin: 0 auto 14px;
   opacity: 0;
   transform: translateY(6px);
@@ -71,7 +71,7 @@ body.noscroll{ overflow:hidden; height:100vh; }
   transition: width 1s cubic-bezier(.77,0,.18,1);
 }
 #loader.active .underline-left,
-#loader.active .underline-right{ width:80px; }
+#loader.active .underline-right{ width:120px; }
 
 /* Optional glow */
 #loader.glow .logo-underline{
