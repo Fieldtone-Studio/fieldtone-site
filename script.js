@@ -82,9 +82,9 @@
   window.addEventListener('fieldtone:loaderDone', () => {
     if (!window.gsap) return;
 
-    gsap.from('.hero-copy h1', { y: 40, opacity: 0, duration: 1.8, ease: 'power3.out' });
-    gsap.from('.hero-copy p',  { y: 28, opacity: 0, delay: 0.35, duration: 1.5, ease: 'power3.out' });
-    gsap.from('.btn',          { y: 20, opacity: 0, delay: 0.7,  duration: 1.2, ease: 'power3.out' });
+    gsap.from('.hero-copy h1', { y: 40, opacity: 0, duration: 3, ease: 'power3.out' });
+    gsap.from('.hero-copy p',  { y: 28, opacity: 0, delay: 0.5, duration: 2.4, ease: 'power3.out' });
+    gsap.from('.btn',          { y: 20, opacity: 0, delay: 1, duration: 2, ease: 'power3.out' });
 
     if (window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
