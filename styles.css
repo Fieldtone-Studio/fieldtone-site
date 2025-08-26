@@ -24,6 +24,61 @@ a{color:var(--ink);text-decoration:none}
     }
 }
 
+/* === Fieldtone Loader Styles === */
+#loader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;   /* full width */
+  height: 100vh;  /* full height */
+  overflow: hidden; /* block internal scrolling */
+  background: #0f0f10; /* match site bg */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* stay on top */
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-logo {
+  text-align: center;
+  color: #f6f6f6;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logo-word {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.logo-underline {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.underline-half {
+  display: block;
+  height: 3px;
+  background: #E74C3C; /* brand red */
+  width: 0;
+  transition: width 1s cubic-bezier(.77,0,.18,1);
+}
+
+/* grow the underline when we mark the loader active */
+#loader.active .underline-left,
+#loader.active .underline-right {
+  width: 80px; /* grow outward */
+}
+
 /* Click-to-close overlay (hidden by default) */
 .menu-overlay{
   position: fixed;
