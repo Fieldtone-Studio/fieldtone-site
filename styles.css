@@ -65,6 +65,49 @@ body.noscroll { overflow:hidden; height:100vh; }
 }
 #loader .logo-img.show { opacity:1; transform:none; }
 
+/* === MOBILE SAFE PADDING FOR LOADER === */
+#loader{
+  /* add safe-area padding so content never kisses the edges/notch */
+  padding:
+    calc(16px + env(safe-area-inset-top))
+    calc(16px + env(safe-area-inset-right))
+    calc(20px + env(safe-area-inset-bottom))
+    calc(16px + env(safe-area-inset-left));
+}
+
+.loader-logo{ width:100%; }
+
+/* keep generous margins on narrow screens */
+.logo-img{
+  max-width: min(84vw, 420px);   /* scale to viewport on phones */
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.logo-underline{
+  width: min(82vw, 460px);       /* match the image scaling */
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* extra-tight phones */
+@media (max-width: 420px){
+  #loader{
+    padding:
+      calc(20px + env(safe-area-inset-top))
+      calc(18px + env(safe-area-inset-right))
+      calc(24px + env(safe-area-inset-bottom))
+      calc(18px + env(safe-area-inset-left));
+  }
+  .logo-img{ max-width: 78vw; }
+  .logo-underline{ width: 76vw; }
+}
+
+/* reduced motion still respected */
+@media (prefers-reduced-motion: reduce){
+  #loader{ padding: 16px; } /* safe, static padding */
+}
+
 /* ========= Underline (cinematic sweep + glow) ========= */
 /* (FIX) make sure container participates in layout */
 .logo-underline {
