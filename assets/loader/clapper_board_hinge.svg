@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 674.06 522.08">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#radial-gradient);
+      }
+
+      .cls-2 {
+        fill: url(#radial-gradient-3);
+      }
+
+      .cls-3 {
+        fill: #808285;
+      }
+
+      .cls-4 {
+        fill: url(#radial-gradient-2);
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-4.13" y1="66.74" x2="588.09" y2="582.55" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset="1" stop-color="#2c292a"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient" cx="167.73" cy="133.71" fx="167.73" fy="133.71" r="41.21" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#414042"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cy="388.38" fy="388.38" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-3" cx="421.57" cy="388.38" fx="421.57" fy="388.38" xlink:href="#radial-gradient"/>
+  </defs>
+  <path class="cls-3" d="M93.82,522.08c-51.73,0-93.82-42.09-93.82-93.82V93.82C0,42.09,42.09,0,93.82,0h229.68c53.57,0,103.22,28.98,129.57,75.64l215.28,381.24c7.73,13.68,7.61,29.95-.31,43.53-7.92,13.58-22.04,21.68-37.76,21.68H93.82Z"/>
+  <path class="cls-5" d="M662.8,460l-112.36-198.96-102.93-182.27c-25.26-44.73-72.64-72.4-124.02-72.4H93.82C45.52,6.37,6.37,45.52,6.37,93.82v334.45c0,48.3,39.16,87.45,87.45,87.45h536.46c28.59,0,46.58-30.82,32.52-55.71Z"/>
+  <circle class="cls-1" cx="167.73" cy="133.71" r="41.21"/>
+  <circle class="cls-4" cx="167.73" cy="388.38" r="41.21"/>
+  <circle class="cls-2" cx="421.57" cy="388.38" r="41.21"/>
+</svg>
