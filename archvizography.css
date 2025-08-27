@@ -15,12 +15,12 @@
 
   /* Hinge pivot (inside TOP image) — tuned to your SVGs */
   --top-rot-start: -30deg;
-  --pivot-x: 10.5%;
-  --pivot-y: 24.5%;
+  --pivot-x: 9.2%;
+  --pivot-y: 20.8%;
 
   /* Closed placement of TOP relative to BODY — tuned */
-  --top-left: -2.4%;
-  --top-top:  -2.1%;
+  --top-left: -6.9%;
+  --top-top:  -0.6%;
 
   /* Hinge graphic position (pin group) */
   --hinge-left: 3.6%;
@@ -82,7 +82,7 @@
   position:absolute; z-index:1;
   width:82%;
   opacity:0;
-  transform: translateY(-4%) scale(.985);
+  transform: translateY(-3%) scale(.985);
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
   animation: markIn 1.4s cubic-bezier(.22,.61,.36,1) forwards !important;
   animation-delay: 2.4s !important;
@@ -96,8 +96,8 @@
 /* Motion keyframes */
 @keyframes clapDown{
   0%   { transform: rotate(var(--top-rot-start)); }
-  60%  { transform: rotate(0deg); }
-  80%  { transform: rotate(-6deg); }
+  62%  { transform: rotate(0deg); }
+  82%  { transform: rotate(-6deg); }
   100% { transform: rotate(0deg); }
 }
 @keyframes markIn{
