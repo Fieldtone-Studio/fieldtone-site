@@ -75,7 +75,7 @@
 .avz-bullets li{margin-left:4px}
 
 /* Footer */
-.avz-footer{border-top:1px solid var(--line);padding:36px 0 64px;text-align:center;color:#muted}
+.avz-footer{border-top:1px solid var(--line);padding:36px 0 64px;text-align:center;color:#9a9a9a}
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
