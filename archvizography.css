@@ -23,7 +23,7 @@
   /* Top part pivot (percent inside the .clap-top box) */
   /* Tweak these four numbers if you need micro-alignment on your art */
   --pivot-x: 9.2%;
-  --pivot-y: 23.5%;
+  --pivot-y: 40.2%;
   --top-left: 0.0%;
   --top-top:  0.3%;
 
