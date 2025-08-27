@@ -12,9 +12,14 @@
    -------------------------------- */
 .loader-claquette{
   --stage-w: min(540px, 82vw);
-  /* Optional fine nudges for closed placement */
+
+  /* fine nudges if you ever need them (px) */
   --top-nudge-x: 0px;
   --top-nudge-y: 0px;
+
+  /* PIVOT: hinge-pin position inside the artboard (percent) */
+  --pivot-x: 15.8%;
+  --pivot-y: 26.8%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
@@ -32,24 +37,41 @@
 @keyframes barUp { to { transform: translateY(-100%); } }
 @keyframes barDown { to { transform: translateY(100%); } }
 
-/* Stage & parts */
-.clap-stage{ position:relative; width:var(--stage-w); aspect-ratio: 3/2; display:grid; place-items:center; contain:layout paint size; }
-.clap-body{ position:relative; z-index:1; width:100%; height:auto; display:block; filter: drop-shadow(0 14px 46px rgba(0,0,0,.58)); transform: translateY(10px); }
-.clap-hinge{ position:absolute; z-index:3; width:26%; left:1%; top:1%; pointer-events:none; filter: drop-shadow(0 8px 22px rgba(0,0,0,.52)); }
-/* Top is placed where it should be when CLOSED; we rotate from that pose using the auto pivot */
-.clap-top{ position:absolute; z-index:2; width:100%; left:var(--top-nudge-x); top:var(--top-nudge-y); transform: rotate(-32deg); filter: drop-shadow(0 12px 30px rgba(0,0,0,.5)); }
-/* Wordmark */
-.reveal-mark{ position:absolute; z-index:1; width:82%; opacity:0; transform: translateY(10px) scale(.985); filter: drop-shadow(0 8px 26px rgba(0,0,0,.5)); }
+/* Stage & parts (all three SVGs share the *same artboard*) */
+.clap-stage{
+  position:relative; width:var(--stage-w); aspect-ratio: 3/2;
+  display:grid; place-items:center; contain:layout paint size;
+}
+.clap-stage img{position:absolute; inset:0; width:100%; height:auto; display:block}
+
+/* Layering */
+.clap-body { z-index:1; filter: drop-shadow(0 14px 46px rgba(0,0,0,.58)); transform: translateY(10px); }
+.clap-hinge{ z-index:3; pointer-events:none; filter: drop-shadow(0 8px 22px rgba(0,0,0,.52)); }
+
+/* Top is drawn in the *closed* pose; rotation happens from the hinge pin */
+.clap-top{
+  z-index:2;
+  transform-origin: var(--pivot-x) var(--pivot-y);
+  transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(-32deg);
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
+}
+
+/* Wordmark reveal */
+.reveal-mark{
+  z-index:1; width:82%; left:9%; right:auto; /* centers nicely under the stripes */
+  opacity:0; transform: translateY(10px) scale(.985);
+  filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
+}
 
 /* Play sequence (added by JS) */
-.loader-claquette.play .clap-top { animation: avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards; }
-.loader-claquette.play .reveal-mark { animation: markIn .9s cubic-bezier(.22,.61,.36,1) .55s forwards; }
+.loader-claquette.play .clap-top   { animation: avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards; }
+.loader-claquette.play .reveal-mark{ animation: markIn .9s cubic-bezier(.22,.61,.36,1) .55s forwards; }
 
 @keyframes avzClap{
-  from { transform: rotate(-32deg); }
-  60%  { transform: rotate(0deg); }
-  80%  { transform: rotate(-6deg); }
-  to   { transform: rotate(0deg); }
+  from { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(-32deg); }
+  60%  { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(0deg); }
+  80%  { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(-6deg); }
+  to   { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(0deg); }
 }
 @keyframes markIn{
   from { opacity:0; transform: translateY(10px) scale(.985); }
