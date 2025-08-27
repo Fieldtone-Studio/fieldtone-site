@@ -1,6 +1,6 @@
 /* ================================
-   Archvizography Page — Fieldtone (v90)
-   Cropped-SVG loader (each part = tight bounds)
+   Archvizography Page — Fieldtone (v92)
+   Cropped-SVG loader, final alignment
    ================================ */
 
 /* Theme */
@@ -19,17 +19,16 @@
   --stage-w: min(560px, 82vw);
 
   /* TOP rotation (open -> closed) using CROPPED top asset */
-  --top-open:  -37deg;   /* start angle (open) */
-  --top-closed: 0deg;    /* end angle (closed) */
+  --top-open:  -37deg;  /* open pose */
+  --top-closed: 0deg;   /* closed pose (flush) */
 
-  /* Pivot for TOP (far-left “elbow”) in % of the top image box */
-  /* These numbers were tuned so the bar sits flush when closed */
+  /* Pivot for TOP (far-left elbow) in % of the top image box */
   --pivot-x: 0%;
-  --pivot-y: 22%;
+  --pivot-y: 22%;  /* tuned so closed edge sits perfectly on the cap */
 
   /* Fine placement nudges for CROPPED assets */
-  --top-dx:  0px;   /* horizontal nudge for the top */
-  --top-dy:  2px;   /* vertical nudge (positive = down) */
+  --top-dx:  0px;  /* horizontal nudge of the TOP image */
+  --top-dy:  2px;  /* vertical nudge (positive = down) */
 
   /* Hinge size & placement (cropped hinge SVG) */
   --hinge-w: 29%;
@@ -39,7 +38,6 @@
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
 
-  /* Keep loader until curtains finish */
   opacity:1; visibility:visible;
   transition: opacity .1s linear 7s, visibility 0s linear 7.1s;
 }
@@ -57,8 +55,7 @@
 /* Stage & parts (CROPPED) */
 .clap-stage{
   position:relative; width:var(--stage-w); display:grid; place-items:center;
-  /* allow the TOP to extend upward while opening */
-  overflow:visible;
+  overflow:visible; /* allow TOP to extend upward while opening */
 }
 .clap-body{
   position:relative; z-index:1;
@@ -73,7 +70,7 @@
   left:var(--hinge-left); top:var(--hinge-top);
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
 }
-/* TOP (cropped). Place at closed pose, then rotate from far-left pivot. */
+/* TOP (cropped). Closed pose + rotate from far-left elbow. */
 .clap-top{
   position:absolute; z-index:2; width:100%; height:auto;
   left:0; top:0;
@@ -82,15 +79,20 @@
   filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
 }
 
-/* Wordmark reveal (png) */
+/* Wordmark reveal (png) — centered on the slate */
 .reveal-mark{
   position:absolute; z-index:1;
   width:82%; max-width:900px;
-  opacity:0; transform: translateY(10px) scale(.985);
+
+  /* Center horizontally; sit just under the cap lines like your comp */
+  left:50%; top:30%;
+  transform: translate(-50%, 10px) scale(.985);
+  opacity:0;
+
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
 }
 
-/* Play sequence (added by JS) */
+/* Play sequence */
 .loader-claquette.play .clap-top{
   animation: avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards;
 }
@@ -105,8 +107,8 @@
   to   { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-closed)); } /* settle */
 }
 @keyframes markIn{
-  from { opacity:0; transform: translateY(10px) scale(.985); }
-  to   { opacity:1; transform: translateY(0)    scale(1); }
+  from { opacity:0; transform: translate(-50%, 10px) scale(.985); }
+  to   { opacity:1; transform: translate(-50%, 0)    scale(1); }
 }
 
 /* Progress */
@@ -145,5 +147,5 @@
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .clap-top{ transform: translate(var(--top-dx), var(--top-dy)) rotate(0deg) !important; animation:none !important; }
-  .reveal-mark{ opacity:1 !important; transform:none !important; }
+  .reveal-mark{ opacity:1 !important; transform: translate(-50%,0) scale(1) !important; }
 }
