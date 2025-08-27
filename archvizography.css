@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v105)
+   Archvizography Page — Fieldtone (v108)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -79,7 +79,7 @@
 .reveal-mark{
   position:absolute; z-index:1;
   width:82%; max-width:900px;
-  top:30%;
+  top:18%;
   left:52%;
   opacity:0;
   transform: translate(-50%, 10px) scale(.985);
@@ -138,5 +138,6 @@
   .reveal-mark{ opacity:1 !important; transform:none !important; }
 
 }
+
 
 
