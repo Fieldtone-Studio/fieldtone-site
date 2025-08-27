@@ -16,34 +16,54 @@
 <link rel="stylesheet" href="archvizography.css?v=100">
 
 <style>
-  /* Force-override the loader tuning (ignores stale cached CSS) */
+  /* Force-override the loader tuning (final pass) */
+.loader-claquette{
+  /* overall scale */
+  --stage-w: min(620px, 86vw);
+
+  /* cap rotation (open → closed) */
+  --top-open:  -34deg;
+  --top-closed: 0deg;
+
+  /* cap pivot (far-left “elbow”) — % of the TOP svg box */
+  /* lower pivot-y moves the contact edge UP, higher moves it DOWN */
+  --pivot-x: 0%;
+  --pivot-y: 19.5%;
+
+  /* tiny pose nudges for the TOP image */
+  --top-dx: 0px;
+  --top-dy: 4px;
+
+  /* hinge (cropped svg) — size + placement relative to the body */
+  --hinge-w:   30.2%;
+  --hinge-left: 2.2%;
+  --hinge-top:  1.6%;
+}
+
+/* Wordmark placement — centered under the cap band */
+.reveal-mark{
+  position:absolute; z-index:1;
+  width:80%; max-width:900px;
+  left:50%; top:24.2%;
+  transform: translate(-50%, 8px) scale(.99);
+  opacity:0;
+  filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
+}
+
+/* Small screens: keep contact line and mark band aligned */
+@media (max-width: 560px){
   .loader-claquette{
-    --stage-w: min(560px, 82vw);
-
-    /* pivot + rotation */
-    --top-open:  -37deg;
-    --top-closed: 0deg;
-    --pivot-x: 0%;
-    --pivot-y: 22%;
-
-    /* nudge the top slab */
-    --top-dx: 0px;
-    --top-dy: 2px;
-
-    /* hinge size/position */
-    --hinge-w: 29%;
-    --hinge-left: 2.4%;
-    --hinge-top: 1.2%;
+    --stage-w: min(520px, 88vw);
+    --top-open: -33deg;
+    --pivot-y: 20.5%;
+    --top-dy: 3px;
   }
-
-  /* wordmark placement */
   .reveal-mark{
-    position:absolute; z-index:1;
-    width:82%; max-width:900px;
-    top:22%; left:50%;
-    transform: translate(-50%, 10px) scale(.985);
-    opacity:0;
+    top:25.5%;
+    width:84%;
+    transform: translate(-50%, 7px) scale(.99);
   }
+}
 </style>
 </head>
 
