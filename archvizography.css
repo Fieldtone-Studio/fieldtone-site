@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v92)
+   Archvizography Page — Fieldtone (v93)
    Cropped-SVG loader, final alignment
    ================================ */
 
@@ -24,16 +24,16 @@
 
   /* Pivot for TOP (far-left elbow) in % of the top image box */
   --pivot-x: 0%;
-  --pivot-y: 22%;  /* tuned so closed edge sits perfectly on the cap */
+  --pivot-y: 30%;  /* tuned so closed edge sits perfectly on the cap */
 
   /* Fine placement nudges for CROPPED assets */
-  --top-dx:  0px;  /* horizontal nudge of the TOP image */
-  --top-dy:  2px;  /* vertical nudge (positive = down) */
+  --top-dx:  6px;  /* horizontal nudge of the TOP image */
+  --top-dy:  10px;  /* vertical nudge (positive = down) */
 
   /* Hinge size & placement (cropped hinge SVG) */
-  --hinge-w: 29%;
-  --hinge-left: 2.4%;
-  --hinge-top:  1.2%;
+  --hinge-w: 32%;
+  --hinge-left: 3%;
+  --hinge-top:  3%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
@@ -83,12 +83,10 @@
 .reveal-mark{
   position:absolute; z-index:1;
   width:82%; max-width:900px;
-
-  /* Center horizontally; sit just under the cap lines like your comp */
-  left:50%; top:30%;
-  transform: translate(-50%, 10px) scale(.985);
+  top:22%;               /* sits lower so it aligns with the cap lines */
+  left:50%;              /* perfectly centered horizontally */
   opacity:0;
-
+  transform: translate(-50%, 10px) scale(.985); /* offset for entry animation */
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
 }
 
