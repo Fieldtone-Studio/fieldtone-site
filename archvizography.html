@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Archvizography · Fieldtone Studio</title>
+  <meta name="description" content="Archvizography — a Fieldtone discipline blending architecture and cinema into one emotional language." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="archvizography.css">
+</head>
+<body class="archvizography-page">
+
+  <!-- Minimal loader (separate from homepage) -->
+  <div id="avzLoader" aria-live="polite" aria-busy="true">
+    <div class="avz-bars avz-top"></div>
+    <div class="avz-bars avz-bot"></div>
+    <div class="avz-inner">
+      <img class="avz-logo" src="FIELDTONE_Primary _White_Logo.png" alt="Fieldtone Studio" />
+      <div class="avz-tag">Archvizography · A Fieldtone discipline</div>
+      <div class="avz-progress"><span class="avz-bar" id="avzBar"></span></div>
+      <div class="avz-percent"><span id="avzPct">0</span>%</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="avz-header">
+    <nav class="avz-nav">
+      <a href="/">Home</a>
+      <a href="archvizography.html" class="active">Archvizography</a>
+      <a href="#contact" onclick="location.href='/'+'#contact'">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="avz-hero">
+    <img class="avz-hero-bg" src="assets/hero_poster.jpg" alt="" data-preload>
+    <div class="avz-hero-overlay">
+      <p class="avz-eyebrow">Archvizography</p>
+      <h1>We don’t render buildings.<br>We direct stories.</h1>
+      <p class="avz-sub">Walls are actors. Light is cinema. Details are emotions that bind the story into one frame.</p>
+    </div>
+  </section>
+
+  <!-- Definition -->
+  <section class="avz-section">
+    <h2>What is Archvizography?</h2>
+    <p><strong>Archvizography</strong> is a Fieldtone-born discipline merging architectural visualization with the cinematic language of filmmaking. Architecture is performed as story: spaces are staged, light is directed, and every image is treated as a film frame.</p>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="avz-section">
+    <h2>Our Philosophy</h2>
+    <ul class="avz-bullets">
+      <li>Every wall is an actor with presence.</li>
+      <li>Light is our cinematographer, shaping mood.</li>
+      <li>Details are emotions that carry memory.</li>
+      <li>Each frame should feel like a scene from a film.</li>
+    </ul>
+  </section>
+
+  <!-- Why it matters -->
+  <section class="avz-section">
+    <h2>Why it matters</h2>
+    <p>Traditional ArchViz shows what a building looks like. Cinematography shows what life feels like. Archvizography fuses both—so our visuals move hearts <em>and</em> move properties.</p>
+  </section>
+
+  <footer class="avz-footer">
+    <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
+  </footer>
+
+  <!-- Tiny inline script: year + preload counter -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function(){
+      const items=[...document.querySelectorAll('[data-preload]')];
+      const total=Math.max(1,items.length); let done=0;
+      const bar=document.getElementById('avzBar'); const pct=document.getElementById('avzPct'); const loader=document.getElementById('avzLoader');
+      const upd=()=>{ const p=Math.round((done/total)*100); if(pct) pct.textContent=p; if(bar) bar.style.width=p+'%'; if(done>=total) loader?.classList.add('is-out'); };
+      const mark=()=>{ done++; upd(); };
+      items.forEach(el=>{
+        if(el.tagName==='IMG'){ el.complete?mark():el.addEventListener('load',mark,{once:true}); el.addEventListener('error',mark,{once:true}); }
+        if(el.tagName==='VIDEO'){ const v=el; (v.readyState>=2)?mark():v.addEventListener('canplaythrough',mark,{once:true}); v.addEventListener('error',mark,{once:true}); }
+      });
+      upd();
+    })();
+  </script>
+</body>
+</html>
