@@ -13,15 +13,14 @@
 .loader-claquette{
   --stage-w: min(520px, 80vw);
 
-  /* PIVOT: axis INSIDE the TOP image box (percent) */
-  /* Lifted & pulled toward the pin so the left tip doesn't sag */
+  /* Hinge pivot (inside TOP image) — tuned to your SVGs */
   --top-rot-start: -30deg;
-  --pivot-x: 9.6%;
-  --pivot-y: 21.8%;
+  --pivot-x: 10.5%;
+  --pivot-y: 24.5%;
 
-  /* CLOSED placement of TOP relative to BODY (tuned to your SVGs) */
-  --top-left: 7.6%;
-  --top-top:  1.2%;
+  /* Closed placement of TOP relative to BODY — tuned */
+  --top-left: -2.4%;
+  --top-top:  -2.1%;
 
   /* Hinge graphic position (pin group) */
   --hinge-left: 3.6%;
@@ -30,7 +29,7 @@
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
 
-  /* Loader stays until curtains finish (~7s) */
+  /* Keep visible until curtains finish (~7s) */
   opacity:1; visibility:visible;
   transition:
     opacity .1s linear 7s,
@@ -51,7 +50,7 @@
 .clap-stage{
   position:relative; width:var(--stage-w); aspect-ratio: 3/2;
   display:grid; place-items:center;
-  contain: layout paint size; /* perf */
+  contain: layout paint size;
 }
 .clap-body{
   position:relative; z-index:1;
@@ -67,8 +66,7 @@
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
 }
 
-/* TOP uses the artist file's native proportion (86%) so stripes align;
-   positioned with the tuned offsets above. */
+/* TOP uses the artist file’s native proportion so stripes align */
 .clap-top{
   position:absolute; z-index:2;
   width:86%;
@@ -79,7 +77,7 @@
   animation: clapDown 2.2s cubic-bezier(.22,.61,.36,1) forwards !important;
 }
 
-/* Mark reveal — sits exactly on the seam (subtle rise from below) */
+/* Wordmark reveal — locked to the seam */
 .reveal-mark{
   position:absolute; z-index:1;
   width:82%;
@@ -104,7 +102,7 @@
 }
 @keyframes markIn{
   from { opacity:0; transform: translateY(14%) scale(.985); }
-  to   { opacity:1; transform: translateY(-4%) scale(1); }
+  to   { opacity:1; transform: translateY(-4%)  scale(1); }
 }
 
 /* Header */
@@ -144,7 +142,7 @@
   .reveal-mark{ opacity:1 !important; transform:none !important; }
 }
 
-/* ----- Optional: enable to visualize the axis while tuning -----
+/* ----- Optional debug: visualize the pivot -----
 .clap-top::before{
   content:""; position:absolute; left:var(--pivot-x); top:var(--pivot-y);
   width:10px; height:10px; transform:translate(-50%,-50%); border-radius:50%;
@@ -157,4 +155,4 @@
   background:#6ad3ff; box-shadow:0 0 0 2px #000, 0 0 12px rgba(0,180,255,.6);
   pointer-events:none; z-index:99;
 }
-------------------------------------------------------------------*/
+-------------------------------------------------*/
