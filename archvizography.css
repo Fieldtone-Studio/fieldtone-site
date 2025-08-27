@@ -1,0 +1,32 @@
+/* Archvizography Page CSS */
+.archvizography-page {
+  --bg:#0b0b0b; --fg:#eaeaea; --muted:#b8b8b8;
+  --line:#1a1a1a; --accent:#d07a5a;
+  background:var(--bg); color:var(--fg);
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+}
+.loader-claquette {
+  --stage-w: min(520px, 80vw);
+  --top-rot-start: -30deg; --pivot-x: 10%; --pivot-y: 28%;
+  --top-left: 0.5%; --top-top: 0.8%;
+  --hinge-left: 1.2%; --hinge-top: 0.6%;
+  position:fixed; inset:0; background:#000; z-index:9999;
+  display:grid; grid-template-rows:1fr auto auto; place-items:center;
+  opacity:1; visibility:visible;
+  transition: opacity .2s linear 7s, visibility 0s linear 7.2s;
+}
+.avz-bars{position:absolute; left:0; width:100%; height:10vh; background:#000;}
+.avz-top{top:0} .avz-bot{bottom:0}
+#avzLoader.is-out .avz-top{animation:barUp 2.2s ease forwards; animation-delay:1s;}
+#avzLoader.is-out .avz-bot{animation:barDown 2.2s ease forwards; animation-delay:1s;}
+@keyframes barUp{to{transform:translateY(-100%);}}
+@keyframes barDown{to{transform:translateY(100%);}}
+.clap-stage{position:relative; width:var(--stage-w); aspect-ratio:3/2; display:grid; place-items:center;}
+.clap-body{width:100%; display:block; filter:drop-shadow(0 14px 46px rgba(0,0,0,.58));}
+.clap-hinge{position:absolute; width:26%; left:var(--hinge-left); top:var(--hinge-top); z-index:3;}
+.clap-top{position:absolute; width:100%; left:var(--top-left); top:var(--top-top);
+  transform-origin: var(--pivot-x) var(--pivot-y); transform:rotate(var(--top-rot-start));
+  filter:drop-shadow(0 12px 30px rgba(0,0,0,.5));}
+.reveal-mark{position:absolute; width:82%; opacity:0; transform:translateY(10px) scale(.985);}
+@keyframes clapDown{0%{transform:rotate(var(--top-rot-start));} 100%{transform:rotate(0);}}
+@keyframes markIn{from{opacity:0; transform:translateY(10px) scale(.985);} to{opacity:1; transform:translateY(0) scale(1);}}

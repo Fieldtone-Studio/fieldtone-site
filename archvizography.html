@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Archvizography · Fieldtone Studio</title>
+  <meta name="description" content="Archvizography — a Fieldtone discipline blending architecture and cinema into one emotional language." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="archvizography.css">
+</head>
+<body class="archvizography-page loading">
+
+  <!-- Loader -->
+  <div id="avzLoader" class="loader-claquette" aria-live="polite" aria-busy="true">
+    <div class="avz-bars avz-top"></div>
+    <div class="avz-bars avz-bot"></div>
+    <div class="clap-stage">
+      <img class="clap-body" src="assets/loader/clapper_board_body.svg" alt="" />
+      <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="" />
+      <img class="clap-top" src="assets/loader/clapper_board_top.svg" alt="" />
+      <img class="reveal-mark" src="assets/loader/archvizography_primary_textmark.png" alt="ARCHVIZOGRAPHY" />
+    </div>
+    <div class="avz-progress"><span class="avz-bar" id="avzBar"></span></div>
+    <div class="avz-percent"><span id="avzPct">0</span>%</div>
+  </div>
+
+  <!-- Header -->
+  <header class="avz-header">
+    <nav class="avz-nav">
+      <a href="/">Home</a>
+      <a href="archvizography.html" class="active">Archvizography</a>
+      <a href="#contact" onclick="location.href='/'+'#contact'">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="avz-hero">
+    <img class="avz-hero-bg" src="assets/hero_poster.jpg" alt="" data-preload>
+    <div class="avz-hero-overlay">
+      <p class="avz-eyebrow">Archvizography</p>
+      <h1>We don’t render buildings.<br>We direct stories.</h1>
+      <p class="avz-sub">Walls are actors. Light is cinema. Details are emotions that bind the story into one frame.</p>
+    </div>
+  </section>
+
+  <!-- Sections -->
+  <section class="avz-section">
+    <h2>What is Archvizography?</h2>
+    <p><strong>Archvizography</strong> is a Fieldtone-born discipline merging architectural visualization with the cinematic language of filmmaking.</p>
+  </section>
+
+  <footer class="avz-footer">
+    <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function () {
+      const loader = document.getElementById('avzLoader');
+      const bar = document.getElementById('avzBar');
+      const pct = document.getElementById('avzPct');
+      const clapTop = document.querySelector('.clap-top');
+      const mark = document.querySelector('.reveal-mark');
+      const items = Array.from(document.querySelectorAll('[data-preload]'));
+      const total = Math.max(1, items.length);
+      let done = 0;
+      function update() {
+        const p = Math.round((done / total) * 100);
+        if (pct) pct.textContent = p;
+        if (bar) bar.style.width = p + '%';
+        if (done >= total) reveal();
+      }
+      function markLoaded() { done++; update(); }
+      items.forEach(el => {
+        if (el.tagName === 'IMG') {
+          if (el.complete) markLoaded();
+          else el.addEventListener('load', markLoaded, { once:true });
+          el.addEventListener('error', markLoaded, { once:true });
+        }
+      });
+      update();
+      function reveal() {
+        if (clapTop) clapTop.style.animation = 'clapDown 1.6s cubic-bezier(.22,.61,.36,1) forwards';
+        setTimeout(() => { if (mark) mark.style.animation = 'markIn 0.9s ease forwards'; }, 600);
+        setTimeout(() => { loader.classList.add('is-out'); document.body.classList.remove('loading'); }, 2800);
+      }
+      setTimeout(() => { if (done === 0) reveal(); }, 1500);
+      window.addEventListener('load', () => { if (done < total) reveal(); }, { once: true });
+    })();
+  </script>
+
+</body>
+</html>
