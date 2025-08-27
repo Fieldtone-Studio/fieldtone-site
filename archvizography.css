@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v62)
+   Archvizography Page — Fieldtone (v90)
    Cropped-SVG loader (each part = tight bounds)
    ================================ */
 
@@ -18,23 +18,23 @@
   /* Stage size (overall scale) */
   --stage-w: min(560px, 82vw);
 
-  /* TOP rotation (open -> closed) using cropped top asset */
-  --top-open:  -36deg;   /* start angle (open) */
+  /* TOP rotation (open -> closed) using CROPPED top asset */
+  --top-open:  -37deg;   /* start angle (open) */
   --top-closed: 0deg;    /* end angle (closed) */
 
-  /* Pivot for the TOP (far-left = “elbow”) in % of the top image box */
-  /* Tuned so the strip lands flush on the body */
+  /* Pivot for TOP (far-left “elbow”) in % of the top image box */
+  /* These numbers were tuned so the bar sits flush when closed */
   --pivot-x: 0%;
-  --pivot-y: 18%;
+  --pivot-y: 22%;
 
-  /* Fine placement nudges (cropped assets) */
-  --top-dx:   0px;     /* X offset for the TOP image */
-  --top-dy:  -6px;     /* Y offset for the TOP image (pull slightly down when closed) */
+  /* Fine placement nudges for CROPPED assets */
+  --top-dx:  0px;   /* horizontal nudge for the top */
+  --top-dy:  2px;   /* vertical nudge (positive = down) */
 
-  /* Hinge scale/position (cropped hinge artboard) */
-  --hinge-w:   32%;
-  --hinge-left: 6%;
-  --hinge-top:  3%;
+  /* Hinge size & placement (cropped hinge SVG) */
+  --hinge-w: 29%;
+  --hinge-left: 2.4%;
+  --hinge-top:  1.2%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
@@ -54,10 +54,11 @@
 @keyframes barUp { to { transform: translateY(-100%); } }
 @keyframes barDown { to { transform: translateY(100%); } }
 
-/* Stage & parts (cropped) */
+/* Stage & parts (CROPPED) */
 .clap-stage{
   position:relative; width:var(--stage-w); display:grid; place-items:center;
-  overflow:visible; /* let the TOP extend upward while opening */
+  /* allow the TOP to extend upward while opening */
+  overflow:visible;
 }
 .clap-body{
   position:relative; z-index:1;
@@ -65,7 +66,6 @@
   filter: drop-shadow(0 14px 46px rgba(0,0,0,.58));
   transform: translateY(10px);
 }
-
 /* Hinge (cropped). Scales to stage; positioned via vars. */
 .clap-hinge{
   position:absolute; z-index:3; pointer-events:none;
@@ -73,7 +73,6 @@
   left:var(--hinge-left); top:var(--hinge-top);
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
 }
-
 /* TOP (cropped). Place at closed pose, then rotate from far-left pivot. */
 .clap-top{
   position:absolute; z-index:2; width:100%; height:auto;
@@ -83,7 +82,7 @@
   filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
 }
 
-/* Wordmark reveal */
+/* Wordmark reveal (png) */
 .reveal-mark{
   position:absolute; z-index:1;
   width:82%; max-width:900px;
@@ -101,9 +100,9 @@
 
 @keyframes avzClap{
   from { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-open)); }
-  60%  { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-closed)); }
-  80%  { transform: translate(var(--top-dx), var(--top-dy)) rotate(-6deg); }
-  to   { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-closed)); }
+  60%  { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-closed)); } /* flush */
+  80%  { transform: translate(var(--top-dx), var(--top-dy)) rotate(-6deg); }             /* rebound */
+  to   { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-closed)); } /* settle */
 }
 @keyframes markIn{
   from { opacity:0; transform: translateY(10px) scale(.985); }
@@ -147,18 +146,4 @@
 @media (prefers-reduced-motion: reduce){
   .clap-top{ transform: translate(var(--top-dx), var(--top-dy)) rotate(0deg) !important; animation:none !important; }
   .reveal-mark{ opacity:1 !important; transform:none !important; }
-}
-
-/* --------------------------------
-   Small screens fine-tune (keeps “flush” on phones)
-   -------------------------------- */
-@media (max-width: 480px){
-  .loader-claquette{
-    --stage-w: 88vw;
-    --pivot-y: 19%;
-    --top-dy: -4px;
-    --hinge-w: 34%;
-    --hinge-left: 6.5%;
-    --hinge-top: 3.8%;
-  }
 }
