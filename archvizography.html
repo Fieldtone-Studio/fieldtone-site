@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Page-scoped styles -->
   <link rel="stylesheet" href="archvizography.css">
+  <!-- Reuse homepage styles (accent cursor etc) -->
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="archvizography-page">
+<body class="archvizography-page loading">
 
-  <!-- Minimal loader (separate from homepage) -->
+  <!-- Loader -->
   <div id="avzLoader" aria-live="polite" aria-busy="true">
     <div class="avz-bars avz-top"></div>
     <div class="avz-bars avz-bot"></div>
@@ -71,21 +73,50 @@
     <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
   </footer>
 
-  <!-- Tiny inline script: year + preload counter -->
+  <!-- Loader Script -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    (function(){
-      const items=[...document.querySelectorAll('[data-preload]')];
-      const total=Math.max(1,items.length); let done=0;
-      const bar=document.getElementById('avzBar'); const pct=document.getElementById('avzPct'); const loader=document.getElementById('avzLoader');
-      const upd=()=>{ const p=Math.round((done/total)*100); if(pct) pct.textContent=p; if(bar) bar.style.width=p+'%'; if(done>=total) loader?.classList.add('is-out'); };
-      const mark=()=>{ done++; upd(); };
-      items.forEach(el=>{
-        if(el.tagName==='IMG'){ el.complete?mark():el.addEventListener('load',mark,{once:true}); el.addEventListener('error',mark,{once:true}); }
-        if(el.tagName==='VIDEO'){ const v=el; (v.readyState>=2)?mark():v.addEventListener('canplaythrough',mark,{once:true}); v.addEventListener('error',mark,{once:true}); }
+
+    (function () {
+      const loader = document.getElementById('avzLoader');
+      const bar = document.getElementById('avzBar');
+      const pct = document.getElementById('avzPct');
+      const items = Array.from(document.querySelectorAll('[data-preload]'));
+      const total = Math.max(1, items.length);
+      let done = 0;
+
+      function update() {
+        const p = Math.round((done / total) * 100);
+        if (pct) pct.textContent = p;
+        if (bar) bar.style.width = p + '%';
+        if (done >= total) end();
+      }
+      function mark() { done++; update(); }
+      function end() {
+        loader.classList.add('is-out');
+        document.body.classList.remove('loading');
+      }
+
+      items.forEach(el => {
+        if (el.tagName === 'IMG') {
+          el.complete ? mark() : el.addEventListener('load', mark, { once: true });
+          el.addEventListener('error', mark, { once: true });
+        } else if (el.tagName === 'VIDEO') {
+          const v = el;
+          (v.readyState >= 2) ? mark() : v.addEventListener('canplaythrough', mark, { once: true });
+          v.addEventListener('error', mark, { once: true });
+        }
       });
-      upd();
+
+      update();
+      // Failsafe: if nothing changes, still exit after 1200ms
+      setTimeout(() => { if (done === 0) end(); }, 1200);
+      // Final guarantee on full page load
+      window.addEventListener('load', end, { once: true });
     })();
   </script>
+
+  <!-- Reuse homepage JS (accent cursor + interactions) -->
+  <script src="script.js"></script>
 </body>
 </html>
