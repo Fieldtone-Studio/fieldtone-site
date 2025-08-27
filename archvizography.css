@@ -33,7 +33,7 @@
   /* HINGE size/position (cropped hinge svg) */
   --hinge-w: 30%;
   --hinge-left: 2.2%;
-  --hinge-top:  5%;
+  --hinge-top:  1%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
