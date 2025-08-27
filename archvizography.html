@@ -11,21 +11,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="archvizography.css">
+  <!-- ORDER: global first (your site), page-specific last -->
+  <link rel="stylesheet" href="styles.css?v=fieldtone">
+  <link rel="stylesheet" href="archvizography.css?v=fieldtone-5">
 </head>
 <body class="archvizography-page loading">
 
-  <!-- Loader -->
+  <!-- ===============================
+       Loader: Clapperboard snap 🎬
+       =============================== -->
   <div id="avzLoader" class="loader-claquette" aria-live="polite" aria-busy="true">
+    <!-- Curtains -->
     <div class="avz-bars avz-top"></div>
     <div class="avz-bars avz-bot"></div>
+
+    <!-- Clapperboard -->
     <div class="clap-stage">
-      <img class="clap-body" src="assets/loader/clapper_board_body.svg" alt="" />
-      <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="" />
-      <img class="clap-top" src="assets/loader/clapper_board_top.svg" alt="" />
+      <img class="clap-body"  src="assets/loader/clapper_board_body.svg"  alt="Clapper body" />
+      <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="Clapper hinge" />
+      <img class="clap-top"   src="assets/loader/clapper_board_top.svg"   alt="Clapper top" />
       <img class="reveal-mark" src="assets/loader/archvizography_primary_textmark.png" alt="ARCHVIZOGRAPHY" />
     </div>
+
+    <!-- Progress (optional visual) -->
     <div class="avz-progress"><span class="avz-bar" id="avzBar"></span></div>
     <div class="avz-percent"><span id="avzPct">0</span>%</div>
   </div>
@@ -49,52 +57,99 @@
     </div>
   </section>
 
-  <!-- Sections -->
+  <!-- Copy Sections -->
   <section class="avz-section">
     <h2>What is Archvizography?</h2>
-    <p><strong>Archvizography</strong> is a Fieldtone-born discipline merging architectural visualization with the cinematic language of filmmaking.</p>
+    <p><strong>Archvizography</strong> is a Fieldtone-born discipline merging architectural visualization with the cinematic language of filmmaking. Architecture is performed as story: spaces are staged, light is directed, and every image is treated as a film frame.</p>
+  </section>
+
+  <section class="avz-section">
+    <h2>Our Philosophy</h2>
+    <ul class="avz-bullets">
+      <li>Every wall is an actor with presence.</li>
+      <li>Light is our cinematographer, shaping mood.</li>
+      <li>Details are emotions that carry memory.</li>
+      <li>Each frame should feel like a scene from a film.</li>
+    </ul>
+  </section>
+
+  <section class="avz-section">
+    <h2>Why it matters</h2>
+    <p>Traditional ArchViz shows what a building looks like. Cinematography shows what life feels like. Archvizography fuses both—so our visuals move hearts <em>and</em> move properties.</p>
   </section>
 
   <footer class="avz-footer">
     <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
   </footer>
 
-  <!-- JS -->
+  <!-- ================
+       Page-only JS (robust: auto-pivots using hinge position)
+       ================ -->
   <script>
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
+
     (function () {
-      const loader = document.getElementById('avzLoader');
-      const bar = document.getElementById('avzBar');
-      const pct = document.getElementById('avzPct');
-      const clapTop = document.querySelector('.clap-top');
-      const mark = document.querySelector('.reveal-mark');
-      const items = Array.from(document.querySelectorAll('[data-preload]'));
-      const total = Math.max(1, items.length);
-      let done = 0;
-      function update() {
-        const p = Math.round((done / total) * 100);
-        if (pct) pct.textContent = p;
-        if (bar) bar.style.width = p + '%';
-        if (done >= total) reveal();
+      const loader  = document.getElementById('avzLoader');
+      const barEl   = document.getElementById('avzBar');
+      const pctEl   = document.getElementById('avzPct');
+      const topEl   = document.querySelector('.clap-top');
+      const hingeEl = document.querySelector('.clap-hinge');
+      const markEl  = document.querySelector('.reveal-mark');
+
+      // Compute pivot so rotation snaps exactly at the hinge, regardless of image sizing
+      function setPivot() {
+        if (!topEl || !hingeEl) return;
+        const tb = topEl.getBoundingClientRect();
+        const hb = hingeEl.getBoundingClientRect();
+        const px = (hb.left + hb.width/2) - tb.left;
+        const py = (hb.top  + hb.height/2) - tb.top;
+        topEl.style.transformOrigin = px + 'px ' + py + 'px';
       }
-      function markLoaded() { done++; update(); }
-      items.forEach(el => {
+      window.addEventListener('resize', setPivot);
+
+      // Preload just this page's assets (things tagged data-preload)
+      const preload = Array.from(document.querySelectorAll('[data-preload]'));
+      const total   = Math.max(1, preload.length);
+      let loaded = 0;
+      function update() {
+        const p = Math.round((loaded / total) * 100);
+        if (pctEl) pctEl.textContent = p;
+        if (barEl) barEl.style.width = p + '%';
+        if (loaded >= total) reveal();
+      }
+      function doneOne() { loaded++; update(); }
+      preload.forEach(el => {
         if (el.tagName === 'IMG') {
-          if (el.complete) markLoaded();
-          else el.addEventListener('load', markLoaded, { once:true });
-          el.addEventListener('error', markLoaded, { once:true });
+          if (el.complete) doneOne();
+          else el.addEventListener('load', doneOne, { once:true });
+          el.addEventListener('error', doneOne, { once:true });
+        } else if (el.tagName === 'VIDEO') {
+          if (el.readyState >= 2) doneOne();
+          else el.addEventListener('canplaythrough', doneOne, { once:true });
+          el.addEventListener('error', doneOne, { once:true });
         }
       });
       update();
+
       function reveal() {
-        if (clapTop) clapTop.style.animation = 'clapDown 1.6s cubic-bezier(.22,.61,.36,1) forwards';
-        setTimeout(() => { if (mark) mark.style.animation = 'markIn 0.9s ease forwards'; }, 600);
-        setTimeout(() => { loader.classList.add('is-out'); document.body.classList.remove('loading'); }, 2800);
+        setPivot(); // ensure pivot is correct before animating
+        // 1) Clap (CSS keyframes referenced by class)
+        loader.classList.add('play');
+        // 2) After animation, curtains + fade out
+        setTimeout(() => {
+          loader.classList.add('is-out');
+          document.body.classList.remove('loading');
+        }, 2800); // total time (clap + mark) before curtains
       }
-      setTimeout(() => { if (done === 0) reveal(); }, 1500);
-      window.addEventListener('load', () => { if (done < total) reveal(); }, { once: true });
+
+      // Fallbacks
+      setTimeout(() => { if (loaded === 0) reveal(); }, 1500);
+      window.addEventListener('load', () => { if (loaded < total) reveal(); }, { once:true });
     })();
   </script>
 
+  <!-- Keep your global script; it should ignore .archvizography-page -->
+  <script src="script.js"></script>
 </body>
 </html>
