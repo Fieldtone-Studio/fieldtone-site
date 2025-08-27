@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- ===== META / HEAD ===== -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Archvizography · Fieldtone Studio</title>
@@ -11,45 +12,59 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=40">
-  <link rel="stylesheet" href="archvizography.css?v=40">
+  <!-- CSS: global first, page CSS last (so it can override) -->
+  <link rel="stylesheet" href="styles.css?v=50">
+  <link rel="stylesheet" href="archvizography.css?v=50">
 </head>
+
+<!-- Add 'loading' so the loader is active until JS releases it -->
 <body class="archvizography-page loading">
 
-  <!-- ===============================
-       Loader: Clapperboard snap 🎬
-       =============================== -->
+  <!-- =========================================================
+       LOADER · CLAPPERBOARD INTRO (curtains + clap + reveal)
+       Structure:
+         - top/bottom curtains (black bars)
+         - stage: body/hook/top/wordmark
+         - progress % (optional)
+       ========================================================= -->
   <div id="avzLoader" class="loader-claquette" aria-live="polite" aria-busy="true">
     <!-- Curtains -->
     <div class="avz-bars avz-top"></div>
     <div class="avz-bars avz-bot"></div>
 
-    <!-- Clapperboard -->
+    <!-- Stage (the clapperboard) -->
     <div class="clap-stage">
+      <!-- IMPORTANT: these three SVGs share the SAME exported artboard size -->
       <img class="clap-body"  src="assets/loader/clapper_board_body.svg"  alt="Clapper body" />
       <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="Clapper hinge" />
       <img class="clap-top"   src="assets/loader/clapper_board_top.svg"   alt="Clapper top" />
+      <!-- Wordmark reveals after the clap -->
       <img class="reveal-mark" src="assets/loader/archvizography_primary_textmark.png" alt="ARCHVIZOGRAPHY" />
     </div>
 
-    <!-- Progress (optional visual) -->
+    <!-- Minimal progress readout (optional) -->
     <div class="avz-progress"><span class="avz-bar" id="avzBar"></span></div>
     <div class="avz-percent"><span id="avzPct">0</span>%</div>
   </div>
 
-  <!-- Header -->
+  <!-- =========================
+       SITE HEADER / NAV
+       ========================= -->
   <header class="avz-header">
     <nav class="avz-nav">
       <a href="/">Home</a>
       <a href="archvizography.html" class="active">Archvizography</a>
+      <!-- Keep Contact as an anchor back to home -->
       <a href="#contact" onclick="location.href='/'+'#contact'">Contact</a>
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- =========================
+       HERO (poster + copy)
+       ========================= -->
   <section class="avz-hero">
-    <img class="avz-hero-bg" src="assets/hero_poster.jpg" alt="" data-preload>
+    <!-- Mark this image for preloading so loader has something to count -->
+    <img class="avz-hero-bg" src="assets/hero_poster.jpg" alt="Fieldtone cinematic poster" data-preload>
     <div class="avz-hero-overlay">
       <p class="avz-eyebrow">Archvizography</p>
       <h1>We don’t render buildings.<br>We direct stories.</h1>
@@ -57,13 +72,18 @@
     </div>
   </section>
 
-  <!-- Copy Sections -->
-  <section class="avz-section">
+  <!-- =========================
+       SECTION: What is it?
+       ========================= -->
+  <section class="avz-section" id="what">
     <h2>What is Archvizography?</h2>
     <p><strong>Archvizography</strong> is a Fieldtone-born discipline merging architectural visualization with the cinematic language of filmmaking. Architecture is performed as story: spaces are staged, light is directed, and every image is treated as a film frame.</p>
   </section>
 
-  <section class="avz-section">
+  <!-- =========================
+       SECTION: Philosophy bullets
+       ========================= -->
+  <section class="avz-section" id="philosophy">
     <h2>Our Philosophy</h2>
     <ul class="avz-bullets">
       <li>Every wall is an actor with presence.</li>
@@ -73,18 +93,27 @@
     </ul>
   </section>
 
-  <section class="avz-section">
+  <!-- =========================
+       SECTION: Why it matters
+       ========================= -->
+  <section class="avz-section" id="why">
     <h2>Why it matters</h2>
     <p>Traditional ArchViz shows what a building looks like. Cinematography shows what life feels like. Archvizography fuses both—so our visuals move hearts <em>and</em> move properties.</p>
   </section>
 
+  <!-- =========================
+       FOOTER
+       ========================= -->
   <footer class="avz-footer">
     <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
   </footer>
 
-  <!-- ================
-       Page-only JS
-       ================ -->
+  <!-- =========================================================
+       PAGE JS (self-contained; leaves your main script alone)
+       - Counts [data-preload] assets
+       - Triggers clap + wordmark
+       - Then runs curtains and releases page
+       ========================================================= -->
   <script>
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -96,6 +125,7 @@
       const clapTop = document.querySelector('.clap-top');
       const mark    = document.querySelector('.reveal-mark');
 
+      // Only preload what's explicitly tagged on THIS page
       const preload = Array.from(document.querySelectorAll('[data-preload]'));
       const total   = Math.max(1, preload.length);
       let loaded = 0;
@@ -122,26 +152,24 @@
       update();
 
       function reveal() {
-        if (clapTop) {
-          clapTop.style.animation = 'avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards';
-        }
-        setTimeout(() => {
-          if (mark) mark.style.animation = 'markIn .9s cubic-bezier(.22,.61,.36,1) forwards';
-        }, 650);
+        // 1) Clap motion is controlled by CSS when we add .play
+        loader.classList.add('play');
 
+        // 2) After clap + mark finishes, open curtains & fade the loader
+        //    Clap ~1.6s, mark ~0.9s starting ~0.55s after -> ~2.5s total
         setTimeout(() => {
-          loader.classList.add('is-out');
-          document.body.classList.remove('loading');
-        }, 1_800 + 900 + 200);
+          loader.classList.add('is-out');            // triggers curtain keyframes & fade
+          document.body.classList.remove('loading'); // unlocks page visuals beneath
+        }, 2600);
       }
 
-      // Fallbacks
+      // Safety fallbacks so it never hangs
       setTimeout(() => { if (loaded === 0) reveal(); }, 1500);
       window.addEventListener('load', () => { if (loaded < total) reveal(); }, { once:true });
     })();
   </script>
 
-  <!-- Global script -->
-  <script src="script.js"></script>
+  <!-- Your global script (kept last; it should ignore loader specifics) -->
+  <script src="script.js?v=50"></script>
 </body>
 </html>
