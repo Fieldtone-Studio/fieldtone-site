@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v101)
+   Archvizography Page — Fieldtone (v102)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -21,12 +21,12 @@
   --top-closed: 0deg;
 
   /* Far-left elbow pivot in % of the TOP image box */
-  --pivot-x: 0%;
-  --pivot-y: 22%;
+  --pivot-x: 10%;
+  --pivot-y: 28%;
 
   /* Easy nudges you can change live */
-  --top-dx:  0px;   /* +right / -left */
-  --top-dy:  2px;   /* +down  / -up   */
+  --top-dx:  8px;   /* +right / -left */
+  --top-dy:  6px;   /* +down  / -up   */
 
   /* Hinge size + placement (cropped hinge SVG) */
   --hinge-w:   29%;
@@ -79,8 +79,8 @@
 .reveal-mark{
   position:absolute; z-index:1;
   width:82%; max-width:900px;
-  top:22%;
-  left:50%;
+  top:30%;
+  left:52%;
   opacity:0;
   transform: translate(-50%, 10px) scale(.985);
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
@@ -136,4 +136,5 @@
 @media (prefers-reduced-motion: reduce){
   .clap-top{ transform: translate(var(--top-dx), var(--top-dy)) rotate(0deg) !important; animation:none !important; }
   .reveal-mark{ opacity:1 !important; transform:none !important; }
+
 }
