@@ -13,27 +13,27 @@
 .loader-claquette{
   --stage-w: min(520px, 80vw);
 
-  /* Pivot fine-tune (align to hinge pin center) */
+  /* PIVOT: axis INSIDE the TOP image box (percent) */
   --top-rot-start: -30deg;
-  --pivot-x: 9.2%;     /* + → move pivot right, − → left */
-  --pivot-y: 28.6%;    /* + → move pivot down, − → up  */
+  --pivot-x: 8.8%;    /* → move right if axis feels left; left if right */
+  --pivot-y: 27.8%;   /* → move down if axis is high; up if low          */
 
-  /* TOP piece placement when closed */
-  --top-left: 6.0%;    /* + → move right, − → left */
-  --top-top:  1.0%;    /* + → move down, − → up   */
+  /* CLOSED placement of TOP relative to BODY */
+  --top-left: 0.2%;   /* + right / − left */
+  --top-top:  0.9%;   /* + down  / − up   */
 
-  /* Hinge graphic position (kept where your pin renders) */
-  --hinge-left: 3.6%;
-  --hinge-top:  0.6%;
+  /* Hinge graphic position (where the pin renders) */
+  --hinge-left: 0.8%;
+  --hinge-top:  0.2%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
 
-  /* Keep loader visible until after long curtains finish (~7s total) */
+  /* Loader stays until curtains finish (~7s) */
   opacity:1; visibility:visible;
   transition:
-    opacity .1s linear 7s,       /* fade after curtains complete */
-    visibility 0s linear 7.1s;   /* then hide */
+    opacity .1s linear 7s,
+    visibility 0s linear 7.1s;
 }
 .archvizography-page.loading #avzLoader{opacity:1; visibility:visible}
 #avzLoader.is-out{opacity:0; visibility:hidden}
@@ -41,11 +41,8 @@
 /* Curtains */
 .avz-bars{position:absolute; left:0; width:100%; height:10vh; background:#000;}
 .avz-top{top:0} .avz-bot{bottom:0}
-
-/* Long, cinematic curtain open (3s) starting at 4s (after logo) */
 #avzLoader.is-out .avz-top { animation: barUp 3s ease forwards !important; animation-delay: 4s !important; }
 #avzLoader.is-out .avz-bot { animation: barDown 3s ease forwards !important; animation-delay: 4s !important; }
-
 @keyframes barUp { to { transform: translateY(-100%); } }
 @keyframes barDown { to { transform: translateY(100%); } }
 
@@ -56,20 +53,23 @@
   contain: layout paint size; /* perf */
 }
 .clap-body{
+  position:relative; z-index:1;
   width:100%; height:auto; display:block;
   filter: drop-shadow(0 14px 46px rgba(0,0,0,.58));
   transform: translateY(10px);
 }
 .clap-hinge{
-  position:absolute; width:28%;
+  position:absolute; z-index:3;
+  width:26%;
   left:var(--hinge-left); top:var(--hinge-top);
   pointer-events:none;
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
 }
 
-/* Slow clap: 2.2s — !important to override any inline JS */
+/* TOP now matches BODY width so it can close flush */
 .clap-top{
-  position:absolute; width:86%;
+  position:absolute; z-index:2;
+  width:100%;
   left:var(--top-left); top:var(--top-top);
   transform-origin: var(--pivot-x) var(--pivot-y);
   transform: rotate(var(--top-rot-start));
@@ -77,13 +77,14 @@
   animation: clapDown 2.2s cubic-bezier(.22,.61,.36,1) forwards !important;
 }
 
-/* Slow reveal: 1.4s — starts after clap finishes (2.4s) */
+/* Mark reveal */
 .reveal-mark{
-  position:absolute; width:82%;
+  position:absolute; z-index:1;
+  width:82%;
   opacity:0; transform: translateY(10px) scale(.985);
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
   animation: markIn 1.4s cubic-bezier(.22,.61,.36,1) forwards !important;
-  animation-delay: 2.4s !important; /* clap (2.2s) + small beat (.2s) */
+  animation-delay: 2.4s !important;
 }
 
 /* Progress */
@@ -92,13 +93,13 @@
 .avz-percent{margin-bottom:20px; color:#9a9a9a; font-variant-numeric:tabular-nums}
 
 /* Motion keyframes */
-@keyframes clapDown {
+@keyframes clapDown{
   0%   { transform: rotate(var(--top-rot-start)); }
   60%  { transform: rotate(0deg); }
   80%  { transform: rotate(-6deg); }
   100% { transform: rotate(0deg); }
 }
-@keyframes markIn {
+@keyframes markIn{
   from { opacity:0; transform: translateY(10px) scale(.985); }
   to   { opacity:1; transform: translateY(0)    scale(1); }
 }
@@ -111,13 +112,8 @@
 
 /* Hero */
 .avz-hero{position:relative;min-height:64vh;display:grid;place-items:center;border-bottom:1px solid var(--line);overflow:hidden}
-.avz-hero-bg{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:saturate(.95) contrast(1.05) brightness(.9);opacity:.9
-}
-/* Perf: while loading, remove heavy filters from hero bg */
-.archvizography-page.loading .avz-hero-bg { filter: none !important; }
-
+.avz-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.95) contrast(1.05) brightness(.9);opacity:.9}
+.archvizography-page.loading .avz-hero-bg{filter:none !important}
 .avz-hero-overlay{position:relative;text-align:center;padding:12vh 6vw;z-index:1}
 .avz-eyebrow{text-transform:uppercase;letter-spacing:.18em;color:var(--muted);font-size:.8rem}
 .avz-hero h1{margin:.25em 0 .2em;font-size:clamp(34px,6.4vw,72px);line-height:1}
@@ -134,7 +130,7 @@
 .avz-footer{border-top:1px solid var(--line);padding:36px 0 64px;text-align:center;color:#9a9a9a}
 
 /* Performance polish */
-.clap-top, .clap-body, .clap-hinge, .reveal-mark {
+.clap-top, .clap-body, .clap-hinge, .reveal-mark{
   will-change: transform, opacity;
   transform: translateZ(0);
 }
@@ -145,18 +141,17 @@
   .reveal-mark{ opacity:1 !important; transform:none !important; }
 }
 
-/* --------------------------------
-   OPTIONAL: DEBUG PIVOT (uncomment to tune)
------------------------------------
+/* ----- Optional: enable to visualize the axis while tuning -----
 .clap-top::before{
   content:""; position:absolute; left:var(--pivot-x); top:var(--pivot-y);
   width:10px; height:10px; transform:translate(-50%,-50%); border-radius:50%;
   background:#ff6a6a; box-shadow:0 0 0 2px #000, 0 0 12px rgba(255,0,0,.6);
-  pointer-events:none; z-index:3;
+  pointer-events:none; z-index:99;
 }
 .clap-hinge::after{
-  content:""; position:absolute; left:50%; top:50%; width:8px; height:8px;
-  transform:translate(-50%,-50%); border-radius:50%; background:#6ad3ff;
-  box-shadow:0 0 0 2px #000, 0 0 12px rgba(0,180,255,.6); pointer-events:none;
+  content:""; position:absolute; left:50%; top:50%;
+  width:8px; height:8px; transform:translate(-50%,-50%); border-radius:50%;
+  background:#6ad3ff; box-shadow:0 0 0 2px #000, 0 0 12px rgba(0,180,255,.6);
+  pointer-events:none; z-index:99;
 }
-*/
+------------------------------------------------------------------*/
