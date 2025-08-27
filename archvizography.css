@@ -1,121 +1,87 @@
-/* ================================
-   Archvizography Page — Fieldtone
-   ================================ */
+/* -----------------------------
+   ARCHVIZOGRAPHY — LOADER ONLY
+   Assumes all three SVGs share the
+   exact same canvas (same W/H).
+--------------------------------*/
 
-/* Scoped theme */
-.archvizography-page{--bg:#0b0b0b;--fg:#eaeaea;--muted:#b8b8b8;--line:#1a1a1a;--accent:#d07a5a;}
-.archvizography-page{background:var(--bg);color:var(--fg);margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
-.archvizography-page a{color:inherit;text-decoration:none}
-
-/* --------------------------------
-   Loader (Clapperboard)
-   -------------------------------- */
 .loader-claquette{
-  --stage-w: min(540px, 82vw);
+  --stage-w: min(560px, 82vw);
 
-  /* fine nudges if you ever need them (px) */
-  --top-nudge-x: 0px;
-  --top-nudge-y: 0px;
+  /* PIVOT inside the .clap-top image (percentages of its own box) */
+  --pivot-x: 11.5%;
+  --pivot-y: 26.5%;
 
-  /* PIVOT: hinge-pin position inside the artboard (percent) */
-  --pivot-x: 15.8%;
-  --pivot-y: 26.8%;
+  /* Angle when the top is OPEN and when CLOSED */
+  --open-angle: -32deg;
+  --closed-angle: 0deg;
 
-  position:fixed; inset:0; background:#000; z-index:9999;
-  display:grid; grid-template-rows:1fr auto auto; place-items:center;
-  opacity:1; visibility:visible;
-  transition: opacity .1s linear 7s, visibility 0s linear 7.1s;
+  position: fixed; inset: 0; background:#000; z-index:9999;
+  display: grid; grid-template-rows: 1fr auto auto; place-items: center;
+  opacity: 1; visibility: visible;
+  transition: opacity .25s ease 2.8s, visibility 0s linear 3.05s; /* fades after anims */
 }
-.archvizography-page.loading #avzLoader{opacity:1; visibility:visible}
-#avzLoader.is-out{opacity:0; visibility:hidden}
 
-/* Curtains */
+/* Curtains (unchanged) */
 .avz-bars{position:absolute; left:0; width:100%; height:10vh; background:#000;}
 .avz-top{top:0} .avz-bot{bottom:0}
-#avzLoader.is-out .avz-top { animation: barUp 3s ease forwards;   animation-delay: 4s; }
-#avzLoader.is-out .avz-bot { animation: barDown 3s ease forwards; animation-delay: 4s; }
-@keyframes barUp { to { transform: translateY(-100%); } }
-@keyframes barDown { to { transform: translateY(100%); } }
+#avzLoader.is-out .avz-top{ animation: barUp 2.4s ease forwards;  animation-delay: .6s; }
+#avzLoader.is-out .avz-bot{ animation: barDown 2.4s ease forwards; animation-delay: .6s; }
+@keyframes barUp{to{transform:translateY(-100%)}}
+@keyframes barDown{to{transform:translateY(100%)}}
 
-/* Stage & parts (all three SVGs share the *same artboard*) */
+/* Stage & parts */
 .clap-stage{
   position:relative; width:var(--stage-w); aspect-ratio: 3/2;
   display:grid; place-items:center; contain:layout paint size;
 }
-.clap-stage img{position:absolute; inset:0; width:100%; height:auto; display:block}
 
-/* Layering */
-.clap-body { z-index:1; filter: drop-shadow(0 14px 46px rgba(0,0,0,.58)); transform: translateY(10px); }
-.clap-hinge{ z-index:3; pointer-events:none; filter: drop-shadow(0 8px 22px rgba(0,0,0,.52)); }
-
-/* Top is drawn in the *closed* pose; rotation happens from the hinge pin */
-.clap-top{
-  z-index:2;
-  transform-origin: var(--pivot-x) var(--pivot-y);
-  transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(-32deg);
-  filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
+/* All parts share the same canvas, so stack perfectly */
+.clap-body,.clap-hinge,.clap-top,.reveal-mark{
+  position:absolute; inset:0; width:100%; height:auto; display:block;
 }
 
-/* Wordmark reveal */
+/* Depth order */
+.clap-body { z-index: 1; filter: drop-shadow(0 14px 46px rgba(0,0,0,.58)); transform: translateY(8px); }
+.clap-hinge{ z-index: 3; filter: drop-shadow(0 8px 22px rgba(0,0,0,.52)); }
+.clap-top  { z-index: 2; filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
+             transform-origin: var(--pivot-x) var(--pivot-y);
+             transform: rotate(var(--open-angle)); }
+
+/* Wordmark sits on the slate — tweak %s if your graphic’s layout differs */
 .reveal-mark{
-  z-index:1; width:82%; left:9%; right:auto; /* centers nicely under the stripes */
-  opacity:0; transform: translateY(10px) scale(.985);
+  z-index: 2; /* above body lines, below hinge */
+  width: 74%;
+  left: 13%;                  /* center on slate */
+  top: 34%;                   /* align to the title line */
+  opacity: 0; transform: translateY(10px) scale(.985);
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
 }
 
-/* Play sequence (added by JS) */
+/* Play sequence (JS adds .play then .is-out) */
 .loader-claquette.play .clap-top   { animation: avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards; }
-.loader-claquette.play .reveal-mark{ animation: markIn .9s cubic-bezier(.22,.61,.36,1) .55s forwards; }
+.loader-claquette.play .reveal-mark{ animation: markIn  .9s cubic-bezier(.22,.61,.36,1) .55s forwards; }
 
 @keyframes avzClap{
-  from { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(-32deg); }
-  60%  { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(0deg); }
-  80%  { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(-6deg); }
-  to   { transform: translate(var(--top-nudge-x), var(--top-nudge-y)) rotate(0deg); }
+  from { transform: rotate(var(--open-angle)); }
+  60%  { transform: rotate(var(--closed-angle)); }
+  80%  { transform: rotate(calc(var(--closed-angle) - 6deg)); }
+  to   { transform: rotate(var(--closed-angle)); }
 }
 @keyframes markIn{
   from { opacity:0; transform: translateY(10px) scale(.985); }
   to   { opacity:1; transform: translateY(0)    scale(1); }
 }
 
-/* Progress */
-.avz-progress{height:2px; width:min(520px, 82vw); margin:22px auto 8px; background:#ffffff18; border-radius:999px; overflow:hidden}
+/* Progress (optional) */
+.avz-progress{height:2px; width:min(520px,82vw); margin:22px auto 8px; background:#ffffff18; border-radius:999px; overflow:hidden}
 .avz-bar{display:block; height:100%; width:0; background:#fff; transition:width .3s ease}
 .avz-percent{margin-bottom:20px; color:#9a9a9a; font-variant-numeric:tabular-nums}
 
-/* Header */
-.avz-header{position:sticky;top:0;background:#0b0b0bbb;border-bottom:1px solid var(--line);backdrop-filter:blur(6px);z-index:5}
-.avz-nav{max-width:1100px;margin:0 auto;padding:12px;display:flex;gap:10px}
-.avz-nav a{padding:8px 10px;border-radius:8px;opacity:.9}
-.avz-nav a.active,.avz-nav a:hover{background:#ffffff12;opacity:1}
-
-/* Hero */
-.avz-hero{position:relative;min-height:64vh;display:grid;place-items:center;border-bottom:1px solid var(--line);overflow:hidden}
-.avz-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.95) contrast(1.05) brightness(.9);opacity:.9}
-.archvizography-page.loading .avz-hero-bg{filter:none !important}
-.avz-hero-overlay{position:relative;text-align:center;padding:12vh 6vw;z-index:1}
-.avz-eyebrow{text-transform:uppercase;letter-spacing:.18em;color:var(--muted);font-size:.8rem}
-.avz-hero h1{margin:.25em 0 .2em;font-size:clamp(34px,6.4vw,72px);line-height:1}
-.avz-sub{color:var(--muted);max-width:72ch;margin:0 auto;font-size:clamp(14px,1.8vw,18px)}
-
-/* Sections */
-.avz-section{max-width:1000px;margin:64px auto;padding:0 6vw}
-.avz-section h2{font-size:clamp(22px,3.2vw,40px);margin:.1em 0 .4em}
-.avz-section p{color:#d6d6d6;line-height:1.7}
-.avz-bullets{display:grid;gap:10px;color:#d6d6d6;padding-left:18px}
-.avz-bullets li{margin-left:4px}
-
-/* Footer */
-.avz-footer{border-top:1px solid var(--line);padding:36px 0 64px;text-align:center;color:#9a9a9a}
-
-/* Performance polish */
-.clap-top, .clap-body, .clap-hinge, .reveal-mark{
-  will-change: transform, opacity;
-  transform: translateZ(0);
-}
+/* Performance */
+.clap-top,.clap-body,.clap-hinge,.reveal-mark{ will-change: transform, opacity; transform: translateZ(0); }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .clap-top{ transform: rotate(0deg) !important; animation: none !important; }
+  .clap-top{ transform: rotate(var(--closed-angle)) !important; animation:none !important; }
   .reveal-mark{ opacity:1 !important; transform:none !important; }
 }
