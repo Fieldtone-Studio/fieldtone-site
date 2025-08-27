@@ -12,19 +12,24 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="archvizography-page loading">
+
+  <!-- Loader: Clapperboard snap -->
   <div id="avzLoader" class="loader-claquette" aria-live="polite" aria-busy="true">
     <div class="avz-bars avz-top"></div>
     <div class="avz-bars avz-bot"></div>
+
     <div class="clap-stage">
       <img class="clap-body" src="assets/loader/clapper_board_body.png" alt="" />
       <img class="clap-hinge" src="assets/loader/clapper_board_hinge.png" alt="" />
       <img class="clap-top" src="assets/loader/clapper_board_top.png" alt="" />
       <img class="reveal-mark" src="assets/loader/archvizography_primary_textmark.png" alt="ARCHVIZOGRAPHY" />
     </div>
+
     <div class="avz-progress"><span class="avz-bar" id="avzBar"></span></div>
     <div class="avz-percent"><span id="avzPct">0</span>%</div>
   </div>
 
+  <!-- Header -->
   <header class="avz-header">
     <nav class="avz-nav">
       <a href="/">Home</a>
@@ -33,6 +38,7 @@
     </nav>
   </header>
 
+  <!-- Hero -->
   <section class="avz-hero">
     <img class="avz-hero-bg" src="assets/hero_poster.jpg" alt="" data-preload>
     <div class="avz-hero-overlay">
@@ -42,6 +48,7 @@
     </div>
   </section>
 
+  <!-- Sections (same as before) -->
   <section class="avz-section">
     <h2>What is Archvizography?</h2>
     <p><strong>Archvizography</strong> is a Fieldtone-born discipline merging architectural visualization with the cinematic language of filmmaking. Architecture is performed as story: spaces are staged, light is directed, and every image is treated as a film frame.</p>
@@ -66,25 +73,61 @@
     <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
   </footer>
 
+  <!-- Loader Script (clean JS, smooth timings) -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    (function () {{
+
+    (function () {
       const loader = document.getElementById('avzLoader');
       const bar = document.getElementById('avzBar');
       const pct = document.getElementById('avzPct');
       const clapTop = document.querySelector('.clap-top');
       const mark = document.querySelector('.reveal-mark');
+
       const items = Array.from(document.querySelectorAll('[data-preload]'));
       const total = Math.max(1, items.length);
       let done = 0;
-      function update(){{const p=Math.round((done/total)*100); if(pct) pct.textContent=p; if(bar) bar.style.width=p+'%'; if(done>=total) reveal();}}
-      function markLoaded(){{done++; update();}}
-      items.forEach(el=>{{ if(el.tagName==='IMG'){{ el.complete?markLoaded():el.addEventListener('load',markLoaded,{{once:true}}); el.addEventListener('error',markLoaded,{{once:true}}); }} else if(el.tagName==='VIDEO'){{ (el.readyState>=2)?markLoaded():el.addEventListener('canplaythrough',markLoaded,{{once:true}}); el.addEventListener('error',markLoaded,{{once:true}}); }} }});
+
+      function update() {
+        const p = Math.round((done / total) * 100);
+        if (pct) pct.textContent = p;
+        if (bar) bar.style.width = p + '%';
+        if (done >= total) reveal();
+      }
+      function markLoaded() { done++; update(); }
+
+      items.forEach(function(el){
+        if (el.tagName === 'IMG') {
+          if (el.complete) markLoaded();
+          else el.addEventListener('load', markLoaded, { once: true });
+          el.addEventListener('error', markLoaded, { once: true });
+        } else if (el.tagName === 'VIDEO') {
+          if (el.readyState >= 2) markLoaded();
+          else el.addEventListener('canplaythrough', markLoaded, { once: true });
+          el.addEventListener('error', markLoaded, { once: true });
+        }
+      });
       update();
-      function reveal(){{ if(clapTop){{ clapTop.style.animation='clapDown .7s cubic-bezier(.22,.61,.36,1) forwards'; }} setTimeout(()=>{{ if(mark){{ mark.style.animation='markIn .5s cubic-bezier(.22,.61,.36,1) forwards'; }} }},260); setTimeout(()=>{{ loader.classList.add('is-out'); document.body.classList.remove('loading'); }},1200);}}
-      setTimeout(()=>{{ if(done===0) reveal(); }},1500);
-      window.addEventListener('load',()=>{{ if(done<total) reveal(); }},{{once:true}});
-    }})();
+
+      function reveal() {
+        if (clapTop) {
+          clapTop.style.animation = 'clapDown .7s cubic-bezier(.22,.61,.36,1) forwards';
+        }
+        setTimeout(function(){
+          if (mark) {
+            mark.style.animation = 'markIn .5s cubic-bezier(.22,.61,.36,1) forwards';
+          }
+        }, 260);
+
+        setTimeout(function(){
+          loader.classList.add('is-out');
+          document.body.classList.remove('loading');
+        }, 1200);
+      }
+
+      setTimeout(function(){ if (done === 0) reveal(); }, 1500);
+      window.addEventListener('load', function(){ if (done < total) reveal(); }, { once: true });
+    })();
   </script>
 
   <script src="script.js"></script>
