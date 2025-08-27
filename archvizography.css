@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v70)
+   Archvizography Page — Fieldtone (v62)
    Cropped-SVG loader (each part = tight bounds)
    ================================ */
 
@@ -23,22 +23,23 @@
   --top-closed: 0deg;    /* end angle (closed) */
 
   /* Pivot for the TOP (far-left = “elbow”) in % of the top image box */
+  /* Tuned so the strip lands flush on the body */
   --pivot-x: 0%;
-  --pivot-y: 16%;
+  --pivot-y: 18%;
 
-  /* Fine placement nudges (cropped assets) — tweak only if needed */
-  --top-dx:  0px;  /* move top image horizontally */
-  --top-dy:  0px;  /* move top image vertically  */
+  /* Fine placement nudges (cropped assets) */
+  --top-dx:   0px;     /* X offset for the TOP image */
+  --top-dy:  -6px;     /* Y offset for the TOP image (pull slightly down when closed) */
 
-  /* Hinge size & placement (as % of stage) */
-  --hinge-w: 27.5%;
-  --hinge-left: 0.8%;
-  --hinge-top:  0.6%;
+  /* Hinge scale/position (cropped hinge artboard) */
+  --hinge-w:   32%;
+  --hinge-left: 6%;
+  --hinge-top:  3%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
 
-  /* Keep loader visible until curtains finish */
+  /* Keep loader until curtains finish */
   opacity:1; visibility:visible;
   transition: opacity .1s linear 7s, visibility 0s linear 7.1s;
 }
@@ -56,8 +57,7 @@
 /* Stage & parts (cropped) */
 .clap-stage{
   position:relative; width:var(--stage-w); display:grid; place-items:center;
-  /* important: allow the TOP to extend upward while opening */
-  overflow:visible;
+  overflow:visible; /* let the TOP extend upward while opening */
 }
 .clap-body{
   position:relative; z-index:1;
@@ -65,6 +65,7 @@
   filter: drop-shadow(0 14px 46px rgba(0,0,0,.58));
   transform: translateY(10px);
 }
+
 /* Hinge (cropped). Scales to stage; positioned via vars. */
 .clap-hinge{
   position:absolute; z-index:3; pointer-events:none;
@@ -72,11 +73,12 @@
   left:var(--hinge-left); top:var(--hinge-top);
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
 }
+
 /* TOP (cropped). Place at closed pose, then rotate from far-left pivot. */
 .clap-top{
   position:absolute; z-index:2; width:100%; height:auto;
   left:0; top:0;
-  transform-origin: var(--pivot-x) var(--pivot-y); /* << elbow */
+  transform-origin: var(--pivot-x) var(--pivot-y);
   transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-open));
   filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
 }
@@ -89,7 +91,7 @@
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
 }
 
-/* Play sequence (JS toggles .play) */
+/* Play sequence (added by JS) */
 .loader-claquette.play .clap-top{
   animation: avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards;
 }
@@ -108,7 +110,7 @@
   to   { opacity:1; transform: translateY(0)    scale(1); }
 }
 
-/* Progress (optional) */
+/* Progress */
 .avz-progress{height:2px; width:min(520px, 82vw); margin:22px auto 8px; background:#ffffff18; border-radius:999px; overflow:hidden}
 .avz-bar{display:block; height:100%; width:0; background:#fff; transition:width .3s ease}
 .avz-percent{margin-bottom:20px; color:#9a9a9a; font-variant-numeric:tabular-nums}
@@ -145,4 +147,18 @@
 @media (prefers-reduced-motion: reduce){
   .clap-top{ transform: translate(var(--top-dx), var(--top-dy)) rotate(0deg) !important; animation:none !important; }
   .reveal-mark{ opacity:1 !important; transform:none !important; }
+}
+
+/* --------------------------------
+   Small screens fine-tune (keeps “flush” on phones)
+   -------------------------------- */
+@media (max-width: 480px){
+  .loader-claquette{
+    --stage-w: 88vw;
+    --pivot-y: 19%;
+    --top-dy: -4px;
+    --hinge-w: 34%;
+    --hinge-left: 6.5%;
+    --hinge-top: 3.8%;
+  }
 }
