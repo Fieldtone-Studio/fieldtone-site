@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v60)
+   Archvizography Page — Fieldtone (v70)
    Cropped-SVG loader (each part = tight bounds)
    ================================ */
 
@@ -27,16 +27,18 @@
   --pivot-y: 16%;
 
   /* Fine placement nudges (cropped assets) — tweak only if needed */
-  --top-dx:  0px;   /* move top image horizontally */
-  --top-dy:  0px;   /* move top image vertically  */
-  --hinge-w: 28%;
-  --hinge-left: 1%;
-  --hinge-top:  1%;
+  --top-dx:  0px;  /* move top image horizontally */
+  --top-dy:  0px;  /* move top image vertically  */
+
+  /* Hinge size & placement (as % of stage) */
+  --hinge-w: 27.5%;
+  --hinge-left: 0.8%;
+  --hinge-top:  0.6%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
 
-  /* Keep loader until curtains finish */
+  /* Keep loader visible until curtains finish */
   opacity:1; visibility:visible;
   transition: opacity .1s linear 7s, visibility 0s linear 7.1s;
 }
@@ -74,7 +76,7 @@
 .clap-top{
   position:absolute; z-index:2; width:100%; height:auto;
   left:0; top:0;
-  transform-origin: var(--pivot-x) var(--pivot-y);
+  transform-origin: var(--pivot-x) var(--pivot-y); /* << elbow */
   transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-open));
   filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
 }
@@ -87,7 +89,7 @@
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
 }
 
-/* Play sequence (added by JS) */
+/* Play sequence (JS toggles .play) */
 .loader-claquette.play .clap-top{
   animation: avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards;
 }
@@ -106,7 +108,7 @@
   to   { opacity:1; transform: translateY(0)    scale(1); }
 }
 
-/* Progress */
+/* Progress (optional) */
 .avz-progress{height:2px; width:min(520px, 82vw); margin:22px auto 8px; background:#ffffff18; border-radius:999px; overflow:hidden}
 .avz-bar{display:block; height:100%; width:0; background:#fff; transition:width .3s ease}
 .avz-percent{margin-bottom:20px; color:#9a9a9a; font-variant-numeric:tabular-nums}
