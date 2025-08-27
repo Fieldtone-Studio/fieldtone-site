@@ -14,17 +14,18 @@
   --stage-w: min(520px, 80vw);
 
   /* PIVOT: axis INSIDE the TOP image box (percent) */
+  /* Lifted & pulled toward the pin so the left tip doesn't sag */
   --top-rot-start: -30deg;
-  --pivot-x: 8.8%;    /* → move right if axis feels left; left if right */
-  --pivot-y: 27.8%;   /* → move down if axis is high; up if low          */
+  --pivot-x: 9.6%;
+  --pivot-y: 21.8%;
 
-  /* CLOSED placement of TOP relative to BODY */
-  --top-left: 0.2%;   /* + right / − left */
-  --top-top:  0.9%;   /* + down  / − up   */
+  /* CLOSED placement of TOP relative to BODY (tuned to your SVGs) */
+  --top-left: 7.6%;
+  --top-top:  1.2%;
 
-  /* Hinge graphic position (where the pin renders) */
-  --hinge-left: 0.8%;
-  --hinge-top:  0.2%;
+  /* Hinge graphic position (pin group) */
+  --hinge-left: 3.6%;
+  --hinge-top:  0.6%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
@@ -60,16 +61,17 @@
 }
 .clap-hinge{
   position:absolute; z-index:3;
-  width:26%;
+  width:28%;
   left:var(--hinge-left); top:var(--hinge-top);
   pointer-events:none;
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
 }
 
-/* TOP now matches BODY width so it can close flush */
+/* TOP uses the artist file's native proportion (86%) so stripes align;
+   positioned with the tuned offsets above. */
 .clap-top{
   position:absolute; z-index:2;
-  width:100%;
+  width:86%;
   left:var(--top-left); top:var(--top-top);
   transform-origin: var(--pivot-x) var(--pivot-y);
   transform: rotate(var(--top-rot-start));
@@ -77,11 +79,12 @@
   animation: clapDown 2.2s cubic-bezier(.22,.61,.36,1) forwards !important;
 }
 
-/* Mark reveal */
+/* Mark reveal — sits exactly on the seam (subtle rise from below) */
 .reveal-mark{
   position:absolute; z-index:1;
   width:82%;
-  opacity:0; transform: translateY(10px) scale(.985);
+  opacity:0;
+  transform: translateY(-4%) scale(.985);
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
   animation: markIn 1.4s cubic-bezier(.22,.61,.36,1) forwards !important;
   animation-delay: 2.4s !important;
@@ -100,8 +103,8 @@
   100% { transform: rotate(0deg); }
 }
 @keyframes markIn{
-  from { opacity:0; transform: translateY(10px) scale(.985); }
-  to   { opacity:1; transform: translateY(0)    scale(1); }
+  from { opacity:0; transform: translateY(14%) scale(.985); }
+  to   { opacity:1; transform: translateY(-4%) scale(1); }
 }
 
 /* Header */
