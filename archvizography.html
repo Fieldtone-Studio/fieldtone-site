@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ORDER: global first, page-specific last -->
-  <link rel="stylesheet" href="styles.css?v=35">
-  <link rel="stylesheet" href="archvizography.css?v=35">
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css?v=40">
+  <link rel="stylesheet" href="archvizography.css?v=40">
 </head>
 <body class="archvizography-page loading">
 
@@ -21,11 +21,11 @@
        Loader: Clapperboard snap 🎬
        =============================== -->
   <div id="avzLoader" class="loader-claquette" aria-live="polite" aria-busy="true">
-    <!-- Cinematic bars -->
+    <!-- Curtains -->
     <div class="avz-bars avz-top"></div>
     <div class="avz-bars avz-bot"></div>
 
-    <!-- Clapperboard (all three SVGs must share the SAME artboard size) -->
+    <!-- Clapperboard -->
     <div class="clap-stage">
       <img class="clap-body"  src="assets/loader/clapper_board_body.svg"  alt="Clapper body" />
       <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="Clapper hinge" />
@@ -82,7 +82,9 @@
     <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
   </footer>
 
-  <!-- Page-only JS (single source of truth for the loader timing) -->
+  <!-- ================
+       Page-only JS
+       ================ -->
   <script>
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -91,8 +93,9 @@
       const loader  = document.getElementById('avzLoader');
       const barEl   = document.getElementById('avzBar');
       const pctEl   = document.getElementById('avzPct');
+      const clapTop = document.querySelector('.clap-top');
+      const mark    = document.querySelector('.reveal-mark');
 
-      // Preload only the assets on this page that have data-preload
       const preload = Array.from(document.querySelectorAll('[data-preload]'));
       const total   = Math.max(1, preload.length);
       let loaded = 0;
@@ -119,23 +122,26 @@
       update();
 
       function reveal() {
-        // 1) Trigger the clap & wordmark (CSS listens for .play)
-        loader.classList.add('play');
-
-        // 2) Then curtains + fade (timed to finish after clap + mark)
+        if (clapTop) {
+          clapTop.style.animation = 'avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards';
+        }
         setTimeout(() => {
-          loader.classList.add('is-out');            // curtains roll
-          document.body.classList.remove('loading'); // page becomes interactive
-        }, 3000);
+          if (mark) mark.style.animation = 'markIn .9s cubic-bezier(.22,.61,.36,1) forwards';
+        }, 650);
+
+        setTimeout(() => {
+          loader.classList.add('is-out');
+          document.body.classList.remove('loading');
+        }, 1_800 + 900 + 200);
       }
 
-      // Safety fallbacks
+      // Fallbacks
       setTimeout(() => { if (loaded === 0) reveal(); }, 1500);
       window.addEventListener('load', () => { if (loaded < total) reveal(); }, { once:true });
     })();
   </script>
 
-  <!-- Keep your global script; it won't interfere because we scoped everything -->
+  <!-- Global script -->
   <script src="script.js"></script>
 </body>
 </html>
