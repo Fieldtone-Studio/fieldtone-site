@@ -12,8 +12,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- ORDER: site global first, page CSS last -->
-  <link rel="stylesheet" href="styles.css?v=94" />
-  <link rel="stylesheet" href="archvizography.css?v=94" />
+  <link rel="stylesheet" href="styles.css?v=100">
+<link rel="stylesheet" href="archvizography.css?v=100">
+
+<style>
+  /* Force-override the loader tuning (ignores stale cached CSS) */
+  .loader-claquette{
+    --stage-w: min(560px, 82vw);
+
+    /* pivot + rotation */
+    --top-open:  -37deg;
+    --top-closed: 0deg;
+    --pivot-x: 0%;
+    --pivot-y: 22%;
+
+    /* nudge the top slab */
+    --top-dx: 0px;
+    --top-dy: 2px;
+
+    /* hinge size/position */
+    --hinge-w: 29%;
+    --hinge-left: 2.4%;
+    --hinge-top: 1.2%;
+  }
+
+  /* wordmark placement */
+  .reveal-mark{
+    position:absolute; z-index:1;
+    width:82%; max-width:900px;
+    top:22%; left:50%;
+    transform: translate(-50%, 10px) scale(.985);
+    opacity:0;
+  }
+</style>
 </head>
 
 <body class="archvizography-page loading">
