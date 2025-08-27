@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ORDER: global first (your site), page-specific last -->
-  <link rel="stylesheet" href="styles.css?v=fieldtone">
-  <link rel="stylesheet" href="archvizography.css?v=fieldtone-20">
+  <!-- ORDER: global first, page-specific last -->
+  <link rel="stylesheet" href="styles.css?v=35">
+  <link rel="stylesheet" href="archvizography.css?v=35">
 </head>
 <body class="archvizography-page loading">
 
@@ -21,11 +21,11 @@
        Loader: Clapperboard snap 🎬
        =============================== -->
   <div id="avzLoader" class="loader-claquette" aria-live="polite" aria-busy="true">
-    <!-- Curtains -->
+    <!-- Cinematic bars -->
     <div class="avz-bars avz-top"></div>
     <div class="avz-bars avz-bot"></div>
 
-    <!-- Clapperboard -->
+    <!-- Clapperboard (all three SVGs must share the SAME artboard size) -->
     <div class="clap-stage">
       <img class="clap-body"  src="assets/loader/clapper_board_body.svg"  alt="Clapper body" />
       <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="Clapper hinge" />
@@ -82,9 +82,7 @@
     <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
   </footer>
 
-  <!-- ================
-       Page-only JS (robust: auto-pivots using hinge position)
-       ================ -->
+  <!-- Page-only JS (single source of truth for the loader timing) -->
   <script>
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -93,25 +91,12 @@
       const loader  = document.getElementById('avzLoader');
       const barEl   = document.getElementById('avzBar');
       const pctEl   = document.getElementById('avzPct');
-      const topEl   = document.querySelector('.clap-top');
-      const hingeEl = document.querySelector('.clap-hinge');
-      const markEl  = document.querySelector('.reveal-mark');
 
-      // Compute pivot so rotation snaps exactly at the hinge, regardless of image sizing
-      function setPivot() {
-        if (!topEl || !hingeEl) return;
-        const tb = topEl.getBoundingClientRect();
-        const hb = hingeEl.getBoundingClientRect();
-        const px = (hb.left + hb.width/2) - tb.left;
-        const py = (hb.top  + hb.height/2) - tb.top;
-        topEl.style.transformOrigin = px + 'px ' + py + 'px';
-      }
-      window.addEventListener('resize', setPivot);
-
-      // Preload just this page's assets (things tagged data-preload)
+      // Preload only the assets on this page that have data-preload
       const preload = Array.from(document.querySelectorAll('[data-preload]'));
       const total   = Math.max(1, preload.length);
       let loaded = 0;
+
       function update() {
         const p = Math.round((loaded / total) * 100);
         if (pctEl) pctEl.textContent = p;
@@ -119,6 +104,7 @@
         if (loaded >= total) reveal();
       }
       function doneOne() { loaded++; update(); }
+
       preload.forEach(el => {
         if (el.tagName === 'IMG') {
           if (el.complete) doneOne();
@@ -133,23 +119,23 @@
       update();
 
       function reveal() {
-        setPivot(); // ensure pivot is correct before animating
-        // 1) Clap (CSS keyframes referenced by class)
+        // 1) Trigger the clap & wordmark (CSS listens for .play)
         loader.classList.add('play');
-        // 2) After animation, curtains + fade out
+
+        // 2) Then curtains + fade (timed to finish after clap + mark)
         setTimeout(() => {
-          loader.classList.add('is-out');
-          document.body.classList.remove('loading');
-        }, 2800); // total time (clap + mark) before curtains
+          loader.classList.add('is-out');            // curtains roll
+          document.body.classList.remove('loading'); // page becomes interactive
+        }, 3000);
       }
 
-      // Fallbacks
+      // Safety fallbacks
       setTimeout(() => { if (loaded === 0) reveal(); }, 1500);
       window.addEventListener('load', () => { if (loaded < total) reveal(); }, { once:true });
     })();
   </script>
 
-  <!-- Keep your global script; it should ignore .archvizography-page -->
+  <!-- Keep your global script; it won't interfere because we scoped everything -->
   <script src="script.js"></script>
 </body>
 </html>
