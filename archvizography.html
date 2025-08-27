@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ORDER: global first, page-specific last -->
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="archvizography.css">
+  <!-- ORDER: global first, page-specific last (add version to bust cache) -->
+  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="archvizography.css?v=4">
 </head>
 <body class="archvizography-page loading">
 
@@ -123,7 +123,7 @@
       update();
 
       function reveal() {
-        // 1) Clap (only here; CSS has no animation on these)
+        // 1) Clap (JS drives it so CSS can't fight us)
         if (clapTop) {
           clapTop.style.animation = 'clapDown 1.8s cubic-bezier(.22,.61,.36,1) forwards';
         }
@@ -134,9 +134,9 @@
 
         // 3) Curtains + fade out after animations
         setTimeout(() => {
-          loader.classList.add('is-out');            // triggers curtain keyframes
+          loader.classList.add('is-out');            // triggers curtain keyframes in CSS
           document.body.classList.remove('loading'); // unlocks page visuals
-        }, 1_800 + 900 + 200);
+        }, 1800 + 900 + 250);
       }
 
       // Fallbacks
@@ -145,7 +145,7 @@
     })();
   </script>
 
-  <!-- Keep your global script if needed; it should ignore this page -->
+  <!-- Keep global script if needed; it won’t interfere -->
   <script src="script.js"></script>
 </body>
 </html>
