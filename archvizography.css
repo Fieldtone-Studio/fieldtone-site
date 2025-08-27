@@ -1,0 +1,139 @@
+/* ================================
+   Archvizography Page — Fieldtone (v101)
+   Cropped-SVG loader (tight bounds)
+   ================================ */
+
+/* Theme */
+.archvizography-page{
+  --bg:#0b0b0b; --fg:#eaeaea; --muted:#b8b8b8; --line:#1a1a1a; --accent:#d07a5a;
+  background:var(--bg); color:var(--fg); margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+}
+.archvizography-page a{color:inherit;text-decoration:none}
+
+/* Loader container */
+.loader-claquette{
+  /* Overall scale */
+  --stage-w: min(560px, 82vw);
+
+  /* TOP rotation (open -> closed) for CROPPED top */
+  --top-open:  -37deg;
+  --top-closed: 0deg;
+
+  /* Far-left elbow pivot in % of the TOP image box */
+  --pivot-x: 0%;
+  --pivot-y: 22%;
+
+  /* Easy nudges you can change live */
+  --top-dx:  0px;   /* +right / -left */
+  --top-dy:  2px;   /* +down  / -up   */
+
+  /* Hinge size + placement (cropped hinge SVG) */
+  --hinge-w:   29%;
+  --hinge-left: 2.4%;
+  --hinge-top:  1.2%;
+
+  position:fixed; inset:0; background:#000; z-index:9999;
+  display:grid; grid-template-rows:1fr auto auto; place-items:center;
+
+  opacity:1; visibility:visible;
+  transition: opacity .1s linear 7s, visibility 0s linear 7.1s;
+}
+.archvizography-page.loading #avzLoader{opacity:1; visibility:visible}
+#avzLoader.is-out{opacity:0; visibility:hidden}
+
+/* Curtains */
+.avz-bars{position:absolute; left:0; width:100%; height:10vh; background:#000;}
+.avz-top{top:0} .avz-bot{bottom:0}
+#avzLoader.is-out .avz-top { animation: barUp 3s ease forwards;   animation-delay: 4s; }
+#avzLoader.is-out .avz-bot { animation: barDown 3s ease forwards; animation-delay: 4s; }
+@keyframes barUp { to { transform: translateY(-100%); } }
+@keyframes barDown { to { transform: translateY(100%); } }
+
+/* Stage & parts */
+.clap-stage{
+  position:relative; width:var(--stage-w); display:grid; place-items:center;
+  overflow:visible; /* allow the TOP to swing up */
+}
+.clap-body{
+  position:relative; z-index:1;
+  width:100%; height:auto; display:block;
+  filter: drop-shadow(0 14px 46px rgba(0,0,0,.58));
+  transform: translateY(10px);
+}
+.clap-hinge{
+  position:absolute; z-index:3; pointer-events:none;
+  width:var(--hinge-w);
+  left:var(--hinge-left); top:var(--hinge-top);
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
+}
+.clap-top{
+  position:absolute; z-index:2; width:100%; height:auto;
+  left:0; top:0;
+  transform-origin: var(--pivot-x) var(--pivot-y);
+  transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-open));
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
+}
+
+/* Wordmark */
+.reveal-mark{
+  position:absolute; z-index:1;
+  width:82%; max-width:900px;
+  top:22%;
+  left:50%;
+  opacity:0;
+  transform: translate(-50%, 10px) scale(.985);
+  filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
+}
+
+/* Play sequence */
+.loader-claquette.play .clap-top{
+  animation: avzClap 1.6s cubic-bezier(.22,.61,.36,1) forwards;
+}
+.loader-claquette.play .reveal-mark{
+  animation: markIn .9s cubic-bezier(.22,.61,.36,1) .55s forwards;
+}
+@keyframes avzClap{
+  from { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-open)); }
+  60%  { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-closed)); }
+  80%  { transform: translate(var(--top-dx), var(--top-dy)) rotate(-6deg); }
+  to   { transform: translate(var(--top-dx), var(--top-dy)) rotate(var(--top-closed)); }
+}
+@keyframes markIn{
+  from { opacity:0; transform: translate(-50%, 10px) scale(.985); }
+  to   { opacity:1; transform: translate(-50%, 0)    scale(1); }
+}
+
+/* Progress */
+.avz-progress{height:2px; width:min(520px, 82vw); margin:22px auto 8px; background:#ffffff18; border-radius:999px; overflow:hidden}
+.avz-bar{display:block; height:100%; width:0; background:#fff; transition:width .3s ease}
+.avz-percent{margin-bottom:20px; color:#9a9a9a; font-variant-numeric:tabular-nums}
+
+/* Header / Hero / Sections / Footer */
+.avz-header{position:sticky;top:0;background:#0b0b0bbb;border-bottom:1px solid var(--line);backdrop-filter:blur(6px);z-index:5}
+.avz-nav{max-width:1100px;margin:0 auto;padding:12px;display:flex;gap:10px}
+.avz-nav a{padding:8px 10px;border-radius:8px;opacity:.9}
+.avz-nav a.active,.avz-nav a:hover{background:#ffffff12;opacity:1}
+
+.avz-hero{position:relative;min-height:64vh;display:grid;place-items:center;border-bottom:1px solid var(--line);overflow:hidden}
+.avz-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.95) contrast(1.05) brightness(.9);opacity:.9}
+.archvizography-page.loading .avz-hero-bg{filter:none !important}
+.avz-hero-overlay{position:relative;text-align:center;padding:12vh 6vw;z-index:1}
+.avz-eyebrow{text-transform:uppercase;letter-spacing:.18em;color:var(--muted);font-size:.8rem}
+.avz-hero h1{margin:.25em 0 .2em;font-size:clamp(34px,6.4vw,72px);line-height:1}
+.avz-sub{color:var(--muted);max-width:72ch;margin:0 auto;font-size:clamp(14px,1.8vw,18px)}
+
+.avz-section{max-width:1000px;margin:64px auto;padding:0 6vw}
+.avz-section h2{font-size:clamp(22px,3.2vw,40px);margin:.1em 0 .4em}
+.avz-section p{color:#d6d6d6;line-height:1.7}
+.avz-bullets{display:grid;gap:10px;color:#d6d6d6;padding-left:18px}
+.avz-bullets li{margin-left:4px}
+
+.avz-footer{border-top:1px solid var(--line);padding:36px 0 64px;text-align:center;color:#9a9a9a}
+
+/* Perf + reduced motion */
+.clap-top, .clap-body, .clap-hinge, .reveal-mark{ will-change: transform, opacity; transform: translateZ(0); }
+@media (prefers-reduced-motion: reduce){
+  .clap-top{ transform: translate(var(--top-dx), var(--top-dy)) rotate(0deg) !important; animation:none !important; }
+  .reveal-mark{ opacity:1 !important; transform:none !important; }
+}
