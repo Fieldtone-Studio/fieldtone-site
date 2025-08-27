@@ -5,26 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Archvizography · Fieldtone Studio</title>
   <meta name="description" content="Archvizography — a Fieldtone discipline blending architecture and cinema into one emotional language." />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="archvizography.css">
+
+  <!-- ORDER: global first, page-specific last -->
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="archvizography.css">
 </head>
 <body class="archvizography-page loading">
 
-  <!-- Loader: Clapperboard snap -->
+  <!-- ===============================
+       Loader: Clapperboard snap 🎬
+       =============================== -->
   <div id="avzLoader" class="loader-claquette" aria-live="polite" aria-busy="true">
+    <!-- Curtains -->
     <div class="avz-bars avz-top"></div>
     <div class="avz-bars avz-bot"></div>
 
+    <!-- Clapperboard -->
     <div class="clap-stage">
-      <img class="clap-body" src="assets/loader/clapper_board_body.svg" alt="" />
-      <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="" />
-      <img class="clap-top" src="assets/loader/clapper_board_top.svg" alt="" />
+      <img class="clap-body"  src="assets/loader/clapper_board_body.svg"  alt="Clapper body" />
+      <img class="clap-hinge" src="assets/loader/clapper_board_hinge.svg" alt="Clapper hinge" />
+      <img class="clap-top"   src="assets/loader/clapper_board_top.svg"   alt="Clapper top" />
       <img class="reveal-mark" src="assets/loader/archvizography_primary_textmark.png" alt="ARCHVIZOGRAPHY" />
     </div>
 
+    <!-- Progress (optional visual) -->
     <div class="avz-progress"><span class="avz-bar" id="avzBar"></span></div>
     <div class="avz-percent"><span id="avzPct">0</span>%</div>
   </div>
@@ -48,7 +57,7 @@
     </div>
   </section>
 
-  <!-- Sections (same as before) -->
+  <!-- Copy Sections -->
   <section class="avz-section">
     <h2>What is Archvizography?</h2>
     <p><strong>Archvizography</strong> is a Fieldtone-born discipline merging architectural visualization with the cinematic language of filmmaking. Architecture is performed as story: spaces are staged, light is directed, and every image is treated as a film frame.</p>
@@ -73,63 +82,70 @@
     <p>© <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties</p>
   </footer>
 
-  <!-- Loader Script (clean JS, smooth timings) -->
+  <!-- ================
+       Page-only JS (single source of truth for animation)
+       ================ -->
   <script>
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     (function () {
-      const loader = document.getElementById('avzLoader');
-      const bar = document.getElementById('avzBar');
-      const pct = document.getElementById('avzPct');
+      const loader  = document.getElementById('avzLoader');
+      const barEl   = document.getElementById('avzBar');
+      const pctEl   = document.getElementById('avzPct');
       const clapTop = document.querySelector('.clap-top');
-      const mark = document.querySelector('.reveal-mark');
+      const mark    = document.querySelector('.reveal-mark');
 
-      const items = Array.from(document.querySelectorAll('[data-preload]'));
-      const total = Math.max(1, items.length);
-      let done = 0;
+      // Preload just this page's assets
+      const preload = Array.from(document.querySelectorAll('[data-preload]'));
+      const total   = Math.max(1, preload.length);
+      let loaded = 0;
 
       function update() {
-        const p = Math.round((done / total) * 100);
-        if (pct) pct.textContent = p;
-        if (bar) bar.style.width = p + '%';
-        if (done >= total) reveal();
+        const p = Math.round((loaded / total) * 100);
+        if (pctEl) pctEl.textContent = p;
+        if (barEl) barEl.style.width = p + '%';
+        if (loaded >= total) reveal();
       }
-      function markLoaded() { done++; update(); }
+      function doneOne() { loaded++; update(); }
 
-      items.forEach(function(el){
+      preload.forEach(el => {
         if (el.tagName === 'IMG') {
-          if (el.complete) markLoaded();
-          else el.addEventListener('load', markLoaded, { once: true });
-          el.addEventListener('error', markLoaded, { once: true });
+          if (el.complete) doneOne();
+          else el.addEventListener('load', doneOne, { once:true });
+          el.addEventListener('error', doneOne, { once:true });
         } else if (el.tagName === 'VIDEO') {
-          if (el.readyState >= 2) markLoaded();
-          else el.addEventListener('canplaythrough', markLoaded, { once: true });
-          el.addEventListener('error', markLoaded, { once: true });
+          if (el.readyState >= 2) doneOne();
+          else el.addEventListener('canplaythrough', doneOne, { once:true });
+          el.addEventListener('error', doneOne, { once:true });
         }
       });
       update();
 
       function reveal() {
+        // 1) Clap (only here; CSS has no animation on these)
         if (clapTop) {
-          clapTop.style.animation = 'clapDown 1.1s cubic-bezier(.22,.61,.36,1) forwards';
+          clapTop.style.animation = 'clapDown 1.8s cubic-bezier(.22,.61,.36,1) forwards';
         }
-        setTimeout(function(){
-          if (mark) {
-            mark.style.animation = 'markIn .7s cubic-bezier(.22,.61,.36,1) forwards';
-          }
-        }, 420);
+        // 2) Wordmark reveal a beat later
+        setTimeout(() => {
+          if (mark) mark.style.animation = 'markIn 0.9s cubic-bezier(.22,.61,.36,1) forwards';
+        }, 650);
 
-        setTimeout(function(){
-          loader.classList.add('is-out');
-          document.body.classList.remove('loading');
-        }, 1600);
+        // 3) Curtains + fade out after animations
+        setTimeout(() => {
+          loader.classList.add('is-out');            // triggers curtain keyframes
+          document.body.classList.remove('loading'); // unlocks page visuals
+        }, 1_800 + 900 + 200);
       }
 
-      setTimeout(function(){ if (done === 0) reveal(); }, 1500);
-      window.addEventListener('load', function(){ if (done < total) reveal(); }, { once: true });
+      // Fallbacks
+      setTimeout(() => { if (loaded === 0) reveal(); }, 1500);
+      window.addEventListener('load', () => { if (loaded < total) reveal(); }, { once:true });
     })();
   </script>
 
+  <!-- Keep your global script if needed; it should ignore this page -->
   <script src="script.js"></script>
 </body>
 </html>
