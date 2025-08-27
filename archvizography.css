@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography — Loader (v94)
+   Archvizography — Loader (v100)
    Cropped-SVG; final alignment + debug
    ================================ */
 
@@ -33,7 +33,7 @@
   /* HINGE size/position (cropped hinge svg) */
   --hinge-w: 30%;
   --hinge-left: 2.2%;
-  --hinge-top:  1.0%;
+  --hinge-top:  5%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
