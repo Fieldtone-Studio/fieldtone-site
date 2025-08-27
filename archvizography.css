@@ -1,116 +1,162 @@
 /* ================================
    Archvizography Page — Fieldtone
-   Debug Pivot + Hinge Overlay
    ================================ */
 
-/* Scoped theme */
-.archvizography-page {
-  --bg:#0b0b0b; --fg:#eaeaea; --muted:#b8b8b8;
-  --line:#1a1a1a; --accent:#d07a5a;
+/* Theme scope */
+.archvizography-page{
+  --bg:#0b0b0b; --fg:#eaeaea; --muted:#b8b8b8; --line:#1a1a1a; --accent:#d07a5a;
 }
-.archvizography-page {
-  background:var(--bg); color:var(--fg);
-  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+.archvizography-page{
+  background:var(--bg); color:var(--fg); margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
 }
-.archvizography-page a { color:inherit; text-decoration:none; }
+.archvizography-page a{ color:inherit; text-decoration:none }
 
-/* Loader */
-.loader-claquette {
+/* --------------------------------
+   Loader (Clapperboard)
+   -------------------------------- */
+.loader-claquette{
   --stage-w: min(520px, 80vw);
 
-  /* Pivot tuning (percent of top image box) */
+  /* PIVOT on hinge pin (top image local %) — baseline you can micro-tune */
   --top-rot-start: -30deg;
-  --pivot-x: 12%;     /* 🔴 Pivot X */
-  --pivot-y: 28%;     /* 🔴 Pivot Y */
+  --pivot-x: 9.2%;
+  --pivot-y: 20.8%;
 
-  /* Closed placement */
-  --top-left: 0.4%;   /* adjust until flush */
+  /* Where the top sits when fully closed — seam alignment */
+  --top-left: 6.9%;
   --top-top:  0.6%;
 
-  /* Hinge graphic position */
-  --hinge-left: 1.2%; /* 🔵 move right/left */
-  --hinge-top:  0.8%; /* 🔵 move up/down   */
+  /* Hinge graphic placement (center of its pin artwork) */
+  --hinge-left: 3.6%;
+  --hinge-top:  0.6%;
 
   position:fixed; inset:0; background:#000; z-index:9999;
   display:grid; grid-template-rows:1fr auto auto; place-items:center;
 
+  /* exit shortly after curtains complete; timing controlled by .is-out below */
   opacity:1; visibility:visible;
-  transition: opacity .1s linear 7s, visibility 0s linear 7.1s;
+  transition: opacity .1s linear 2s, visibility 0s linear 2.1s;
 }
-.archvizography-page.loading #avzLoader{opacity:1; visibility:visible}
-#avzLoader.is-out{opacity:0; visibility:hidden}
+.archvizography-page.loading #avzLoader{ opacity:1; visibility:visible }
+#avzLoader.is-out{ opacity:0; visibility:hidden }
 
 /* Curtains */
-.avz-bars { position:absolute; left:0; width:100%; height:10vh; background:#000; }
-.avz-top{top:0} .avz-bot{bottom:0}
-#avzLoader.is-out .avz-top { animation: barUp 3s ease forwards !important; animation-delay: 4s !important; }
-#avzLoader.is-out .avz-bot { animation: barDown 3s ease forwards !important; animation-delay: 4s !important; }
-@keyframes barUp { to { transform: translateY(-100%); } }
-@keyframes barDown { to { transform: translateY(100%); } }
+.avz-bars{ position:absolute; left:0; width:100%; height:10vh; background:#000 }
+.avz-top{ top:0 } .avz-bot{ bottom:0 }
+#avzLoader.is-out .avz-top{ animation: barUp 1.2s ease forwards; animation-delay:.05s }
+#avzLoader.is-out .avz-bot{ animation: barDown 1.2s ease forwards; animation-delay:.05s }
+@keyframes barUp{ to{ transform: translateY(-100%) } }
+@keyframes barDown{ to{ transform: translateY(100%) } }
 
 /* Stage & parts */
-.clap-stage {
-  position:relative; width:var(--stage-w); aspect-ratio: 3/2;
+.clap-stage{
+  position:relative; width:var(--stage-w); aspect-ratio:3/2;
   display:grid; place-items:center;
+  contain: layout paint size;
 }
-.clap-body {
+.clap-body{
   position:relative; z-index:1;
   width:100%; height:auto; display:block;
   filter: drop-shadow(0 14px 46px rgba(0,0,0,.58));
   transform: translateY(10px);
 }
-.clap-hinge {
+.clap-hinge{
   position:absolute; z-index:3;
-  width:26%;
+  width:28%;
   left:var(--hinge-left); top:var(--hinge-top);
   pointer-events:none;
   filter: drop-shadow(0 8px 22px rgba(0,0,0,.52));
 }
-.clap-top {
+.clap-top{
   position:absolute; z-index:2;
-  width:100%;
+  width:86%; /* matches artist ratio so stripes align */
   left:var(--top-left); top:var(--top-top);
   transform-origin: var(--pivot-x) var(--pivot-y);
   transform: rotate(var(--top-rot-start));
   filter: drop-shadow(0 12px 30px rgba(0,0,0,.5));
-  animation: clapDown 2.2s cubic-bezier(.22,.61,.36,1) forwards !important;
+  /* no animation here — JS drives it to avoid conflicts */
 }
-.reveal-mark {
+.reveal-mark{
   position:absolute; z-index:1;
   width:82%;
-  opacity:0; transform: translateY(10px) scale(.985);
+  opacity:0; transform: translateY(-3%) scale(.985);
   filter: drop-shadow(0 8px 26px rgba(0,0,0,.5));
-  animation: markIn 1.4s cubic-bezier(.22,.61,.36,1) forwards !important;
-  animation-delay: 2.4s !important;
+  /* no animation here — JS drives it */
 }
 
-/* Motion */
-@keyframes clapDown {
+/* Progress */
+.avz-progress{ height:2px; width:min(520px,82vw); margin:22px auto 8px; background:#ffffff18; border-radius:999px; overflow:hidden }
+.avz-bar{ display:block; height:100%; width:0; background:#fff; transition:width .3s ease }
+.avz-percent{ margin-bottom:20px; color:#9a9a9a; font-variant-numeric:tabular-nums }
+
+/* Keyframes (referenced by JS) */
+@keyframes clapDown{
   0%   { transform: rotate(var(--top-rot-start)); }
-  60%  { transform: rotate(0deg); }
-  80%  { transform: rotate(-6deg); }
+  62%  { transform: rotate(0deg); }
+  82%  { transform: rotate(-3deg); } /* gentle overshoot for a real snap */
   100% { transform: rotate(0deg); }
 }
-@keyframes markIn {
-  from { opacity:0; transform: translateY(10px) scale(.985); }
-  to   { opacity:1; transform: translateY(0) scale(1); }
+@keyframes markIn{
+  from { opacity:0; transform: translateY(14%) scale(.985); }
+  to   { opacity:1; transform: translateY(-3%) scale(1); }
 }
 
-/* 🔴 Debug: Pivot point */
-.clap-top::before {
-  content:""; position:absolute;
-  left:var(--pivot-x); top:var(--pivot-y);
-  width:14px; height:14px; border-radius:50%;
-  background:#ff4747; box-shadow:0 0 0 2px #000, 0 0 12px rgba(255,0,0,.6);
-  transform:translate(-50%,-50%);
-  z-index:99; pointer-events:none;
+/* Header */
+.avz-header{ position:sticky; top:0; background:#0b0b0bbb; border-bottom:1px solid var(--line); backdrop-filter:blur(6px); z-index:5 }
+.avz-nav{ max-width:1100px; margin:0 auto; padding:12px; display:flex; gap:10px }
+.avz-nav a{ padding:8px 10px; border-radius:8px; opacity:.9 }
+.avz-nav a.active,.avz-nav a:hover{ background:#ffffff12; opacity:1 }
+
+/* Hero */
+.avz-hero{ position:relative; min-height:64vh; display:grid; place-items:center; border-bottom:1px solid var(--line); overflow:hidden }
+.avz-hero-bg{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(.95) contrast(1.05) brightness(.9); opacity:.9;
 }
-/* 🔵 Debug: Hinge center */
-.clap-hinge::after {
-  content:""; position:absolute;
-  left:50%; top:50%;
-  width:12px; height:12px; border-radius:50%;
-  background:#47aaff; box-shadow:0 0 0 2px #000, 0 0 12px rgba(0,180,255,.6);
-  transform:translate(-50%,-50%);
-  z-index:99; pointer-events:none;
+.archvizography-page.loading .avz-hero-bg{ filter:none !important }
+.avz-hero-overlay{ position:relative; text-align:center; padding:12vh 6vw; z-index:1 }
+.avz-eyebrow{ text-transform:uppercase; letter-spacing:.18em; color:var(--muted); font-size:.8rem }
+.avz-hero h1{ margin:.25em 0 .2em; font-size:clamp(34px,6.4vw,72px); line-height:1 }
+.avz-sub{ color:var(--muted); max-width:72ch; margin:0 auto; font-size:clamp(14px,1.8vw,18px) }
+
+/* Sections */
+.avz-section{ max-width:1000px; margin:64px auto; padding:0 6vw }
+.avz-section h2{ font-size:clamp(22px,3.2vw,40px); margin:.1em 0 .4em }
+.avz-section p{ color:#d6d6d6; line-height:1.7 }
+.avz-bullets{ display:grid; gap:10px; color:#d6d6d6; padding-left:18px }
+.avz-bullets li{ margin-left:4px }
+
+/* Footer */
+.avz-footer{ border-top:1px solid var(--line); padding:36px 0 64px; text-align:center; color:#9a9a9a }
+
+/* Performance polish */
+.clap-top, .clap-body, .clap-hinge, .reveal-mark{
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .clap-top{ transform: rotate(0deg) !important; }
+  .reveal-mark{ opacity:1 !important; transform:none !important; }
+}
+
+/* ------------------------------
+   (Optional) DEBUG PIVOT / HINGE
+   uncomment to align perfectly, then re-comment
+------------------------------- */
+/*
+.clap-top::before{
+  content:""; position:absolute; left:var(--pivot-x); top:var(--pivot-y);
+  width:12px; height:12px; transform:translate(-50%,-50%); border-radius:50%;
+  background:#ff5c5c; box-shadow:0 0 0 2px #000, 0 0 16px rgba(255,0,0,.6);
+  pointer-events:none; z-index:99;
+}
+.clap-hinge::after{
+  content:""; position:absolute; left:50%; top:50%;
+  width:10px; height:10px; transform:translate(-50%,-50%); border-radius:50%;
+  background:#4cc3ff; box-shadow:0 0 0 2px #000, 0 0 16px rgba(0,180,255,.6);
+  pointer-events:none; z-index:99;
+}
+*/
