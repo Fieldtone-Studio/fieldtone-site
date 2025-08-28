@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v165)
+   Archvizography Page — Fieldtone (v170)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -44,7 +44,7 @@
 
 /* phones (portrait) only: nudge top down a bit more */
 @media (max-width: 768px) and (orientation: portrait){
-  .loader-claquette { --top-dy: -37px; }
+  .loader-claquette { --top-dy: -25px; }
 }
 
 /* Curtains */
@@ -145,47 +145,36 @@
 
 /* ================= CUSTOM CURSOR ================= */
 .custom-cursor,
-.custom-cursor-trail{
+.custom-cursor-trail {
   position: fixed;
   top: 0; left: 0;
+  border-radius: 50%;
   pointer-events: none;
   z-index: 20000;
+  opacity: 0; /* hidden on touch */
   transform: translate(-50%, -50%);
-  opacity: 0;                /* hidden by default; JS will show on desktop */
-  transition: opacity .25s ease;
+  transition: opacity .3s ease;
 }
 
-/* inner DOT (filled) */
-.custom-cursor{
-  width: 6px;
-  height: 6px;
+/* outer circle */
+.custom-cursor {
+  width: 18px;   /* slightly smaller for proportion */
+  height: 18px;
+  border: 2px solid #e74c3c;  /* solid accent red */
+}
+
+/* inner dot */
+.custom-cursor-trail {
+  width: 5px;
+  height: 5px;
+  background: #e74c3c;  /* solid accent red */
   border-radius: 50%;
-  background: var(--accent);
 }
 
-/* outer RING */
-.custom-cursor-trail{
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-}
-
-/* desktop pointers: hide native cursor and show ours */
+/* desktop pointers only */
 @media (hover:hover) and (pointer:fine){
   .archvizography-page { cursor: none; }
   .custom-cursor,
-  .custom-cursor-trail { opacity: .95; }   /* visible on desktop */
-}
-
-/* optional pressed state (body.is-pressing toggled in JS) */
-@media (hover:hover) and (pointer:fine){
-  body.is-pressing .custom-cursor-trail{
-    /* JS also scales, this is a fallback */
-    opacity: .9;
-  }
-}
-
-/* utility used by JS when leaving window */
-.fx-hide{ opacity:0 !important; }
+  .custom-cursor-trail { opacity: .95; }
+  .fx-hide { opacity: 0 !important; }
 }
