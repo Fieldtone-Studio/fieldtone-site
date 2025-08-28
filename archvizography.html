@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- ORDER: global first, page CSS last -->
-  <link rel="stylesheet" href="styles.css?v=116" />
-  <link rel="stylesheet" href="archvizography.css?v=116" />
+  <link rel="stylesheet" href="styles.css?v=120" />
+  <link rel="stylesheet" href="archvizography.css?v=120" />
 </head>
 
 <body class="archvizography-page loading">
@@ -126,16 +126,16 @@
   </script>
 
 <!-- Accent cursor (desktop only) -->
-<div class="fx-cursor" aria-hidden="true"></div>
-<div class="fx-cursor-dot" aria-hidden="true"></div>
+<div class="custom-cursor"></div>
+<div class="custom-cursor-trail"></div>
 
 <script>
 (() => {
   if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
 
   const body = document.body;
-  const ring = document.querySelector('.fx-cursor');
-  const dot  = document.querySelector('.fx-cursor-dot');
+  const ring = document.querySelector('.custom-cursor');
+  const dot  = document.querySelector('.custom-cursor-trail');
   if (!ring || !dot) return;
 
   let x = -100, y = -100, raf = null;
@@ -160,3 +160,4 @@
 </script>   
 </body>
 </html>
+
