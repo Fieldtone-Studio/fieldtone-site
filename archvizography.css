@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v130)
+   Archvizography Page — Fieldtone (v140)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -25,9 +25,8 @@
   --pivot-y: 28%;
 
   /* Easy nudges you can change live */
-  --top-dx:  0px;   /* +right / -left */
-  --top-dy:  -47px;   /* +down  / -up   */
-}
+  --top-dx:  0px;     /* +right / -left */
+  --top-dy: -47px;    /* +down  / -up   */
 
   /* Hinge size + placement (cropped hinge SVG) */
   --hinge-w:   29%;
@@ -42,6 +41,11 @@
 }
 .archvizography-page.loading #avzLoader{opacity:1; visibility:visible}
 #avzLoader.is-out{opacity:0; visibility:hidden}
+
+/* phones (portrait) only: nudge top down a bit more */
+@media (max-width: 768px) and (orientation: portrait){
+  .loader-claquette { --top-dy: -50px; }
+}
 
 /* Curtains */
 .avz-bars{position:absolute; left:0; width:100%; height:10vh; background:#000;}
@@ -147,16 +151,14 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 20000;
-  opacity: 0;                /* default hidden for touch */
+  opacity: 0;                       /* hidden by default; shown on desktop via MQ */
   transform: translate(-50%, -50%);
   transition: opacity .3s ease;
 }
-
 .custom-cursor {
   width: 22px; height: 22px;
   border: 2px solid var(--accent);
 }
-
 .custom-cursor-trail {
   width: 38px; height: 38px;
   border: 2px solid rgba(231,76,60,.35);
@@ -169,4 +171,3 @@
   .custom-cursor-trail { opacity: .95; }
   .fx-hide { opacity: 0 !important; } /* used by your JS */
 }
-
