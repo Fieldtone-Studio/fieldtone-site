@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v150)
+   Archvizography Page — Fieldtone (v165)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -44,7 +44,7 @@
 
 /* phones (portrait) only: nudge top down a bit more */
 @media (max-width: 768px) and (orientation: portrait){
-  .loader-claquette { --top-dy: -70px; }
+  .loader-claquette { --top-dy: -37px; }
 }
 
 /* Curtains */
@@ -145,30 +145,47 @@
 
 /* ================= CUSTOM CURSOR ================= */
 .custom-cursor,
-.custom-cursor-trail {
+.custom-cursor-trail{
   position: fixed;
   top: 0; left: 0;
-  border-radius: 50%;
   pointer-events: none;
   z-index: 20000;
-  opacity: 0;                       /* hidden by default; shown on desktop via MQ */
   transform: translate(-50%, -50%);
-  transition: opacity .3s ease;
-}
-.custom-cursor {
-  width: 22px; height: 22px;
-  border: 2px solid var(--accent);
-}
-.custom-cursor-trail {
-  width: 38px; height: 38px;
-  border: 2px solid rgba(231,76,60,.35);
+  opacity: 0;                /* hidden by default; JS will show on desktop */
+  transition: opacity .25s ease;
 }
 
-/* desktop pointers: show custom cursor + hide native */
+/* inner DOT (filled) */
+.custom-cursor{
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* outer RING */
+.custom-cursor-trail{
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+}
+
+/* desktop pointers: hide native cursor and show ours */
 @media (hover:hover) and (pointer:fine){
   .archvizography-page { cursor: none; }
   .custom-cursor,
-  .custom-cursor-trail { opacity: .95; }
-  .fx-hide { opacity: 0 !important; } /* used by your JS */
+  .custom-cursor-trail { opacity: .95; }   /* visible on desktop */
 }
 
+/* optional pressed state (body.is-pressing toggled in JS) */
+@media (hover:hover) and (pointer:fine){
+  body.is-pressing .custom-cursor-trail{
+    /* JS also scales, this is a fallback */
+    opacity: .9;
+  }
+}
+
+/* utility used by JS when leaving window */
+.fx-hide{ opacity:0 !important; }
+}
