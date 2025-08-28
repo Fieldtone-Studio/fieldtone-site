@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v111)
+   Archvizography Page — Fieldtone (v120)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -138,42 +138,28 @@
   .reveal-mark{ opacity:1 !important; transform:none !important; }
 }
 
-/* =========================
-   Accent Cursor (desktop only)
-   ========================= */
-@media (hover:hover) and (pointer:fine){
-  .archvizography-page { cursor: none; }
+/* ================= CUSTOM CURSOR ================= */
+.custom-cursor,
+.custom-cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20000;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity .3s ease;
+}
 
-  .fx-cursor,
-  .fx-cursor-dot{
-    position: fixed;
-    left: 0; top: 0;
-    transform: translate3d(-100px,-100px,0); /* start off-screen */
-    pointer-events: none;
-    z-index: 10000;
-  }
+.custom-cursor {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--accent); /* use same as --brand-red */
+}
 
-  /* Outline circle */
-  .fx-cursor{
-    width: 26px; height: 26px;
-    border: 2px solid var(--accent);
-    border-radius: 50%;
-    transition: transform 120ms ease, border-color 120ms ease, opacity 160ms ease;
-    opacity: 0.95;
-    mix-blend-mode: normal;
-  }
-
-  /* Solid dot */
-  .fx-cursor-dot{
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    transition: transform 80ms ease, opacity 160ms ease;
-    opacity: 0.95;
-  }
-
-  /* Interactions */
-  .is-pressing .fx-cursor{ transform: translate3d(var(--cx,0),var(--cy,0),0) scale(0.8); }
-  .is-link .fx-cursor{ border-color: #fff; transform: translate3d(var(--cx,0),var(--cy,0),0) scale(1.25); }
-  .fx-hide{ opacity: 0 !important; }
+.custom-cursor-trail {
+  width: 38px;
+  height: 38px;
+  border: 2px solid rgba(231, 76, 60, .35);
 }
