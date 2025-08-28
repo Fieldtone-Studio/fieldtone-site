@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- ORDER: global first, page CSS last -->
-  <link rel="stylesheet" href="styles.css?v=108" />
-  <link rel="stylesheet" href="archvizography.css?v=108" />
+  <link rel="stylesheet" href="styles.css?v=111" />
+  <link rel="stylesheet" href="archvizography.css?v=111" />
 </head>
 
 <body class="archvizography-page loading">
@@ -124,8 +124,38 @@
       window.addEventListener('load', () => { if (done < total) reveal(); }, { once:true });
     })();
   </script>
+
+<!-- Accent cursor (desktop only) -->
+<div class="fx-cursor" aria-hidden="true"></div>
+<div class="fx-cursor-dot" aria-hidden="true"></div>
+
+<script>
+(() => {
+  if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
+  const body = document.body;
+  const ring = document.querySelector('.fx-cursor');
+  const dot  = document.querySelector('.fx-cursor-dot');
+  if (!ring || !dot) return;
+
+  let x = -100, y = -100, raf = null;
+  const paint = () => {
+    ring.style.transform = `translate3d(${x}px,${y}px,0)`;
+    dot .style.transform = `translate3d(${x}px,${y}px,0)`;
+  };
+  const queue = e => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(() => { paint(); raf = null; }); };
+
+  window.addEventListener('mousemove', queue, { passive: true });
+  window.addEventListener('mousedown', () => body.classList.add('is-pressing'));
+  window.addEventListener('mouseup',   () => body.classList.remove('is-pressing'));
+  window.addEventListener('mouseleave', () => { ring.classList.add('fx-hide'); dot.classList.add('fx-hide'); });
+  window.addEventListener('mouseenter', () => { ring.classList.remove('fx-hide'); dot.classList.remove('fx-hide'); });
+
+  document.addEventListener('mouseover', e => {
+    const hot = e.target.closest('a,button,[role="button"],.clickable');
+    body.classList.toggle('is-link', !!hot);
+  });
+})();
+</script>   
 </body>
-
 </html>
-
-
