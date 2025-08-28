@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v125)
+   Archvizography Page — Fieldtone (v130)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -27,11 +27,6 @@
   /* Easy nudges you can change live */
   --top-dx:  0px;   /* +right / -left */
   --top-dy:  -47px;   /* +down  / -up   */
-}
-
-/* phones (portrait) only: nudge top down */
-@media (max-width: 768px) and (orientation: portrait){
-  .loader-claquette { --top-dy: -55px; }
 }
 
   /* Hinge size + placement (cropped hinge SVG) */
@@ -174,3 +169,4 @@
   .custom-cursor-trail { opacity: .95; }
   .fx-hide { opacity: 0 !important; } /* used by your JS */
 }
+
