@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v108)
+   Archvizography Page — Fieldtone (v111)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -136,8 +136,44 @@
 @media (prefers-reduced-motion: reduce){
   .clap-top{ transform: translate(var(--top-dx), var(--top-dy)) rotate(0deg) !important; animation:none !important; }
   .reveal-mark{ opacity:1 !important; transform:none !important; }
-
 }
 
+/* =========================
+   Accent Cursor (desktop only)
+   ========================= */
+@media (hover:hover) and (pointer:fine){
+  .archvizography-page { cursor: none; }
 
+  .fx-cursor,
+  .fx-cursor-dot{
+    position: fixed;
+    left: 0; top: 0;
+    transform: translate3d(-100px,-100px,0); /* start off-screen */
+    pointer-events: none;
+    z-index: 10000;
+  }
 
+  /* Outline circle */
+  .fx-cursor{
+    width: 26px; height: 26px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    transition: transform 120ms ease, border-color 120ms ease, opacity 160ms ease;
+    opacity: 0.95;
+    mix-blend-mode: normal;
+  }
+
+  /* Solid dot */
+  .fx-cursor-dot{
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    transition: transform 80ms ease, opacity 160ms ease;
+    opacity: 0.95;
+  }
+
+  /* Interactions */
+  .is-pressing .fx-cursor{ transform: translate3d(var(--cx,0),var(--cy,0),0) scale(0.8); }
+  .is-link .fx-cursor{ border-color: #fff; transform: translate3d(var(--cx,0),var(--cy,0),0) scale(1.25); }
+  .fx-hide{ opacity: 0 !important; }
+}
