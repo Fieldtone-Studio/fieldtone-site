@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- ORDER: global first, page CSS last -->
-  <link rel="stylesheet" href="styles.css?v=111" />
-  <link rel="stylesheet" href="archvizography.css?v=111" />
+  <link rel="stylesheet" href="styles.css?v=116" />
+  <link rel="stylesheet" href="archvizography.css?v=116" />
 </head>
 
 <body class="archvizography-page loading">
@@ -139,10 +139,11 @@
   if (!ring || !dot) return;
 
   let x = -100, y = -100, raf = null;
-  const paint = () => {
-    ring.style.transform = `translate3d(${x}px,${y}px,0)`;
-    dot .style.transform = `translate3d(${x}px,${y}px,0)`;
-  };
+ const paint = () => {
+  const t = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+  ring.style.transform = t;
+  dot .style.transform = t;
+};
   const queue = e => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(() => { paint(); raf = null; }); };
 
   window.addEventListener('mousemove', queue, { passive: true });
