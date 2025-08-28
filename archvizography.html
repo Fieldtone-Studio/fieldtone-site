@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- ORDER: global first, page CSS last -->
-  <link rel="stylesheet" href="styles.css?v=130" />
-  <link rel="stylesheet" href="archvizography.css?v=130" />
+  <link rel="stylesheet" href="styles.css?v=140" />
+  <link rel="stylesheet" href="archvizography.css?v=140" />
 </head>
 
 <body class="archvizography-page loading">
@@ -125,45 +125,43 @@
     })();
   </script>
 
-<!-- Accent cursor (desktop only) -->
-<div class="custom-cursor"></div>
-<div class="custom-cursor-trail"></div>
+  <!-- Accent cursor (desktop only) -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-trail"></div>
 
-<script>
-(() => {
-  if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  <script>
+  (() => {
+    if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
 
-  const body = document.body;
-  const ring = document.querySelector('.custom-cursor');
-  const dot  = document.querySelector('.custom-cursor-trail');
-  if (!ring || !dot) return;
+    const body = document.body;
+    const ring = document.querySelector('.custom-cursor');
+    const dot  = document.querySelector('.custom-cursor-trail');
+    if (!ring || !dot) return;
 
-  // 🔧 Make them visible
-  ring.style.opacity = '1';
-  dot.style.opacity  = '1';
+    // visible on desktop
+    ring.style.opacity = '1';
+    dot.style.opacity  = '1';
 
-  let x = -100, y = -100, raf = null;
-  const paint = () => {
-    const t = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
-    ring.style.transform = t;
-    dot .style.transform = t;
-  };
-  const queue = e => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(() => { paint(); raf = null; }); };
+    let x = -100, y = -100, raf = null;
+    const paint = () => {
+      const t = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+      ring.style.transform = t;
+      dot .style.transform = t;
+    };
+    const queue = e => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(() => { paint(); raf = null; }); };
 
-  window.addEventListener('mousemove', queue, { passive: true });
+    window.addEventListener('mousemove', queue, { passive: true });
+    window.addEventListener('mousedown', () => body.classList.add('is-pressing'));
+    window.addEventListener('mouseup',   () => body.classList.remove('is-pressing'));
 
-  window.addEventListener('mousedown', () => body.classList.add('is-pressing'));
-  window.addEventListener('mouseup',   () => body.classList.remove('is-pressing'));
+    window.addEventListener('mouseleave', () => { ring.style.opacity = '0'; dot.style.opacity = '0'; });
+    window.addEventListener('mouseenter', () => { ring.style.opacity = '1'; dot.style.opacity = '1'; });
 
-  window.addEventListener('mouseleave', () => { ring.style.opacity = '0'; dot.style.opacity = '0'; });
-  window.addEventListener('mouseenter', () => { ring.style.opacity = '1'; dot.style.opacity = '1'; });
-
-  document.addEventListener('mouseover', e => {
-    const hot = e.target.closest('a,button,[role="button"],.clickable');
-    body.classList.toggle('is-link', !!hot);
-  });
-})();
-</script>  
+    document.addEventListener('mouseover', e => {
+      const hot = e.target.closest('a,button,[role="button"],.clickable');
+      body.classList.toggle('is-link', !!hot);
+    });
+  })();
+  </script>
 </body>
 </html>
-
