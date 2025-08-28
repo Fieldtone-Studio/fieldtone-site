@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v140)
+   Archvizography Page — Fieldtone (v150)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -44,7 +44,7 @@
 
 /* phones (portrait) only: nudge top down a bit more */
 @media (max-width: 768px) and (orientation: portrait){
-  .loader-claquette { --top-dy: -50px; }
+  .loader-claquette { --top-dy: -70px; }
 }
 
 /* Curtains */
@@ -171,3 +171,4 @@
   .custom-cursor-trail { opacity: .95; }
   .fx-hide { opacity: 0 !important; } /* used by your JS */
 }
+
