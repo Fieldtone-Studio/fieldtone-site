@@ -50,7 +50,9 @@
 
   const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (prefersReduce.matches){
-    prelude.remove(); main.hidden=false;
+    prelude.remove(); 
+    if (main) main.hidden=false;
+    document.body.classList.add('ethos-ready');
   } else {
     runPrelude();
   }
@@ -190,6 +192,7 @@
       dots.forEach(d=> d.style.opacity='0');
     }
   };
+})(); // ← CLOSE the cursor IIFE
 
 // ===== NAV TOGGLE =====
 (function(){
