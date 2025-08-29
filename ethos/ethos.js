@@ -23,9 +23,11 @@
   }
 
   async function runPrelude(){
-    for(const el of lines){ await typeOne(el, el.dataset.text || el.textContent || ''); }
+  for(const el of lines){ 
+    await typeOne(el, el.dataset.text || el.textContent || ''); 
+  }
 
-    // ✅ Hold the last line for 1.5s before fade
+  // ✅ Hold the last line for 1.5s before fade
   setTimeout(()=>{
     prelude.style.transition='opacity 500ms ease'; 
     prelude.style.opacity=0;
