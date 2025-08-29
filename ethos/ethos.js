@@ -24,9 +24,22 @@
 
   async function runPrelude(){
     for(const el of lines){ await typeOne(el, el.dataset.text || el.textContent || ''); }
-    prelude.style.transition='opacity 500ms ease'; prelude.style.opacity='0';
-    setTimeout(()=>{ prelude.remove(); main.hidden=false; clearTimeout(failsafe); document.body.classList.add('ethos-ready');
-      if(window.__fieldtoneCursor){ window.__fieldtoneCursor.enable(); }
+
+    // ✅ Hold the last line for 1.5s before fade
+  setTimeout(()=>{
+    prelude.style.transition='opacity 500ms ease'; 
+    prelude.style.opacity=0;
+
+    setTimeout(()=>{ 
+      prelude.remove(); 
+      main.hidden=false; 
+      clearTimeout(failsafe); 
+      document.body.classList.add('ethos-ready'); 
+      if(window._fieldtoneCursor) window._fieldtoneCursor.enable(); 
+    }, 600);
+  }, 3500); // <-- adjust hold time here
+}
+  
   /* CUSTOM CURSOR */
   (function(){
   /* EARLY: keep native cursor until reveal */
