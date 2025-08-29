@@ -59,19 +59,24 @@
       await typeOne(el, el.dataset.text || el.textContent || ''); 
     }
 
-    // ✅ Fade after hold
-    setTimeout(()=>{
-      prelude.style.transition='opacity 1200ms ease'; 
-      prelude.style.opacity=0;
+   // ✅ Fade after hold
+setTimeout(() => {
+  // Apply the transition first
+  prelude.style.transition = 'opacity 1200ms ease';
 
-      setTimeout(()=>{ 
-        prelude.remove(); 
-        main.hidden=false; 
-        clearTimeout(failsafe); 
-        document.body.classList.add('ethos-ready'); 
-        if(window.__fieldtoneCursor) window.__fieldtoneCursor.enable(); 
-      }, 1300);
-    }, endHold);
+  // Then on the next frame, apply the opacity change
+  requestAnimationFrame(() => {
+    prelude.style.opacity = 0;
+  });
+
+  setTimeout(() => {
+    prelude.remove();
+    main.hidden = false;
+    clearTimeout(failsafe);
+    document.body.classList.add('ethos-ready');
+    if (window.__fieldtoneCursor) window.__fieldtoneCursor.enable();
+  }, 1300); // slightly longer than 1200ms
+}, endHold);
   }
 
   const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
