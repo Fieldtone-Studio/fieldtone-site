@@ -61,7 +61,7 @@
 
     // ✅ Fade after hold
     setTimeout(()=>{
-      prelude.style.transition='opacity 500ms ease'; 
+      prelude.style.transition='opacity 1200ms ease'; 
       prelude.style.opacity=0;
 
       setTimeout(()=>{ 
@@ -70,7 +70,7 @@
         clearTimeout(failsafe); 
         document.body.classList.add('ethos-ready'); 
         if(window.__fieldtoneCursor) window.__fieldtoneCursor.enable(); 
-      }, 600);
+      }, 1300);
     }, endHold);
   }
 
