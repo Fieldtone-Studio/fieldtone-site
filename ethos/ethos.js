@@ -59,23 +59,33 @@
       await typeOne(el, el.dataset.text || el.textContent || ''); 
     }
 
-   // ✅ Fade after hold
+   // ✅ Cross-dissolve from prelude to main (JS-only)
 setTimeout(() => {
-  // Apply the transition first
+  // prep transitions
   prelude.style.transition = 'opacity 1200ms ease';
+  main.style.transition    = 'opacity 1200ms ease';
 
-  // Then on the next frame, apply the opacity change
+  // prep main to be visible but transparent
+  main.style.opacity = 0;
+  main.hidden = false;          // unhide now, but keep transparent
+
+  // force reflow so transitions take effect
+  void prelude.offsetWidth; 
+  void main.offsetWidth;
+
+  // next frame: run the cross-fade
   requestAnimationFrame(() => {
-    prelude.style.opacity = 0;
+    prelude.style.opacity = 0;  // fade out loader
+    main.style.opacity    = 1;  // fade in page
   });
 
+  // clean up after fade
   setTimeout(() => {
     prelude.remove();
-    main.hidden = false;
     clearTimeout(failsafe);
     document.body.classList.add('ethos-ready');
     if (window.__fieldtoneCursor) window.__fieldtoneCursor.enable();
-  }, 1300); // slightly longer than 1200ms
+  }, 1300); // slightly > 1200ms
 }, endHold);
   }
 
