@@ -12,9 +12,14 @@ img{max-width:100%;display:block}
 
 /* ---------------- Prelude (typewriter) ---------------- */
 #prelude{
-  position:fixed; inset:0; display:grid; place-items:center; background:#000;
+  position:fixed; inset:0; display:grid; place-items:center; 
+  background:#000;
   z-index:9999; overflow:hidden; cursor:none;
 }
+
+/* Fade optimization hint */
+#prelude, #main { will-change: opacity; }
+
 .prelude-inner{ width:min(900px,92vw); text-align:center; }
 .type-line{ font: 800 1.6rem/1.35 var(--display); color: var(--red); text-shadow: 0 0 .6rem rgba(231,76,60,.35); letter-spacing:.02em; margin:.5rem 0; }
 .type-line.strong{ font-size:1.8rem; letter-spacing:.04em; }
