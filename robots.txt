@@ -1,4 +1,6 @@
+# robots.txt — Fieldtone Studio
 User-agent: *
 Allow: /
 
+# Point all crawlers to your sitemap
 Sitemap: https://fieldtone-studio.com/sitemap.xml
