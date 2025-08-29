@@ -81,29 +81,6 @@ main#ethos[hidden]{ display:none; }
 #prelude .type-line{ visibility: hidden; }
 body.ethos-typing #prelude .type-line{ visibility: visible; }
 
-/* ===== Minimal Fieldtone custom cursor (dot + ring) ===== */
-body{ cursor: none; }
-#ft-cursor, #ft-cursor-ring{
-  position: fixed; top:0; left:0; width:8px; height:8px; pointer-events:none;
-  border-radius:50%; transform: translate(-50%, -50%); z-index: 9999; opacity:0;
-}
-#ft-cursor{ background: var(--fg); mix-blend-mode: difference; }
-#ft-cursor-ring{
-  width:28px; height:28px; border: 1.5px solid var(--fg);
-  box-shadow: 0 0 16px rgba(231,76,60,.25);
-}
-body.cursor-ready #ft-cursor, body.cursor-ready #ft-cursor-ring{ opacity: .9; }
-#prelude #ft-cursor, #prelude #ft-cursor-ring{ display:none; }
-/* Respect reduced motion and touch devices */
-@media (hover: none) and (pointer: coarse){
-  body{ cursor: auto; }
-  #ft-cursor, #ft-cursor-ring{ display:none!important; }
-}
-@media (prefers-reduced-motion: reduce){
-  #ft-cursor-ring{ transition: none !important; }
-}
-
-
 /* ===== Custom Cinematic Cursor (self-contained) ===== */
 body.custom-cursor-on { cursor: none; }
 .custom-cursor, .cursor-dot {
@@ -114,6 +91,11 @@ body.custom-cursor-on { cursor: none; }
 /* Main ring */
 .custom-cursor { width:22px; height:22px; border:2px solid var(--brand-red) !important; border-radius:50%; box-shadow:0 0 0 1px rgba(255,255,255,.08) inset; mix-blend-mode:normal; position:fixed; top:0; left:0; transform:translate(-50%,-50%); pointer-events:none; z-index:20000; opacity:0; transition:opacity .25s ease; }
 /* trailing dots created by JS get size, color inline */
+
+/* 🔒 SAFEGUARD: no system cursor anywhere during preload */
+body, html {
+  cursor: none !important;
+}
 
 #prelude{cursor:none}
 
