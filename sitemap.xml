@@ -56,5 +56,50 @@
       <image:caption>Architecture as cinema. Visualization as storytelling. Fieldtone’s ethos.</image:caption>
     </image:image>
   </url>
+  
+<!-- ABOUT -->
+  <url>
+    <loc>https://fieldtone-studio.com/about/</loc>
+    <lastmod>2025-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/about/"/>
+    <image:image>
+      <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-about.png</image:loc>
+      <image:title>About Fieldtone Studio</image:title>
+      <image:caption>Learn about Fieldtone — cinematic visuals with heart.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- WORK -->
+  <url>
+    <loc>https://fieldtone-studio.com/work/</loc>
+    <lastmod>2025-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/work/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/work/"/>
+    <image:image>
+      <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-work.png</image:loc>
+      <image:title>Work | Fieldtone Studio</image:title>
+      <image:caption>A curated selection of cinematic architectural visuals.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- CONTACT -->
+  <url>
+    <loc>https://fieldtone-studio.com/contact/</loc>
+    <lastmod>2025-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/contact/"/>
+    <image:image>
+      <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-contact.png</image:loc>
+      <image:title>Contact Fieldtone Studio</image:title>
+      <image:caption>Get in touch to make your project cinematic.</image:caption>
+    </image:image>
+  </url>
 
 </urlset>
