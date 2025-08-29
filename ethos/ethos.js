@@ -7,10 +7,36 @@
   const lines = Array.from(document.querySelectorAll('.type-line'));
   document.body.classList.add('ethos-typing');
 
-  const msPerChar = 38, pauseBetween = 420, endHold = 1500; // hold last line
+  // ---- Auto-tuned timing based on prelude content ----
+  const msPerChar    = 38;   // base typing speed (ms per character)
+  const pauseBetween = 420;  // pause between each line
+
+  // Collect the exact text (prefers data-text)
+  const lineTexts = lines.map(el => (el.dataset.text || el.textContent || '').trim());
+
+  // Estimate per-line typing time (adds tiny pauses for punctuation so it feels natural)
+  function estimateTypeMs(text){
+    const chars  = text.length;
+    const commas = (text.match(/[,;:]/g) || []).length;
+    const stops  = (text.match(/[.!?]/g) || []).length;
+    return (chars * msPerChar) + (commas * 120) + (stops * 220);
+  }
+
+  // Total typing time + between-line pauses
+  const typingTotalMs = lineTexts.reduce((sum, t) => sum + estimateTypeMs(t), 0)
+                        + Math.max(lineTexts.length - 1, 0) * pauseBetween;
+
+  // Last-line hold (auto: longer text ⇒ longer hold)
+  const last = lineTexts[lineTexts.length - 1] || '';
+  const lastWords = last.split(/\s+/).filter(Boolean).length;
+  const endHold = Math.max(2200, Math.min(5000, 1000 + lastWords * 180)); // min 2.2s, max 5s
+
+  // Failsafe = total estimate + hold + buffer (won't cut off early)
+  const failsafeMs = Math.min(60000, typingTotalMs + endHold + 1500);
   const failsafe = setTimeout(()=>{
     try{ prelude?.remove(); if(main) main.hidden=false; }catch(e){}
-  }, 10000);
+    document.body.classList.add('ethos-ready');
+  }, failsafeMs);
 
   function typeOne(el, text){
     return new Promise(res=>{
