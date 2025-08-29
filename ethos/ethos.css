@@ -114,8 +114,8 @@ body.custom-cursor-on { cursor: none; }
 /* Main ring */
 .custom-cursor {
   width: 22px; height: 22px;
-  border: 2px solid var(--red);
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 1px rgba(231,76,60,.25) inset, 0 0 18px rgba(231,76,60,.25);
+  border: 2px solid var(--brand-red);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
+  mix-blend-mode: normal;
 }
 /* trailing dots created by JS get size, color inline */
