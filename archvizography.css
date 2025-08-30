@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v170)
+   Archvizography Page — Fieldtone (v205)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -177,4 +177,22 @@
   .custom-cursor,
   .custom-cursor-trail { opacity: .95; }
   .fx-hide { opacity: 0 !important; }
+}
+
+/* Archvizography Hero */
+.avz-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;        /* full screen height */
+  overflow: hidden;
+}
+
+.avz-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* keeps proportions, fills hero */
+  object-position: center; /* adjust focus: try right center; if arch is cropped */
 }
