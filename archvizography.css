@@ -1,5 +1,5 @@
 /* ================================
-   Archvizography Page — Fieldtone (v205)
+   Archvizography Page — Fieldtone (v210)
    Cropped-SVG loader (tight bounds)
    ================================ */
 
@@ -195,4 +195,16 @@
   height: 100%;
   object-fit: cover;     /* keeps proportions, fills hero */
   object-position: center; /* adjust focus: try right center; if arch is cropped */
+}
+
+/* Mobile fix: show full hero image without cropping */
+@media (max-width: 768px) {
+  .avz-hero-bg {
+    object-fit: contain;
+    background-color: #0b0b0b; /* fills empty space with theme color */
+  }
+  .avz-hero {
+    height: auto;        /* let the image decide height */
+    min-height: 100vh;   /* still ensures full screen coverage */
+  }
 }
