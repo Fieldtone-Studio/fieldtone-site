@@ -73,11 +73,18 @@
     </nav>
   </header>
 
-  <!-- Hero -->
+ <!-- Hero -->
 <section class="avz-hero">
-  <img class="avz-hero-bg" src="assets/hero-archvizography.png" 
-       alt="Archvizography Manifesto: We don’t render buildings. We direct stories." 
-       data-preload />
+  <picture>
+    <!-- Mobile portrait image -->
+    <source srcset="assets/hero-archvizography-mobile.png" media="(max-width: 768px)">
+
+    <!-- Default desktop image -->
+    <img class="avz-hero-bg"
+         src="assets/hero-archvizography.png"
+         alt="Archvizography Manifesto: We don’t render buildings. We direct stories."
+         data-preload />
+  </picture>
 </section>
 
   <!-- Sections -->
@@ -234,4 +241,5 @@
 </script>
 </body>
 </html>
+
 
