@@ -48,7 +48,7 @@
     <priority>0.9</priority>
 
     <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/ethos/ethos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/ethos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/ethos/ethos.html"/>
 
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-The-Ethos.png</image:loc>
