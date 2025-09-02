@@ -1,6 +1,8 @@
 // ===========================
-// Fieldtone — Showreel (v3.2)
+// Fieldtone — Showreel (v3.3)
 // ===========================
+document.documentElement.classList.add('js');
+
 document.addEventListener("DOMContentLoaded", () => {
   const loader   = document.getElementById("showreel-loader");
   const recDot   = document.querySelector(".rec-dot");
@@ -40,9 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.menu a').forEach(a => a.addEventListener('click', closeMenu));
 
   /* ---------- Determine Coming Soon vs Has Reel ---------- */
-  const hasSource =
-    !!(reel && (reel.currentSrc ||
-       Array.from(reel?.querySelectorAll('source') || []).some(s => s.getAttribute('src'))));
+  const hasSource = !!(reel && (
+    reel.currentSrc ||
+    Array.from(reel.querySelectorAll('source') || []).some(s => s.getAttribute('src'))
+  ));
   if (hasSource) document.body.classList.add('has-reel');
 
   /* ---------- Loader (projector warm-up) ---------- */
@@ -111,25 +114,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // main ring
   const cursor = document.createElement('div');
-  cursor.className = 'custom-cursor';
   Object.assign(cursor.style, {
     position:'fixed', left:'0', top:'0', width:'18px', height:'18px',
     border:`2px solid ${ACCENT}`, borderRadius:'50%', pointerEvents:'none',
     zIndex:'99999', transform:'translate(-50%,-50%)', opacity:'0',
     transition:'opacity .25s ease, transform .12s ease'
   });
+  cursor.className = 'custom-cursor';
   document.body.appendChild(cursor);
 
   // trail dots
   const DOTS = 8, dots = [];
   for (let i = 0; i < DOTS; i++){
     const d = document.createElement('div');
-    d.className = 'cursor-dot';
     Object.assign(d.style, {
       position:'fixed', left:'0', top:'0', width:'6px', height:'6px',
       borderRadius:'50%', pointerEvents:'none', zIndex:'99998',
       background:ACCENT, opacity:String(0.22 - i*0.02), transform:'translate(-50%,-50%)'
     });
+    d.className = 'cursor-dot';
     document.body.appendChild(d); dots.push(d);
   }
 
@@ -163,8 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
   magnets.forEach(el => {
     let hoverRAF = 0;
     const strength = 16;
-    const enter = () => { cursor.style.transform += ' scale(1.25)'; };
-    const leave = () => { cursor.style.transform = cursor.style.transform.replace(' scale(1.25)', ''); };
+    const enter = () => cursor.style.transform += ' scale(1.25)';
+    const leave = () => cursor.style.transform = cursor.style.transform.replace(' scale(1.25)', '');
     const onMouseMove = (e) => {
       cancelAnimationFrame(hoverRAF);
       hoverRAF = requestAnimationFrame(() => {
