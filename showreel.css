@@ -1,5 +1,5 @@
 /* ================================
-   Fieldtone — Showreel Page (v3.6)
+   Fieldtone — Showreel Page (v4.0)
    Poster-first; upgrades to video automatically
    ================================ */
 :root{
@@ -83,8 +83,7 @@ a{ color:inherit; text-decoration:none }
 
 /* hover/active — hide base text when JS is present to avoid double text */
 .js .menu a[data-text]:hover{
-  color:transparent;
-  -webkit-text-fill-color:transparent; /* Safari */
+  color: transparent; /* hide base so only the red sweep shows */
 }
 .menu a:hover::before{ -webkit-clip-path:inset(0 0 0 0); clip-path:inset(0 0 0 0); }
 .menu a:hover::after{
