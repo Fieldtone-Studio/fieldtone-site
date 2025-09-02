@@ -59,7 +59,7 @@
   
 <!-- ABOUT -->
   <url>
-    <loc>https://fieldtone-studio.com/about/</loc>
+    <loc>https://fieldtone-studio.com/about/index.html</loc>
     <lastmod>2025-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -74,7 +74,7 @@
 
   <!-- WORK -->
   <url>
-    <loc>https://fieldtone-studio.com/work/</loc>
+    <loc>https://fieldtone-studio.com/work/index.html</loc>
     <lastmod>2025-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -89,7 +89,7 @@
 
   <!-- CONTACT -->
   <url>
-    <loc>https://fieldtone-studio.com/contact/</loc>
+    <loc>https://fieldtone-studio.com/contact/index.html</loc>
     <lastmod>2025-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
