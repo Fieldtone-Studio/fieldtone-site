@@ -251,10 +251,9 @@ body.noscroll { overflow:hidden; height:100vh; }
   color:#1a1a1a;                 /* darker, near-black */
   font-weight:400;               /* a touch bolder */
   margin:0 0 24px;
-  text-shadow:0 1px 2px rgba(255,255,255,0.55); /* soft lift over bright pool */
+  text-shadow:0 1px 2px rgba(255,255,255,0.4); /* soft lift over bright pool */
 }
 
-/* Accent inside the hero H1 — force it to win */
 .hero-copy h1 .accent{
   color:#E74C3C;                 /* fallback */
   color:var(--brand-red) !important; /* ensure it beats the H1 color */
@@ -362,22 +361,4 @@ h2{ font-family:'Playfair Display',serif; font-size:clamp(26px,3.6vw,40px); marg
   .nav{ padding:12px 12px; }
   .nav .brand img{ height:24px; margin-top:0; }
   .menu-toggle{ width:44px; height:40px; margin-left:8px; }
-  .menu{ position:fixed; top:56px; left:0; right:0; margin:0; background:rgba(15,15,16,.92); border:1px solid rgba(255,255,255,.06); border-radius:12px;
-    padding:12px 16px; display:none; opacity:0; transform:translateY(-8px); pointer-events:none; }
-  .menu a{ padding:12px 4px; font-size:16px; }
-  .nav.menu-open .menu{ display:block; opacity:1; pointer-events:auto; transform:translateY(0); transition:opacity .22s ease, transform .22s ease; }
-  .menu-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:18; }
-  .nav.menu-open .menu-overlay{ opacity:1; pointer-events:auto; }
-  h1{ font-size:clamp(28px,6.2vw,44px); line-height:1.15; margin:0 16px 12px; }
-  .hero-copy p{ font-size:clamp(16px,3.8vw,18px); margin:0 16px 16px; }
-  .btn{ font-size:14px; padding:10px 14px; }
-  section{ padding:48px 16px; }
-  .grid{ display:grid; grid-template-columns:1fr; gap:16px; }
-}
-
-/* Reduced motion safe-guard */
-@media (prefers-reduced-motion:reduce){
-  .logo-underline::before,
-  .logo-underline::after { transition:none; transform:translateX(-50%) scaleX(1); opacity:1; }
-  .logo-img { transition:none; opacity:1; transform:none; }
-}
+  .menu{ position:fixed; top:56
