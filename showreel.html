@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Charset + viewport -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary SEO -->
+  <title>Showreel | Fieldtone Studio — Cinematic Architectural Visualization</title>
+  <meta name="description" content="Watch Fieldtone Studio’s showreel: cinematic, emotionally engaging architectural visualization in motion. Photorealistic CGI, atmosphere, and storytelling." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fieldtone-studio.com/showreel.html" />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#0F0F10" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="video.other" />
+  <meta property="og:site_name" content="Fieldtone Studio" />
+  <meta property="og:title" content="Showreel | Fieldtone Studio — Cinematic Archviz" />
+  <meta property="og:description" content="Cinematic architectural CGI in motion. Explore the Fieldtone Showreel." />
+  <meta property="og:url" content="https://fieldtone-studio.com/showreel.html" />
+  <meta property="og:image" content="https://fieldtone-studio.com/assets/SEO/SEO-showreel.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Showreel | Fieldtone Studio — Cinematic Archviz" />
+  <meta name="twitter:description" content="Cinematic architectural CGI in motion. Explore the Fieldtone Showreel." />
+  <meta name="twitter:image" content="https://fieldtone-studio.com/assets/SEO/SEO-showreel.png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="FIELDTONE_favicon.ico?v=1">
+
+  <!-- Fonts (same as your site) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="showreel.css" />
+
+  <!-- JSON-LD (Organization + WebPage + VideoObject) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://fieldtone-studio.com/#organization",
+        "name": "Fieldtone Studio",
+        "url": "https://fieldtone-studio.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://fieldtone-studio.com/assets/SEO/SEO-index.png",
+          "width": 1200, "height": 630
+        },
+        "sameAs": [
+          "https://www.instagram.com/fieldtone_studio/",
+          "https://www.linkedin.com/company/fieldtone-studio/",
+          "https://www.behance.net/haikalmoha2b45"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://fieldtone-studio.com/showreel.html#webpage",
+        "url": "https://fieldtone-studio.com/showreel.html",
+        "name": "Fieldtone Showreel",
+        "description": "Fieldtone Studio’s cinematic architectural visualization showreel."
+      },
+      {
+        "@type": "VideoObject",
+        "@id": "https://fieldtone-studio.com/showreel.html#mainreel",
+        "name": "Fieldtone Studio — Showreel",
+        "description": "Cinematic architectural CGI by Fieldtone Studio.",
+        "thumbnailUrl": ["https://fieldtone-studio.com/assets/reel/showreel_poster.jpg"],
+        "uploadDate": "2025-01-01",
+        "contentUrl": "https://fieldtone-studio.com/assets/reel/fieldtone_showreel_2025.mp4",
+        "embedUrl": "https://fieldtone-studio.com/showreel.html#reel",
+        "publisher": { "@id": "https://fieldtone-studio.com/#organization" }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body class="showreel-page">
+  <!-- Header / Nav (minimal) -->
+  <header class="nav">
+    <div class="brand">
+      <a href="/"><img src="FIELDTONE_Primary _Colored_Logo.png" alt="Fieldtone Studio" /></a>
+    </div>
+    <nav class="menu">
+      <a href="/#work">Work</a>
+      <a href="archvizography.html">Archvizography</a>
+      <a href="ethos/ethos.html">Ethos</a>
+      <a href="showreel.html" aria-current="page">Showreel</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Projector Loader -->
+  <div id="showreel-loader" aria-live="polite" aria-busy="true">
+    <div class="loader-inner">
+      <div class="projector-flicker" aria-hidden="true"></div>
+      <div class="loader-title">FIELD TONE — SHOWREEL</div>
+      <div class="loader-sub">Screening Room • 001</div>
+      <div class="rec">
+        <span class="rec-dot" aria-hidden="true"></span>
+        <span class="rec-text">REC</span>
+      </div>
+    </div>
+    <noscript><style>#showreel-loader{display:none!important}</style></noscript>
+  </div>
+
+  <!-- Hero Reel -->
+  <main id="reel" class="reel-hero">
+    <video
+      id="mainReel"
+      class="reel-video"
+      poster="assets/reel/showreel_poster.jpg"
+      autoplay
+      muted
+      playsinline
+      loop
+      preload="metadata"
+      aria-label="Fieldtone Studio Showreel"
+    >
+      <!-- Prefer WebM for size; MP4 for Safari fallback -->
+      <source src="assets/reel/fieldtone_showreel_2025.webm" type="video/webm" />
+      <source src="assets/reel/fieldtone_showreel_2025.mp4" type="video/mp4" />
+    </video>
+
+    <div class="reel-overlay">
+      <h1>Showreel — <span class="accent">Cinematic</span> Architecture</h1>
+      <p class="sub">Atmosphere. Light. Emotion. Photorealistic CGI in motion.</p>
+
+      <!-- Unmute toggle (optional, starts muted for autoplay policy) -->
+      <button id="muteToggle" class="mute-btn" aria-pressed="true" aria-label="Unmute reel">Unmute</button>
+    </div>
+  </main>
+
+  <!-- Selected Clips (optional gallery of segments) -->
+  <section class="clips">
+    <h2>Selected Scenes</h2>
+    <div class="clips-grid">
+      <!-- Example clip cards (replace with your own thumbnails/links) -->
+      <a class="clip" href="#reel" title="Poolside Atmosphere">
+        <img loading="lazy" src="assets/reel/thumb_pool.jpg" alt="Poolside atmosphere clip" />
+        <span>Poolside Atmosphere</span>
+      </a>
+      <a class="clip" href="#reel" title="Golden Hour Facade">
+        <img loading="lazy" src="assets/reel/thumb_facade.jpg" alt="Golden hour facade clip" />
+        <span>Golden Hour Facade</span>
+      </a>
+      <a class="clip" href="#reel" title="Interior Mood">
+        <img loading="lazy" src="assets/reel/thumb_interior.jpg" alt="Interior mood clip" />
+        <span>Interior Mood</span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    © <span id="year"></span> Fieldtone Studio
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script defer src="showreel.js"></script>
+</body>
+</html>
