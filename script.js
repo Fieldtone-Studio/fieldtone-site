@@ -79,7 +79,7 @@
 
   // ---------- IntersectionObserver fallback for .fade-up
   (function setupFadeUpFallback() {
-    const els = document.querySelectorAll('.fade-up:not(#about .fade-up):not(#contact .fade-up)');
+    const els = document.querySelectorAll('.fade-up');
     if (!els.length) return;
 
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
