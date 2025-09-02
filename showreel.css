@@ -1,5 +1,5 @@
 /* ================================
-   Fieldtone — Showreel Page (v2.9)
+   Fieldtone — Showreel Page (v3.2)
    Poster-first; upgrades to video automatically
    ================================ */
 :root{
@@ -57,6 +57,7 @@ a{ color:inherit; text-decoration:none }
 .menu a{
   position: relative; display:inline-block; padding:4px 0;
   color: var(--ink); text-decoration:none; transition: color .28s ease;
+  text-shadow:none; filter:none;                    /* anti-ghosting */
 }
 
 /* text swipe overlay — JS sets data-text for each link */
@@ -64,7 +65,8 @@ a{ color:inherit; text-decoration:none }
   content: attr(data-text);
   position: absolute; inset: 0;
   color: var(--brand-red);
-  clip-path: inset(0 100% 0 0); /* hidden to the right */
+  -webkit-clip-path: inset(0 100% 0 0);             /* Safari */
+  clip-path: inset(0 100% 0 0);                     /* hidden to the right */
   transition: clip-path .45s cubic-bezier(.22,.61,.36,1);
   pointer-events: none; z-index: 1;
 }
@@ -80,8 +82,11 @@ a{ color:inherit; text-decoration:none }
 }
 
 /* hover/active */
-.menu a:hover{ color:var(--brand-red); }
-.menu a:hover::before{ clip-path: inset(0 0 0 0); }
+.menu a:hover{ color:var(--brand-red); text-shadow:none; filter:none; }
+.menu a:hover::before{
+  -webkit-clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0);
+}
 .menu a:hover::after{
   transform:scaleX(1);
   box-shadow:0 0 10px rgba(231,76,60,.55), 0 0 18px rgba(231,76,60,.35);
@@ -105,7 +110,7 @@ a{ color:inherit; text-decoration:none }
 
 /* Reduced motion for nav */
 @media (prefers-reduced-motion:reduce){
-  .menu a::before{ transition:none; clip-path: inset(0 0 0 0); }
+  .menu a::before{ transition:none; -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0); }
   .menu a::after{ transition:none; transform:scaleX(1); }
 }
 
