@@ -282,6 +282,12 @@ body.noscroll { overflow:hidden; height:100vh; }
   }
 }
 
+/* === Hero stacking fix (text visible again) === */
+.hero { position: relative; }            /* create stacking context */
+.hero-video { position: absolute; inset: 0; z-index: 0; }
+.hero .overlay { position: absolute; inset: 0; z-index: 1; }
+.hero-copy { position: relative; z-index: 2; }
+
 /* ================= SECTIONS ================= */
 section{ padding:80px 24px; }
 h2{ font-family:'Playfair Display',serif; font-size:clamp(26px,3.6vw,40px); margin:0 0 24px; }
