@@ -1,5 +1,5 @@
 // ===========================
-// Fieldtone — Showreel (v2.9)
+// Fieldtone — Showreel (v3.2)
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
   const loader   = document.getElementById("showreel-loader");
@@ -40,7 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.menu a').forEach(a => a.addEventListener('click', closeMenu));
 
   /* ---------- Determine Coming Soon vs Has Reel ---------- */
-  const hasSource = !!(reel && (reel.currentSrc || Array.from(reel?.querySelectorAll('source') || []).some(s => s.getAttribute('src'))));
+  const hasSource =
+    !!(reel && (reel.currentSrc ||
+       Array.from(reel?.querySelectorAll('source') || []).some(s => s.getAttribute('src'))));
   if (hasSource) document.body.classList.add('has-reel');
 
   /* ---------- Loader (projector warm-up) ---------- */
@@ -90,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         setTimeout(() => entry.target.classList.add('in'), delay);
-        delay += 100; // 0.1s stagger for a row-ish feel
+        delay += 100; // 0.1s stagger
         staggerIO.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
@@ -161,8 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
   magnets.forEach(el => {
     let hoverRAF = 0;
     const strength = 16;
-    const enter = () => cursor.style.transform += ' scale(1.25)';
-    const leave = () => cursor.style.transform = cursor.style.transform.replace(' scale(1.25)', '');
+    const enter = () => { cursor.style.transform += ' scale(1.25)'; };
+    const leave = () => { cursor.style.transform = cursor.style.transform.replace(' scale(1.25)', ''); };
     const onMouseMove = (e) => {
       cancelAnimationFrame(hoverRAF);
       hoverRAF = requestAnimationFrame(() => {
