@@ -352,6 +352,24 @@ h2{ font-family:'Playfair Display',serif; font-size:clamp(26px,3.6vw,40px); marg
   border:2px solid rgba(231,76,60,.35);
 }
 
+/* ================= BUTTONS ================= */
+.btn {
+  display:inline-block;
+  padding:12px 20px;
+  font-size:16px;
+  color:#0b0b0b; /* black text */
+  border:1px solid rgba(0,0,0,.25); /* subtle border for definition */
+  border-radius:999px;
+  background:rgba(255,255,255,0.75); /* soft white bg for contrast */
+  transition:transform .2s ease, background .2s ease, color .2s ease;
+}
+
+.btn:hover {
+  transform:translateY(-2px);
+  background:rgba(255,255,255,0.9);
+  color:#E74C3C; /* brand red on hover */
+}
+
 /* ================= MEDIA QUERIES ================= */
 @media (max-width:640px){
   .contact-icons{ gap:16px; padding-bottom:12px; }
