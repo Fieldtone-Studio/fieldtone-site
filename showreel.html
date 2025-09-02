@@ -7,7 +7,7 @@
 
   <!-- Primary SEO -->
   <title>Showreel | Fieldtone Studio — Cinematic Architectural Visualization</title>
-  <meta name="description" content="Watch Fieldtone Studio’s showreel: cinematic, emotionally engaging architectural visualization in motion. Photorealistic CGI, atmosphere, and storytelling." />
+  <meta name="description" content="Fieldtone Studio’s cinematic architectural visualization showreel. Atmosphere, light, emotion. Poster now — full reel coming soon." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fieldtone-studio.com/showreel.html" />
 
@@ -19,7 +19,7 @@
   <meta property="og:type" content="video.other" />
   <meta property="og:site_name" content="Fieldtone Studio" />
   <meta property="og:title" content="Showreel | Fieldtone Studio — Cinematic Archviz" />
-  <meta property="og:description" content="Cinematic architectural CGI in motion. Explore the Fieldtone Showreel." />
+  <meta property="og:description" content="Cinematic architectural CGI in motion. Poster now — full reel coming soon." />
   <meta property="og:url" content="https://fieldtone-studio.com/showreel.html" />
   <meta property="og:image" content="https://fieldtone-studio.com/assets/SEO/SEO-showreel.png" />
   <meta property="og:image:width" content="1200" />
@@ -28,19 +28,19 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Showreel | Fieldtone Studio — Cinematic Archviz" />
-  <meta name="twitter:description" content="Cinematic architectural CGI in motion. Explore the Fieldtone Showreel." />
+  <meta name="twitter:description" content="Cinematic architectural CGI in motion. Poster now — full reel coming soon." />
   <meta name="twitter:image" content="https://fieldtone-studio.com/assets/SEO/SEO-showreel.png" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="FIELDTONE_favicon.ico?v=1">
+  <link rel="icon" type="image/x-icon" href="FIELDTONE_favicon.ico?v=2.2">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 
-  <!-- Page CSS (versioned for cache-busting) -->
-  <link rel="stylesheet" href="showreel.css?v=1.8" />
+  <!-- Page CSS (versioned) -->
+  <link rel="stylesheet" href="showreel.css?v=2.2" />
 
   <!-- JSON-LD: Organization + WebPage + VideoObject -->
   <script type="application/ld+json">
@@ -78,8 +78,6 @@
         "description": "Cinematic architectural CGI by Fieldtone Studio.",
         "thumbnailUrl": ["https://fieldtone-studio.com/assets/reel/showreel_poster.jpg"],
         "uploadDate": "2025-01-01",
-        "contentUrl": "https://fieldtone-studio.com/assets/reel/fieldtone_showreel_2025.mp4",
-        "embedUrl": "https://fieldtone-studio.com/showreel.html#reel",
         "publisher": { "@id": "https://fieldtone-studio.com/#organization" }
       }
     ]
@@ -87,8 +85,8 @@
   </script>
 </head>
 
-<body class="showreel-page" data-version="1.0.0">
-  <!-- Header / Nav (bullet-free, clean HTML) -->
+<body class="showreel-page" data-version="2.2">
+  <!-- Header / Nav (bullet-free anchors) -->
   <header class="nav">
     <div class="brand">
       <a href="/"><img src="FIELDTONE_Primary _Colored_Logo.png" alt="Fieldtone Studio" /></a>
@@ -116,44 +114,49 @@
     <noscript><style>#showreel-loader{display:none!important}</style></noscript>
   </div>
 
-  <!-- Reel Hero -->
+  <!-- Reel Hero (poster-first; JS will attach sources if files exist) -->
   <main id="reel" class="reel-hero">
     <video
       id="mainReel"
       class="reel-video"
-      poster="assets/reel/showreel_poster.jpg?v=1.0.0"
+      poster="assets/reel/showreel_poster.jpg?v=2.2"
       autoplay
       muted
       playsinline
       loop
       preload="metadata"
       aria-label="Fieldtone Studio Showreel"
+      data-webm="assets/reel/fieldtone_showreel_2025.webm?v=2.2"
+      data-mp4="assets/reel/fieldtone_showreel_2025.mp4?v=2.2"
     >
-      <source src="assets/reel/fieldtone_showreel_2025.webm?v=1.0.0" type="video/webm" />
-      <source src="assets/reel/fieldtone_showreel_2025.mp4?v=1.0.0" type="video/mp4" />
+      <!-- No <source> tags initially; JS will add them if URLs are reachable -->
     </video>
 
     <div class="reel-overlay">
+      <div class="badge-coming" aria-hidden="true">Coming soon</div>
       <h1>Showreel — <span class="accent">Cinematic</span> Architecture</h1>
       <p class="sub">Atmosphere. Light. Emotion. Photorealistic CGI in motion.</p>
-      <button id="muteToggle" class="mute-btn" aria-pressed="true" aria-label="Unmute reel">Unmute</button>
+      <div class="actions">
+        <button id="muteToggle" class="mute-btn" aria-pressed="true" aria-label="Unmute reel" disabled>Unmute</button>
+        <a class="btn-secondary" href="/#work" aria-label="View selected work">View Work</a>
+      </div>
     </div>
   </main>
 
-  <!-- Selected Clips (optional) -->
+  <!-- Optional grid -->
   <section class="clips" aria-labelledby="clips-title">
     <h2 id="clips-title">Selected Scenes</h2>
     <div class="clips-grid">
-      <a class="clip" href="#reel" title="Poolside Atmosphere">
-        <img loading="lazy" src="assets/reel/thumb_pool.jpg?v=1.0.0" alt="Poolside atmosphere clip" />
+      <a class="clip" href="/#work" title="Poolside Atmosphere">
+        <img loading="lazy" src="assets/reel/thumb_pool.jpg?v=2.2" alt="Poolside atmosphere clip" />
         <span>Poolside Atmosphere</span>
       </a>
-      <a class="clip" href="#reel" title="Golden Hour Facade">
-        <img loading="lazy" src="assets/reel/thumb_facade.jpg?v=1.0.0" alt="Golden hour facade clip" />
+      <a class="clip" href="/#work" title="Golden Hour Facade">
+        <img loading="lazy" src="assets/reel/thumb_facade.jpg?v=2.2" alt="Golden hour facade clip" />
         <span>Golden Hour Facade</span>
       </a>
-      <a class="clip" href="#reel" title="Interior Mood">
-        <img loading="lazy" src="assets/reel/thumb_interior.jpg?v=1.0.0" alt="Interior mood clip" />
+      <a class="clip" href="/#work" title="Interior Mood">
+        <img loading="lazy" src="assets/reel/thumb_interior.jpg?v=2.2" alt="Interior mood clip" />
         <span>Interior Mood</span>
       </a>
     </div>
@@ -163,10 +166,8 @@
     © <span id="year"></span> Fieldtone Studio
   </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-  <!-- Page JS (versioned for cache-busting) -->
-  <script defer src="showreel.js?v=1.8"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <!-- Page JS (versioned) -->
+  <script defer src="showreel.js?v=2.2"></script>
 </body>
 </html>
