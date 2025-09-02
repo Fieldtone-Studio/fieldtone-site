@@ -11,11 +11,9 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
 
-    <!-- hreflang (single locale + x-default for now) -->
     <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/"/>
 
-    <!-- Share/OG image -->
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-index.png</image:loc>
       <image:title>Fieldtone Studio</image:title>
@@ -56,15 +54,34 @@
       <image:caption>Architecture as cinema. Visualization as storytelling. Fieldtone’s ethos.</image:caption>
     </image:image>
   </url>
-  
-<!-- ABOUT -->
+
+  <!-- SHOWREEL -->
+  <url>
+    <loc>https://fieldtone-studio.com/showreel.html</loc>
+    <lastmod>2025-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+
+    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/showreel.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/showreel.html"/>
+
+    <image:image>
+      <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-showreel.png</image:loc>
+      <image:title>Showreel | Fieldtone Studio</image:title>
+      <image:caption>Fieldtone Studio’s cinematic architectural visualization showreel. Atmosphere, light, emotion.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ABOUT -->
   <url>
     <loc>https://fieldtone-studio.com/about/index.html</loc>
     <lastmod>2025-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+
     <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/about/index.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/about//index.html"/>
+
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-about.png</image:loc>
       <image:title>About Fieldtone Studio</image:title>
@@ -78,8 +95,10 @@
     <lastmod>2025-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+
     <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/work//index.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/work//index.html"/>
+
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-work.png</image:loc>
       <image:title>Work | Fieldtone Studio</image:title>
@@ -93,8 +112,10 @@
     <lastmod>2025-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+
     <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/contact//index.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/contact//index.html"/>
+
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-contact.png</image:loc>
       <image:title>Contact Fieldtone Studio</image:title>
