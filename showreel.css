@@ -1,5 +1,5 @@
 /* ================================
-   Fieldtone — Showreel Page (v2.8)
+   Fieldtone — Showreel Page (v2.9)
    Poster-first; upgrades to video automatically
    ================================ */
 :root{
@@ -19,24 +19,44 @@ html,body{
 img,video{ display:block; max-width:100% }
 a{ color:inherit; text-decoration:none }
 
-/* =============== NAV (cinematic hover) =============== */
+/* =============== NAV (cinematic hover + mobile menu) =============== */
 .nav{
-  position:fixed; inset-block-start:0; inset-inline:0; z-index:20;
+  position:fixed; inset-block-start:0; inset-inline:0; z-index:40;
   display:flex; justify-content:space-between; align-items:center;
   padding:14px 20px; background:rgba(15,15,16,.5); backdrop-filter:blur(8px);
   border-bottom:1px solid rgba(255,255,255,.06)
 }
+.nav .brand{ display:flex; align-items:center; gap:10px; }
 .nav .brand img{ height:28px; width:auto }
 
-/* clean anchors, no bullets */
-.menu{ display:flex; gap:1.6rem; }
+/* menu button (mobile) */
+.menu-toggle{
+  display:none; position:relative; width:42px; height:34px;
+  border:0; background:transparent; cursor:pointer;
+}
+.menu-toggle span{
+  position:absolute; left:7px; right:7px; height:2px; background:var(--ink);
+  border-radius:2px; transition:transform .25s ease, opacity .2s ease;
+}
+.menu-toggle span:nth-child(1){ top:9px; }
+.menu-toggle span:nth-child(2){ top:16px; }
+.menu-toggle span:nth-child(3){ top:23px; }
+.menu-toggle[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.menu-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* overlay for mobile menu */
+.menu-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  backdrop-filter:blur(2px); opacity:0; pointer-events:none; z-index:35;
+  transition:opacity .22s ease;
+}
+
+/* menu links (desktop baseline) */
+.menu{ display:flex; gap:1.6rem; align-items:center; }
 .menu a{
-  position: relative;
-  display: inline-block;
-  padding: 4px 0;
-  color: var(--ink);
-  text-decoration: none;
-  transition: color .28s ease;
+  position: relative; display:inline-block; padding:4px 0;
+  color: var(--ink); text-decoration:none; transition: color .28s ease;
 }
 
 /* text swipe overlay — JS sets data-text for each link */
@@ -46,8 +66,7 @@ a{ color:inherit; text-decoration:none }
   color: var(--brand-red);
   clip-path: inset(0 100% 0 0); /* hidden to the right */
   transition: clip-path .45s cubic-bezier(.22,.61,.36,1);
-  pointer-events: none;
-  z-index: 1;
+  pointer-events: none; z-index: 1;
 }
 
 /* glowing underline grows left→right */
@@ -60,16 +79,28 @@ a{ color:inherit; text-decoration:none }
   box-shadow:none;
 }
 
-/* hover/active states */
+/* hover/active */
 .menu a:hover{ color:var(--brand-red); }
 .menu a:hover::before{ clip-path: inset(0 0 0 0); }
 .menu a:hover::after{
   transform:scaleX(1);
   box-shadow:0 0 10px rgba(231,76,60,.55), 0 0 18px rgba(231,76,60,.35);
 }
-.menu a[aria-current="page"]::after{
-  transform:scaleX(1);
-  opacity:.9;
+.menu a[aria-current="page"]::after{ transform:scaleX(1); opacity:.9; }
+
+/* mobile behavior */
+@media (max-width: 820px){
+  .menu-toggle{ display:block; }
+  .menu{
+    position:fixed; top:64px; left:12px; right:12px; z-index:38;
+    display:block; background:rgba(15,15,16,.92);
+    border:1px solid rgba(255,255,255,.06); border-radius:12px;
+    padding:12px 16px; transform:translateY(-10px);
+    opacity:0; pointer-events:none; transition:opacity .22s ease, transform .22s ease;
+  }
+  .menu a{ display:block; padding:12px 4px; }
+  .nav.menu-open .menu{ transform:translateY(0); opacity:1; pointer-events:auto; }
+  .nav.menu-open + .menu-overlay{ opacity:1; pointer-events:auto; }
 }
 
 /* Reduced motion for nav */
@@ -109,6 +140,11 @@ a{ color:inherit; text-decoration:none }
   filter:saturate(85%) contrast(110%) brightness(72%)
 }
 .reel-overlay{ position:relative; z-index:1; text-align:center; padding:0 24px }
+
+/* subtle entrance on load */
+.reel-enter{ opacity:0; transform:translateY(14px); }
+.reel-enter.entered{ opacity:1; transform:none; transition:opacity .7s ease, transform .7s ease; }
+
 .reel-overlay h1{
   font-family:'Playfair Display',serif; font-weight:700; line-height:1.1;
   font-size:clamp(30px,5vw,62px); margin:.2em 0 .1em; color:#f5f5f5
@@ -175,6 +211,11 @@ a{ color:inherit; text-decoration:none }
   background:rgba(15,15,16,.55); padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.1)
 }
 
+/* Reveal baseline for clips (IO adds .in) */
+.clip.reveal{ opacity:0; transform:translateY(16px) scale(.98); }
+.clip.reveal.in{ opacity:1; transform:none; transition:opacity .55s ease, transform .55s ease; }
+
+/* Footer */
 .footer{ padding:28px 24px; color:#b6b6b6; text-align:center; border-top:1px solid rgba(255,255,255,.06) }
 
 /* Responsive */
@@ -184,11 +225,13 @@ a{ color:inherit; text-decoration:none }
   .clip{ grid-column:span 12 }
 }
 
-/* Reduced Motion */
+/* Reduced Motion (page) */
 @media (prefers-reduced-motion:reduce){
   .projector-flicker{ animation:none }
   .reel-overlay .accent{ animation:none; text-shadow:none }
   .mute-btn, .btn-secondary{ transition:none }
+  .reel-enter{ opacity:1; transform:none; }
+  .clip.reveal{ opacity:1; transform:none; }
 }
 
 /* =============== CUSTOM CURSOR =============== */
