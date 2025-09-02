@@ -254,6 +254,35 @@ body.noscroll { overflow:hidden; height:100vh; }
   transition:transform .2s ease, background .2s ease; }
 .btn:hover{ transform:translateY(-2px); background:rgba(255,255,255,0.06); }
 
+/* Accent inside the hero H1 — force it to win */
+.hero-copy h1 .accent{
+  color:#E74C3C;                 /* fallback */
+  color:var(--brand-red) !important; /* ensure it beats the H1 color */
+  position:relative;
+  transition: color .25s ease, text-shadow .25s ease;
+  animation: accentGlow 4s ease-in-out infinite;
+}
+
+/* Stronger glow on hover */
+.hero-copy h1 .accent:hover{
+  color:#ff5a47 !important;
+  text-shadow:0 0 14px rgba(231,76,60,.8),
+              0 0 32px rgba(231,76,60,.6),
+              0 0 48px rgba(231,76,60,.4);
+}
+
+/* Breathing glow */
+@keyframes accentGlow{
+  0%,100%{
+    text-shadow:0 0 12px rgba(231,76,60,.7),
+                0 0 28px rgba(231,76,60,.5);
+  }
+  50%{
+    text-shadow:0 0 24px rgba(231,76,60,.9),
+                0 0 48px rgba(231,76,60,.6);
+  }
+}
+
 /* ================= SECTIONS ================= */
 section{ padding:80px 24px; }
 h2{ font-family:'Playfair Display',serif; font-size:clamp(26px,3.6vw,40px); margin:0 0 24px; }
