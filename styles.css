@@ -368,3 +368,40 @@ h2{ font-family:'Playfair Display',serif; font-size:clamp(26px,3.6vw,40px); marg
   .nav .brand img{ height:24px; margin-top:0; }
   .menu-toggle{ width:44px; height:40px; margin-left:8px; }
   .menu{ position:fixed; top:56
+
+/* === HERO VISIBILITY & STACKING FIX (paste at END of CSS) === */
+.hero { position: relative; }
+
+.hero-video {
+  position: absolute; inset: 0;
+  z-index: 0;
+  /* lighten the footage a touch so text can breathe */
+  filter: saturate(80%) contrast(105%) brightness(0.82);
+}
+
+.hero .overlay {
+  position: absolute; inset: 0;
+  z-index: 1;
+  /* slightly softer darkening than before */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0.10) 0%,
+    rgba(0,0,0,0.28) 55%,
+    rgba(0,0,0,0.50) 100%
+  );
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;          /* guaranteed above overlay/video */
+}
+
+.hero-copy h1 {
+  /* switch to light so it’s visible over the darker plate */
+  color: var(--ink) !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,.55);
+}
+
+.hero-copy p {
+  color: var(--ink) !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,.50);
