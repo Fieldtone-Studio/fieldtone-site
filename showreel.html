@@ -32,7 +32,7 @@
   <meta name="twitter:image" content="https://fieldtone-studio.com/assets/SEO/SEO-showreel.png" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="FIELDTONE_favicon.ico?v=2.2">
+  <link rel="icon" type="image/x-icon" href="FIELDTONE_favicon.ico?v=2.9">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +40,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 
   <!-- Page CSS (versioned) -->
-  <link rel="stylesheet" href="showreel.css?v=2.2" />
+  <link rel="stylesheet" href="showreel.css?v=2.9" />
 
   <!-- JSON-LD: Organization + WebPage + VideoObject -->
   <script type="application/ld+json">
@@ -85,13 +85,22 @@
   </script>
 </head>
 
-<body class="showreel-page" data-version="2.2">
-  <!-- Header / Nav (bullet-free anchors) -->
+<body class="showreel-page" data-version="2.9">
+  <!-- Header / Nav (cinematic hover + mobile menu) -->
   <header class="nav">
     <div class="brand">
-      <a href="/"><img src="FIELDTONE_Primary _Colored_Logo.png" alt="Fieldtone Studio" /></a>
+      <a href="/" aria-label="Fieldtone Studio home">
+        <img src="FIELDTONE_Primary _Colored_Logo.png" alt="Fieldtone Studio" />
+      </a>
     </div>
-    <nav class="menu" aria-label="Primary">
+
+    <!-- Mobile burger -->
+    <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Menu -->
+    <nav id="primary-menu" class="menu" aria-label="Primary">
       <a href="/#work">Work</a>
       <a href="archvizography.html">Archvizography</a>
       <a href="ethos/ethos.html">Ethos</a>
@@ -99,6 +108,7 @@
       <a href="/#contact">Contact</a>
     </nav>
   </header>
+  <div class="menu-overlay" aria-hidden="true"></div>
 
   <!-- Projector Loader -->
   <div id="showreel-loader" aria-live="polite" aria-busy="true">
@@ -119,44 +129,44 @@
     <video
       id="mainReel"
       class="reel-video"
-      poster="assets/reel/showreel_poster.jpg?v=2.2"
+      poster="assets/reel/showreel_poster.jpg?v=2.9"
       autoplay
       muted
       playsinline
       loop
       preload="metadata"
       aria-label="Fieldtone Studio Showreel"
-      data-webm="assets/reel/fieldtone_showreel_2025.webm?v=2.2"
-      data-mp4="assets/reel/fieldtone_showreel_2025.mp4?v=2.2"
+      data-webm="assets/reel/fieldtone_showreel_2025.webm?v=2.9"
+      data-mp4="assets/reel/fieldtone_showreel_2025.mp4?v=2.9"
     >
       <!-- No <source> tags initially; JS will add them if URLs are reachable -->
     </video>
 
     <div class="reel-overlay">
-      <div class="badge-coming" aria-hidden="true">Coming soon</div>
-      <h1>Showreel — <span class="accent">Cinematic</span> Architecture</h1>
-      <p class="sub">Atmosphere. Light. Emotion. Photorealistic CGI in motion.</p>
-      <div class="actions">
+      <div class="badge-coming reel-enter" aria-hidden="true">Coming soon</div>
+      <h1 class="reel-enter">Showreel — <span class="accent">Cinematic</span> Architecture</h1>
+      <p class="sub reel-enter">Atmosphere. Light. Emotion. Photorealistic CGI in motion.</p>
+      <div class="actions reel-enter">
         <button id="muteToggle" class="mute-btn" aria-pressed="true" aria-label="Unmute reel" disabled>Unmute</button>
         <a class="btn-secondary" href="/#work" aria-label="View selected work">View Work</a>
       </div>
     </div>
   </main>
 
-  <!-- Optional grid -->
+  <!-- Selected Scenes (clips) -->
   <section class="clips" aria-labelledby="clips-title">
     <h2 id="clips-title">Selected Scenes</h2>
     <div class="clips-grid">
-      <a class="clip" href="/#work" title="Poolside Atmosphere">
-        <img loading="lazy" src="assets/reel/thumb_pool.jpg?v=2.2" alt="Poolside atmosphere clip" />
+      <a class="clip reveal" href="/#work" title="Poolside Atmosphere">
+        <img loading="lazy" src="assets/reel/thumb_pool.jpg?v=2.9" alt="Poolside atmosphere clip" />
         <span>Poolside Atmosphere</span>
       </a>
-      <a class="clip" href="/#work" title="Golden Hour Facade">
-        <img loading="lazy" src="assets/reel/thumb_facade.jpg?v=2.2" alt="Golden hour facade clip" />
+      <a class="clip reveal" href="/#work" title="Golden Hour Facade">
+        <img loading="lazy" src="assets/reel/thumb_facade.jpg?v=2.9" alt="Golden hour facade clip" />
         <span>Golden Hour Facade</span>
       </a>
-      <a class="clip" href="/#work" title="Interior Mood">
-        <img loading="lazy" src="assets/reel/thumb_interior.jpg?v=2.2" alt="Interior mood clip" />
+      <a class="clip reveal" href="/#work" title="Interior Mood">
+        <img loading="lazy" src="assets/reel/thumb_interior.jpg?v=2.9" alt="Interior mood clip" />
         <span>Interior Mood</span>
       </a>
     </div>
@@ -168,6 +178,6 @@
 
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
   <!-- Page JS (versioned) -->
-  <script defer src="showreel.js?v=2.2"></script>
+  <script defer src="showreel.js?v=2.9"></script>
 </body>
 </html>
