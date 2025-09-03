@@ -80,7 +80,7 @@
     <priority>0.7</priority>
 
     <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/about/index.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/about//index.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/about/index.html"/>
 
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-about.png</image:loc>
@@ -96,8 +96,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
 
-    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/work//index.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/work//index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/work/index.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/work/index.html"/>
 
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-work.png</image:loc>
@@ -113,8 +113,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
 
-    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/contact//index.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/contact//index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/contact/index.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/contact/index.html"/>
 
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-contact.png</image:loc>
