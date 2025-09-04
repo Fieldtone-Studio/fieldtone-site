@@ -211,3 +211,46 @@ main#ethos{ padding-top:72px; }
 
 /* No horizontal scroll, belt & suspenders (already set, but keep here too) */
 html, body { overflow-x: hidden; overscroll-behavior-x: none; }
+
+/* === Ethos v6.2 — spacing for the new sections only (APPENDED) === */
+
+/* Origin Story */
+.origin{
+  padding: 4rem 6vw 2rem;            /* breathing room under the hero */
+}
+.origin-lead{
+  max-width: 70ch;
+  margin: 0 auto;
+  color: var(--muted);
+  font: 600 1.125rem/1.75 var(--display);
+}
+.origin-lead strong{
+  color: var(--fg);
+  text-shadow: 0 0 .35rem rgba(231,76,60,.25);
+}
+
+/* Crew tagline under the intro copy */
+.crew-head .crew-tag{
+  margin-top: .5rem;
+  color: var(--muted);
+  opacity: .9;
+}
+
+/* Closing note (the “Inspired by the masters…” line) */
+.closing-note{
+  padding: 2.5rem 6vw 0;             /* space above the footer border */
+  margin: 2rem 0;                    /* air above & below the line */
+}
+.closing-note .whisper{
+  max-width: 80ch;
+  margin: 0 auto;
+  color: var(--muted);
+  font-style: italic;
+  text-align: left;
+}
+
+/* Mobile tweaks */
+@media (max-width:980px){
+  .origin{ padding: 3rem 6vw 1rem; }
+  .closing-note{ padding: 2rem 6vw 0; }
+}
