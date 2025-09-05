@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You — Fieldtone Studio</title>
+  <meta name="description" content="Thanks for reaching out to Fieldtone Studio. We’ve received your request and will get back to you shortly." />
+  <meta name="theme-color" content="#0b0d10" />
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Thank You — Fieldtone Studio" />
+  <meta property="og:description" content="We’ve received your request and will get back to you shortly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fieldtone-studio.com/thank-you" />
+  <meta property="og:image" content="https://fieldtone-studio.com/og-image.jpg" />
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --bg-2:#101419;
+      --accent:#f04a3e;         /* subtle Fieldtone-y pop */
+      --text:#e8ecf1;
+      --muted:#9aa3ad;
+      --card:#12171d;
+      --card-2:#0e1318;
+      --ring:#2a3542;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 800px at 70% -10%, #1b2028 0%, var(--bg) 60%),
+                  linear-gradient(180deg, var(--bg-2), var(--bg));
+      color:var(--text);
+      font:16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+
+    /* Optional hero image overlay — replace the URL to use a still from your work */
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:url('') center/cover no-repeat; /* put an image URL here if you want */
+      opacity:.18; filter:grayscale(20%) contrast(110%);
+      pointer-events:none;
+    }
+
+    .wrap{
+      position:relative;
+      width:min(980px, 100%);
+      padding: clamp(20px, 3vw, 32px);
+    }
+
+    .card{
+      position:relative;
+      background:
+        radial-gradient(500px 300px at 20% -30%, rgba(240,74,62,.10) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid var(--ring);
+      border-radius:24px;
+      padding: clamp(24px, 5vw, 48px);
+      box-shadow:
+        0 10px 40px rgba(0,0,0,.40),
+        inset 0 1px 0 rgba(255,255,255,.02);
+      backdrop-filter: blur(8px);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:14px; margin-bottom:18px;
+      color:var(--muted); letter-spacing:.06em; text-transform:uppercase; font-size:12px;
+    }
+    .logo{width:168px; height:auto; display:block}
+
+    h1{
+      margin:10px 0 14px;
+      font-weight:700; font-size: clamp(28px, 3.6vw, 44px); line-height:1.15;
+      text-wrap:balance;
+    }
+    p.lede{
+      margin:0 0 26px; color:var(--muted); font-size: clamp(16px, 1.4vw, 18px);
+      max-width:62ch;
+    }
+
+    .ok{
+      --s:74px;
+      width:var(--s); height:var(--s);
+      display:grid; place-items:center;
+      margin: 10px 0 18px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #3ad29f 0%, #24b67f 50%, #179e6b 100%);
+      box-shadow: 0 10px 30px rgba(35,200,130,.35);
+      position:relative; isolation:isolate;
+      animation:pop .6s ease-out both;
+    }
+    .ok svg{width:50%; height:50%; color:white}
+    .ok::after{
+      content:"";
+      position:absolute; inset:-8px;
+      border:2px solid rgba(58,210,159,.35);
+      border-radius:inherit;
+      opacity:0; transform:scale(.7);
+      animation:ring .85s .25s ease-out both;
+    }
+    @keyframes pop{
+      0%{transform:scale(.6); opacity:0}
+      70%{transform:scale(1.06)}
+      100%{transform:scale(1); opacity:1}
+    }
+    @keyframes ring{
+      to{opacity:1; transform:scale(1)}
+    }
+
+    .cta-row{
+      display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;
+    }
+    .btn{
+      --pad:14px 18px;
+      appearance:none; border:1px solid var(--ring); background:var(--card);
+      color:var(--text); padding:var(--pad); border-radius:12px; font-weight:600;
+      text-decoration:none; display:inline-flex; align-items:center; gap:10px;
+      transition:transform .14s ease, background .14s ease, border-color .14s ease;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:#394656}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{background:linear-gradient(180deg, #f76154, var(--accent)); border-color:transparent}
+    .btn.primary:hover{filter:brightness(1.04)}
+    .pill{
+      display:inline-block; font-size:12px; color:var(--muted);
+      border:1px solid var(--ring); padding:6px 10px; border-radius:999px; margin-top:6px;
+    }
+
+    footer{
+      margin-top:18px; color:var(--muted); font-size:13px;
+    }
+
+    /* tiny */
+    @media (max-width: 420px){
+      .btn span{display:none} /* keep buttons compact on smallest screens */
+    }
+  </style>
+
+  <!-- Google Analytics 4 (optional but recommended) -->
+  <!-- Replace G-XXXXXXXXXX with your GA4 Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    // GA4 — replace the ID above to enable
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX'); // <-- put your real GA4 ID here
+  </script>
+
+  <!-- (Optional) Google Ads conversion for page-view thank-you (replace with your tag) -->
+  <!--
+  <script>
+    gtag('event', 'conversion', {
+      'send_to': 'AW-XXXXXXX/xxxxxxxxx' // replace with your Google Ads conversion ID/label
+    });
+  </script>
+  -->
+</head>
+<body>
+  <div class="wrap hero">
+    <div class="card">
+      <div class="brand">
+        <!-- Inline logo (editable). Feel free to swap for an <img src="..."> -->
+        <svg class="logo" viewBox="0 0 520 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Fieldtone Studio">
+          <text x="0" y="55" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-weight="800" font-size="52" fill="#e8ecf1" letter-spacing="2">FIELDTONE</text>
+          <rect x="368" y="62" width="120" height="5" rx="2.5" fill="#f04a3e"/>
+        </svg>
+        <span class="pill">Request received</span>
+      </div>
+
+      <div class="ok" aria-hidden="true">
+        <!-- check icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+
+      <h1>Thank you for reaching out to Fieldtone Studio</h1>
+      <p class="lede">
+        We’ve received your request and will get back to you shortly.
+        In the meantime, explore recent work or connect with us on Instagram.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn primary" href="/showreel.html" aria-label="View our portfolio">
+          🎬 <span>View Portfolio</span>
+        </a>
+        <a class="btn" href="/" aria-label="Back to homepage">
+          ⟵ <span>Back to Home</span>
+        </a>
+        <a class="btn" href="https://instagram.com/fieldtone_studio" target="_blank" rel="noopener" aria-label="Open Instagram">
+          📷 <span>Instagram</span>
+        </a>
+      </div>
+
+      <footer>
+        Fieldtone Studio · Cairo, Egypt · © <span id="y"></span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
