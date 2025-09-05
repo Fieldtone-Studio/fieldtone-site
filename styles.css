@@ -400,3 +400,88 @@ h2{ font-family:'Playfair Display',serif; font-size:clamp(26px,3.6vw,40px); marg
   .logo-underline::after { transition:none; transform:translateX(-50%) scaleX(1); opacity:1; }
   .logo-img { transition:none; opacity:1; transform:none; }
 }
+
+/* ===== Hero buttons: spacing that wraps nicely on small screens ===== */
+.hero-copy .btn {
+  margin: 0 6px 10px; /* even spacing if buttons wrap */
+}
+
+/* ===== Quote button variant ===== */
+.btn--quote {
+  color:#fff;
+  border:1px solid transparent;
+  background: linear-gradient(180deg, #ff6a57, var(--brand-red)); /* Fieldtone red */
+  box-shadow:
+    0 10px 24px rgba(231,76,60,.24),
+    inset 0 1px 0 rgba(255,255,255,.15);
+}
+
+/* Hover style (visuals only — animation set below) */
+.btn--quote:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, #ff7a69, #ff5a47);
+  box-shadow:
+    0 12px 28px rgba(231,76,60,.32),
+    inset 0 1px 0 rgba(255,255,255,.18);
+  color:#fff;
+}
+
+.btn--quote:focus-visible {
+  outline:none;
+  box-shadow:
+    0 0 0 3px rgba(231,76,60,.35), /* focus ring */
+    0 10px 24px rgba(231,76,60,.24);
+}
+
+/* Small phones: keep buttons inline if they wrap */
+@media (max-width: 420px){
+  .hero-copy .btn { display:inline-flex; }
+}
+
+/* ========= Pulse animations ========= */
+@keyframes pulseGlow {
+  0% {
+    transform: translateY(-2px) scale(1);
+    box-shadow:
+      0 12px 28px rgba(231,76,60,.32),
+      inset 0 1px 0 rgba(255,255,255,.18);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+      0 16px 32px rgba(231,76,60,.42),
+      inset 0 1px 0 rgba(255,255,255,.22);
+  }
+  100% {
+    transform: translateY(-2px) scale(1);
+    box-shadow:
+      0 12px 28px rgba(231,76,60,.32),
+      inset 0 1px 0 rgba(255,255,255,.18);
+  }
+}
+
+/* Stronger pulse on hover */
+.btn--quote:hover {
+  animation: pulseGlow 1.8s ease-in-out infinite;
+}
+
+/* Idle pulse — gentle breathing even without hover */
+.btn--quote {
+  animation: pulseGlowIdle 5s ease-in-out infinite;
+}
+
+/* Gentler idle animation */
+@keyframes pulseGlowIdle {
+  0%, 100% {
+    transform: translateY(-2px) scale(1);
+    box-shadow:
+      0 8px 18px rgba(231,76,60,.18),
+      inset 0 1px 0 rgba(255,255,255,.10);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+      0 10px 20px rgba(231,76,60,.25),
+      inset 0 1px 0 rgba(255,255,255,.12);
+  }
+}
