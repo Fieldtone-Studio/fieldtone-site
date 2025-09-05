@@ -123,4 +123,18 @@
     </image:image>
   </url>
 
+      <!-- REQUEST A QUOTE -->
+  <url>
+    <loc>https://fieldtone-studio.com/request-a-quote.html</loc>
+    <lastmod>2025-09-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+
+    <image:image>
+      <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-request-a-quote.png</image:loc>
+      <image:title>Request a Quote | Fieldtone Studio</image:title>
+      <image:caption>Request a cinematic visualization quote from Fieldtone Studio</image:caption>
+    </image:image>
+  </url>
+
 </urlset>
