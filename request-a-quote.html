@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Request a Quote — Fieldtone Studio</title>
+  <meta name="description" content="Tell us about your project. Fieldtone Studio crafts cinematic, photorealistic visuals that move hearts and properties." />
+  <link rel="canonical" href="https://fieldtone-studio.com/request-a-quote" />
+  <meta name="theme-color" content="#0b0d10" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Request a Quote — Fieldtone Studio" />
+  <meta property="og:description" content="Tell us about your project. We’ll respond with next steps and a tailored estimate." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fieldtone-studio.com/request-a-quote" />
+  <meta property="og:image" content="https://fieldtone-studio.com/og-image.jpg" />
+
+  <!-- JSON-LD (WebPage + Organization) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Request a Quote — Fieldtone Studio",
+    "url": "https://fieldtone-studio.com/request-a-quote",
+    "description": "Tell us about your project. Fieldtone Studio crafts cinematic, photorealistic visuals that move hearts and properties.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Fieldtone Studio",
+      "url": "https://fieldtone-studio.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Fieldtone Studio",
+      "url": "https://fieldtone-studio.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://fieldtone-studio.com/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --bg-2:#101419;
+      --card:#12171d;
+      --ring:#2a3542;
+      --text:#e8ecf1;
+      --muted:#9aa3ad;
+      --accent:#f04a3e;
+      --accent-2:#f76154;
+      --ok:#28c08a;
+      --error:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 800px at 70% -10%, #1b2028 0%, var(--bg) 60%),
+                  linear-gradient(180deg, var(--bg-2), var(--bg));
+      color:var(--text);
+      font:16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      display:grid;
+      min-height:100dvh;
+      place-items:start center;
+      padding:28px 20px 48px;
+    }
+
+    .wrap{width:min(1080px,100%);}
+
+    .header{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      margin:8px 0 18px;
+    }
+    .logo{
+      display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text);
+    }
+    .logo svg{width:170px; height:auto; display:block}
+    .mini-nav a{
+      color:var(--muted); text-decoration:none; border:1px solid var(--ring);
+      padding:8px 12px; border-radius:10px; transition:all .15s ease;
+    }
+    .mini-nav a:hover{color:var(--text); border-color:#394656}
+
+    .card{
+      background:
+        radial-gradient(600px 320px at 10% -25%, rgba(240,74,62,.12) 0%, transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid var(--ring);
+      border-radius:22px;
+      padding: clamp(22px, 4vw, 40px);
+      box-shadow: 0 10px 40px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.02);
+      backdrop-filter: blur(6px);
+    }
+
+    h1{
+      margin:8px 0 10px;
+      font-weight:800; letter-spacing:.2px;
+      font-size: clamp(26px, 3.6vw, 42px); line-height:1.12;
+      text-wrap:balance;
+    }
+    .lede{color:var(--muted); margin:0 0 24px; max-width:68ch}
+
+    form{
+      display:grid; grid-template-columns:repeat(12,1fr); gap:14px;
+    }
+    .field{grid-column: span 12; display:flex; flex-direction:column; gap:8px}
+    @media(min-width:760px){
+      .half{grid-column: span 6}
+      .third{grid-column: span 4}
+      .two-thirds{grid-column: span 8}
+    }
+
+    label{font-weight:600; color:var(--text); font-size:14px}
+    .req{color:var(--muted); font-weight:500}
+
+    input, textarea, select{
+      background:var(--card);
+      border:1px solid var(--ring);
+      color:var(--text);
+      border-radius:12px;
+      padding:14px 14px;
+      outline:none; width:100%;
+      transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    input::placeholder, textarea::placeholder{color:#7e8792}
+    textarea{min-height:150px; resize:vertical}
+
+    input:focus, textarea:focus, select:focus{
+      border-color:#3a4656; box-shadow:0 0 0 3px rgba(58,70,86,.25);
+    }
+
+    .help{color:var(--muted); font-size:12px; margin-top:-4px}
+    .error{color:var(--error); font-size:13px; display:none}
+    .show-error .error{display:block}
+    .show-error input, .show-error textarea, .show-error select{
+      border-color:var(--error) !important;
+    }
+
+    .hp{display:none} /* honeypot */
+
+    .actions{display:flex; gap:10px; margin-top:6px; align-items:center}
+    .btn{
+      --pad:14px 18px;
+      appearance:none; border:1px solid var(--ring); background:var(--card);
+      color:var(--text); padding:var(--pad); border-radius:12px; font-weight:700;
+      text-decoration:none; display:inline-flex; align-items:center; gap:10px;
+      transition:transform .14s ease, background .14s ease, border-color .14s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:#394656}
+    .btn:active{transform:translateY(0)}
+    .primary{background:linear-gradient(180deg, var(--accent-2), var(--accent)); border-color:transparent}
+    .ghost{color:var(--muted)}
+    .spinner{
+      width:16px; height:16px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.35);
+      border-top-color:#fff; animation:spin .7s linear infinite; display:none;
+    }
+    .loading .spinner{display:inline-block}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    footer{margin-top:18px; color:var(--muted); font-size:13px; text-align:center}
+
+    /* small niceties */
+    .badge{
+      display:inline-block; font-size:12px; color:var(--muted);
+      border:1px solid var(--ring); padding:6px 10px; border-radius:999px; margin-left:8px;
+    }
+  </style>
+
+  <!-- GA4 placeholder (replace if you want this page tracked immediately) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX'); // <- set your real GA4 ID (optional)
+  </script>
+
+  <!-- Optional: Google Ads conversion tag placeholder
+  <script>
+    // Example: call this on *successful* submit before redirect
+    // gtag('event', 'conversion', {'send_to': 'AW-XXXXXXX/xxxxxxxxx'});
+  </script>
+  -->
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <a class="logo" href="/" aria-label="Fieldtone Studio — Home">
+        <svg viewBox="0 0 520 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <text x="0" y="55" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+                font-weight="800" font-size="52" fill="#e8ecf1" letter-spacing="2">FIELDTONE</text>
+          <rect x="368" y="62" width="120" height="5" rx="2.5" fill="#f04a3e"/>
+        </svg>
+        <span class="badge">Quote Request</span>
+      </a>
+      <nav class="mini-nav">
+        <a href="/showreel.html">Portfolio</a>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+
+    <main class="card" role="main">
+      <h1>Request a Quote</h1>
+      <p class="lede">Tell us a little about your project. We’ll review and reply with next steps
+        (usually within one business day).</p>
+
+      <form id="quoteForm" novalidate>
+        <!-- Honeypot -->
+        <div class="hp">
+          <label for="company">Company (leave empty)</label>
+          <input id="company" name="company" autocomplete="off" />
+        </div>
+
+        <div class="field half" id="fg-name">
+          <label for="name">Your name <span class="req">(required)</span></label>
+          <input id="name" name="name" type="text" placeholder="Jane Smith" autocomplete="name" required />
+          <div class="error">Please enter your name.</div>
+        </div>
+
+        <div class="field half" id="fg-email">
+          <label for="email">Email <span class="req">(required)</span></label>
+          <input id="email" name="email" type="email" placeholder="you@studio.com" autocomplete="email" required />
+          <div class="error">Please enter a valid email.</div>
+        </div>
+
+        <div class="field half" id="fg-phone">
+          <label for="phone">Phone <span class="req">(optional)</span></label>
+          <input id="phone" name="phone" type="tel" placeholder="+20 …" autocomplete="tel" />
+          <div class="help">We’ll only use this if we need a quick clarification.</div>
+        </div>
+
+        <div class="field half" id="fg-budget">
+          <label for="budget">Rough budget <span class="req">(optional)</span></label>
+          <select id="budget" name="budget">
+            <option value="">Select a range…</option>
+            <option value="under-1k">Under $1,000</option>
+            <option value="1-3k">$1,000 – $3,000</option>
+            <option value="3-8k">$3,000 – $8,000</option>
+            <option value="8-20k">$8,000 – $20,000</option>
+            <option value="20k-plus">$20,000+</option>
+          </select>
+        </div>
+
+        <div class="field two-thirds" id="fg-service">
+          <label for="service">Service <span class="req">(optional)</span></label>
+          <select id="service" name="service">
+            <option value="">Choose a service…</option>
+            <option>Architectural CGI / Stills</option>
+            <option>Animation / Cinematic Walkthrough</option>
+            <option>Look Dev / Materials & Lighting</option>
+            <option>Creative Direction & Art Direction</option>
+          </select>
+        </div>
+
+        <div class="field third" id="fg-deadline">
+          <label for="deadline">Deadline <span class="req">(optional)</span></label>
+          <input id="deadline" name="deadline" type="text" placeholder="e.g., Oct 30 or 6 weeks" />
+        </div>
+
+        <div class="field" id="fg-details">
+          <label for="details">Project details <span class="req">(required)</span></label>
+          <textarea id="details" name="details" placeholder="Tell us about the scope, deliverables, and goals…" required></textarea>
+          <div class="error">A short description helps us respond with accuracy.</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="submitBtn" type="submit">
+            <span class="spinner" aria-hidden="true"></span>
+            Send request
+          </button>
+          <a class="btn ghost" href="/">Cancel</a>
+          <div class="help">Submitting will redirect to our Thank-You page.</div>
+        </div>
+      </form>
+    </main>
+
+    <footer>Fieldtone Studio · Cairo, Egypt · © <span id="y"></span></footer>
+  </div>
+
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('quoteForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const fields = {
+      name:  document.getElementById('name'),
+      email: document.getElementById('email'),
+      details:document.getElementById('details'),
+      hp:    document.getElementById('company')
+    };
+
+    function mark(groupId, on){
+      const el = document.getElementById(groupId);
+      el.classList.toggle('show-error', !!on);
+    }
+
+    function validEmail(v){
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+
+      // Basic validation
+      let ok = true;
+      if(!fields.name.value.trim()){ ok=false; mark('fg-name', true);} else mark('fg-name', false);
+      if(!validEmail(fields.email.value.trim())){ ok=false; mark('fg-email', true);} else mark('fg-email', false);
+      if(!fields.details.value.trim()){ ok=false; mark('fg-details', true);} else mark('fg-details', false);
+
+      // Honeypot (bots)
+      if(fields.hp.value.trim()){ ok=false; }
+
+      if(!ok) return;
+
+      // lock UI
+      submitBtn.classList.add('loading');
+      submitBtn.setAttribute('disabled','disabled');
+
+      // Fire GA4 event (if GA present)
+      try { gtag('event', 'generate_lead', { method: 'quote_form' }); } catch(e){}
+
+      // Fire Google Ads conversion (if you’ve added it)
+      // try { gtag('event', 'conversion', {'send_to': 'AW-XXXXXXX/xxxxxxxxx'}); } catch(e){}
+
+      // TODO: Hook a real endpoint here (Formspree, Netlify Forms, a small Cloud Function, etc.)
+      // For now we simulate success and redirect:
+      await new Promise(r => setTimeout(r, 600));
+
+      window.location.href = '/thank-you';
+    });
+
+    // instant validation blur
+    ['name','email','details'].forEach(id=>{
+      const el = fields[id];
+      el.addEventListener('blur', ()=>{
+        if(id==='email'){
+          mark('fg-email', !validEmail(el.value.trim()));
+        }else{
+          mark('fg-'+id, !el.value.trim());
+        }
+      });
+    });
+  </script>
+</body>
+</html>
