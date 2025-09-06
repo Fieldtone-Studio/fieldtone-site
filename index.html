@@ -309,5 +309,69 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
+  <!-- === ADDED: Map scripts (isolated) === -->
+  <script>
+    const FT_CENTER = { lat: 29.962981, lng: 31.259409 };
+    const FT_PIN_URL = "https://fieldtone-studio.com/assets/logo-pin.png"; // 500x104 transparent PNG
+    const FT_RED = "#c1472f";
+
+    const FT_DARK = [
+      {elementType:"geometry",stylers:[{color:"#121212"}]},
+      {elementType:"labels.text.fill",stylers:[{color:FT_RED}]},
+      {elementType:"labels.text.stroke",stylers:[{color:"#000"}]},
+      {featureType:"poi",stylers:[{visibility:"off"}]},
+      {featureType:"transit",stylers:[{visibility:"off"}]},
+      {featureType:"road",elementType:"geometry",stylers:[{color:"#2b2b2b"}]},
+      {featureType:"road",elementType:"labels.icon",stylers:[{visibility:"off"}]},
+      {featureType:"water",stylers:[{color:"#000"}]}
+    ];
+    const FT_DAY = [
+      {elementType:"geometry",stylers:[{color:"#f5f5f5"}]},
+      {elementType:"labels.text.fill",stylers:[{color:"#3b3b3b"}]},
+      {featureType:"poi",elementType:"labels.text.fill",stylers:[{color:"#707070"}]},
+      {featureType:"road",elementType:"geometry",stylers:[{color:"#ffffff"}]},
+      {featureType:"road.highway",elementType:"geometry",stylers:[{color:"#e7e7e7"}]},
+      {featureType:"water",elementType:"geometry",stylers:[{color:"#d6e3f3"}]},
+      {featureType:"water",elementType:"labels.text.fill",stylers:[{color:FT_RED}]}
+    ];
+
+    let ftMap, ftMarker, ftInfo, ftNight=true;
+
+    function initHomeMap(){
+      ftMap = new google.maps.Map(document.getElementById("home-map"), {
+        center: FT_CENTER, zoom: 15, styles: FT_DARK,
+        disableDefaultUI: true, gestureHandling: "greedy"
+      });
+
+      ftMarker = new google.maps.Marker({
+        position: FT_CENTER, map: ftMap, title: "Fieldtone Studio",
+        icon:{ url: FT_PIN_URL, scaledSize: new google.maps.Size(150,31) }
+      });
+
+      ftInfo = new google.maps.InfoWindow({
+        content: `
+          <div style="background:#141416;color:#fff;border:1px solid #26272a;border-radius:12px;padding:12px;max-width:260px">
+            <h3 style="margin:0 0 6px;font-size:16px">Fieldtone Studio</h3>
+            <p style="margin:0;opacity:.9">Cinematic architectural visualization in Cairo.</p>
+            <div style="margin-top:8px;border:1px solid #26272a;padding:4px 8px;border-radius:999px;display:inline-block;font-size:12px">Archvizography • Cairo</div>
+          </div>
+        `
+      });
+
+      ftInfo.open({anchor: ftMarker, map: ftMap});
+      ftMarker.addListener("click", ()=> ftInfo.open({anchor: ftMarker, map: ftMap}));
+
+      document.getElementById("ft-toggle-style").addEventListener("click", ()=>{
+        ftNight = !ftNight;
+        ftMap.setOptions({styles: ftNight ? FT_DARK : FT_DAY});
+        document.getElementById("ft-toggle-style").textContent = ftNight ? "🌙 Night" : "☀️ Day";
+      });
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEPFGbQ_XhZEsQm8ZrO8QTJooJhQjhzOU&callback=initHomeMap">
+  </script>
+  <!-- === /ADDED === -->
+
 </body>
 </html>
