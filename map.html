@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fieldtone Studio — Cinematic Map</title>
+
+  <style>
+    :root{
+      --ft-bg:#0b0b0c;
+      --ft-red:#c1472f;
+      --ft-ink:#ffffff;
+      --ft-panel:#141416;
+      --ft-border:#26272a;
+    }
+    html,body{height:100%;margin:0;background:var(--ft-bg);color:var(--ft-ink);font:500 14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    #map{height:100%;width:100%}
+
+    /* Floating control deck */
+    .deck{
+      position:fixed; z-index:10; top:16px; left:50%; transform:translateX(-50%);
+      display:flex; gap:10px; flex-wrap:wrap;
+      background:rgba(20,20,22,.8); border:1px solid var(--ft-border);
+      backdrop-filter: blur(6px);
+      padding:10px 12px; border-radius:14px; box-shadow:0 12px 40px rgba(0,0,0,.45);
+    }
+    .btn{
+      appearance:none; border:1px solid var(--ft-border); background:#111;
+      color:#fff; padding:9px 14px; border-radius:10px; cursor:pointer;
+      transition:transform .15s ease, border-color .2s ease, background .2s ease;
+      white-space:nowrap
+    }
+    .btn:hover{ transform:translateY(-1px); border-color:#34363a }
+    .btn.primary{ background:var(--ft-red); border-color:#9a351f }
+    .btn.primary:hover{ background:#a83825 }
+    .sep{width:1px; background:#2a2b2e; margin:0 4px}
+
+    /* Custom InfoCard */
+    .ft-card{
+      background:var(--ft-panel); color:#fff; border:1px solid var(--ft-border);
+      border-radius:14px; padding:12px 14px; box-shadow:0 16px 50px rgba(0,0,0,.55);
+      max-width:260px
+    }
+    .ft-card h3{margin:0 0 6px; font-size:16px}
+    .ft-card p{margin:0; opacity:.9}
+    .ft-card .tag{display:inline-block;margin-top:8px;padding:4px 8px;border:1px solid var(--ft-border);
+      border-radius:999px; font-size:12px; opacity:.9}
+
+    /* Cinematic pulse overlay */
+    .pulse{
+      position:absolute; transform:translate(-50%,-50%); pointer-events:none;
+      width:16px; height:16px; border-radius:50%;
+      box-shadow:0 0 24px 6px rgba(193,71,47,.55), 0 0 2px 1px rgba(193,71,47,.9) inset;
+    }
+    .ring{
+      position:absolute; transform:translate(-50%,-50%); pointer-events:none;
+      width:12px; height:12px; border:2px solid rgba(193,71,47,.9); border-radius:50%;
+      animation:wave 2.2s ease-out infinite;
+    }
+    @keyframes wave{
+      0%{opacity:.9; transform:translate(-50%,-50%) scale(.6)}
+      100%{opacity:0; transform:translate(-50%,-50%) scale(2.8)}
+    }
+
+    /* Small watermark */
+    .wm{
+      position:fixed; right:16px; bottom:14px; z-index:10; opacity:.75;
+      background:rgba(20,20,22,.8); border:1px solid var(--ft-border);
+      padding:8px 10px; border-radius:10px; font-size:12px
+    }
+  </style>
+
+  <!-- Google Maps JS -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEPFGbQ_XhZEsQm8ZrO8QTJooJhQjhzOU&callback=initMap">
+  </script>
+</head>
+<body>
+  <!-- Cinematic controls -->
+  <div class="deck">
+    <button class="btn" id="btnDayNight">🌙 Night</button>
+    <button class="btn" id="btnRecenter">🎬 Re-center</button>
+    <div class="sep"></div>
+    <button class="btn" id="btnLocate">📍 Locate me</button>
+    <a class="btn primary" id="btnDirections" target="_blank" rel="noopener">🧭 Directions</a>
+  </div>
+
+  <div id="map" role="region" aria-label="Fieldtone Studio Map"></div>
+  <div class="wm">Fieldtone • cinematic map</div>
+
+  <script>
+    // ---- Fieldtone constants
+    const FT = {
+      center: { lat: 29.962981, lng: 31.259409 },
+      pinURL: "https://fieldtone-studio.com/assets/logo-pin.png", // 500x104 transparent PNG (white + underline)
+      pinSize: { w:150, h:31 }, // proportional scale of your 500x104 asset
+      red: "#c1472f"
+    };
+
+    // ---- Brand map styles
+    const FT_DARK = [
+      {elementType:"geometry",stylers:[{color:"#121212"}]},
+      {elementType:"labels.text.fill",stylers:[{color:FT.red}]},
+      {elementType:"labels.text.stroke",stylers:[{color:"#000"}]},
+      {featureType:"poi",stylers:[{visibility:"off"}]},
+      {featureType:"transit",stylers:[{visibility:"off"}]},
+      {featureType:"road",elementType:"geometry",stylers:[{color:"#2b2b2b"}]},
+      {featureType:"road",elementType:"labels.icon",stylers:[{visibility:"off"}]},
+      {featureType:"water",stylers:[{color:"#000"}]}
+    ];
+    const FT_DAY = [
+      {elementType:"geometry",stylers:[{color:"#f5f5f5"}]},
+      {elementType:"labels.text.fill",stylers:[{color:"#3b3b3b"}]},
+      {featureType:"poi",elementType:"labels.text.fill",stylers:[{color:"#707070"}]},
+      {featureType:"road",elementType:"geometry",stylers:[{color:"#ffffff"}]},
+      {featureType:"road.highway",elementType:"geometry",stylers:[{color:"#e7e7e7"}]},
+      {featureType:"water",elementType:"geometry",stylers:[{color:"#d6e3f3"}]},
+      {featureType:"water",elementType:"labels.text.fill",stylers:[{color:FT.red}]}
+    ];
+
+    let map, marker, info, isNight = true, pulseOverlay;
+
+    function initMap(){
+      // Base map
+      map = new google.maps.Map(document.getElementById("map"),{
+        center: FT.center, zoom: 14.6, styles: FT_DARK,
+        disableDefaultUI: true, gestureHandling: "greedy"
+      });
+
+      // Custom branded marker
+      marker = new google.maps.Marker({
+        position: FT.center, map,
+        icon:{ url: FT.pinURL, scaledSize: new google.maps.Size(FT.pinSize.w, FT.pinSize.h) },
+        optimized:true, title:"Fieldtone Studio"
+      });
+
+      // Cinematic Info Card
+      info = new google.maps.InfoWindow({
+        content: `
+          <div class="ft-card">
+            <h3>Fieldtone Studio</h3>
+            <p>Cinematic & emotionally engaging architectural visualization.</p>
+            <span class="tag">Archvizography • Cairo</span>
+          </div>
+        `,
+        ariaLabel:"Fieldtone Studio"
+      });
+
+      // Open by default after intro dolly
+      cinematicIntro();
+
+      // Marker interactions
+      marker.addListener("mouseover", ()=> marker.setAnimation(google.maps.Animation.BOUNCE));
+      marker.addListener("mouseout",  ()=> marker.setAnimation(null));
+      marker.addListener("click", ()=> {
+        info.open({anchor:marker, map});
+        map.panTo(FT.center);
+      });
+
+      // Pulsing glow overlay (OverlayView for CSS-driven pulse)
+      pulseOverlay = new (class extends google.maps.OverlayView{
+        onAdd(){
+          this.el = document.createElement("div");
+          this.el.innerHTML = `<div class="pulse"></div><div class="ring"></div>`;
+          this.getPanes().overlayMouseTarget.appendChild(this.el);
+        }
+        draw(){
+          const proj = this.getProjection();
+          const p = proj.fromLatLngToDivPixel(new google.maps.LatLng(FT.center));
+          this.el.style.position="absolute";
+          this.el.style.left = p.x+"px"; this.el.style.top = p.y+"px";
+        }
+        onRemove(){ this.el?.remove(); }
+      })();
+      pulseOverlay.setMap(map);
+
+      // UI controls
+      document.getElementById("btnDayNight").onclick = toggleStyle;
+      document.getElementById("btnRecenter").onclick = ()=> smoothPan(FT.center, 15);
+      document.getElementById("btnLocate").onclick = locateMe;
+      document.getElementById("btnDirections").href =
+        `https://www.google.com/maps/dir/?api=1&destination=${FT.center.lat},${FT.center.lng}`;
+    }
+
+    // Smooth pan/zoom
+    function smoothPan(target, zoom=15){
+      map.panTo(target);
+      setTimeout(()=> map.setZoom(zoom), 350);
+    }
+
+    function cinematicIntro(){
+      // start wider, then dolly-in
+      map.setZoom(12.5);
+      setTimeout(()=> { smoothPan(FT.center, 15); info.open({anchor:marker, map}); }, 650);
+    }
+
+    function toggleStyle(){
+      isNight = !isNight;
+      map.setOptions({ styles: isNight ? FT_DARK : FT_DAY });
+      document.getElementById("btnDayNight").textContent = isNight ? "🌙 Night" : "☀️ Day";
+    }
+
+    function locateMe(){
+      if(!navigator.geolocation){
+        alert("Geolocation not supported on this device.");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        pos=>{
+          const me = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          // add a tiny dot for user
+          new google.maps.Marker({
+            position: me, map,
+            icon:{ path: google.maps.SymbolPath.CIRCLE, scale:6,
+                   fillColor:"#fff", fillOpacity:1, strokeColor:FT.red, strokeWeight:2 }
+          });
+          smoothPan(me, 15);
+        },
+        ()=> alert("Location permission denied.")
+      );
+    }
+  </script>
+</body>
+</html>
