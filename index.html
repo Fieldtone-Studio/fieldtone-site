@@ -300,6 +300,32 @@
     </div>
   </section>
 
+  <!-- === ADDED: Cinematic Map Section (no other changes) === -->
+  <section id="visit-us" class="ft-map-section">
+    <div class="ft-map-header">
+      <h2>Visit Fieldtone Studio</h2>
+      <button id="ft-toggle-style" aria-label="Toggle day/night">🌙 Night</button>
+    </div>
+    <div id="home-map" role="region" aria-label="Fieldtone Studio Map"></div>
+  </section>
+
+  <!-- Minimal styles for the map block only -->
+  <style>
+    .ft-map-section{margin:60px auto; max-width:1200px; padding:0 20px}
+    .ft-map-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px}
+    .ft-map-header h2{margin:0; color:#fff; letter-spacing:.5px}
+    #ft-toggle-style{
+      appearance:none; border:1px solid #26272a; background:#111; color:#fff;
+      padding:8px 12px; border-radius:10px; cursor:pointer;
+    }
+    #ft-toggle-style:hover{border-color:#34363a}
+    #home-map{
+      height:520px; width:100%; border-radius:14px; overflow:hidden;
+      box-shadow:0 18px 50px rgba(0,0,0,.45); background:#0b0b0c;
+    }
+  </style>
+  <!-- === /ADDED === -->
+
   <footer class="footer">
     <div>© <span id="year"></span> Fieldtone Studio</div>
   </footer>
