@@ -137,20 +137,20 @@
     </image:image>
   </url>
 
-    <!-- MAP -->
+     <!-- MAP -->
   <url>
     <loc>https://fieldtone-studio.com/map.html</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.7</priority>
 
     <xhtml:link rel="alternate" hreflang="en" href="https://fieldtone-studio.com/map.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fieldtone-studio.com/map.html"/>
 
     <image:image>
       <image:loc>https://fieldtone-studio.com/assets/SEO/SEO-map.png</image:loc>
-      <image:title>Fieldtone Studio Map</image:title>
-      <image:caption>Visit Fieldtone Studio — cinematic and emotionally engaging architectural visualization in Cairo.</image:caption>
+      <image:title>Fieldtone Studio Location</image:title>
+      <image:caption>Cinematic Architectural Visualization in Cairo — Fieldtone Studio</image:caption>
     </image:image>
   </url>
 </urlset>
