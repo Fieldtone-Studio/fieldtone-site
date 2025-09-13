@@ -1,0 +1,13 @@
+.page-dev .hero{padding:120px 24px 80px;text-align:center}
+.page-dev .hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,54px);margin:0 0 12px}
+.page-dev .hero p{color:var(--muted);max-width:820px;margin:0 auto 18px}
+.page-dev .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.page-dev .value,.page-dev .bundle{max-width:1100px;margin:0 auto}
+.page-dev .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.page-dev .cols h3{margin:.2rem 0}
+.page-dev .bullets{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.page-dev .bullets li{color:var(--muted);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px}
+.page-dev .cta-wide{text-align:center;padding:70px 24px}
+@media (max-width:900px){
+  .page-dev .cols{grid-template-columns:1fr}
+}
