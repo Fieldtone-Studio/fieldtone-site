@@ -1,50 +1,38 @@
-// Fieldtone custom cursor — paste this into collaborate.js / developers.js / services.js
+// Fieldtone custom cursor: one ring + center dot, with a clearly lagging ghost trail
 document.addEventListener("DOMContentLoaded", () => {
-  const cursor = document.querySelector(".custom-cursor");
-  const trail  = document.querySelector(".custom-cursor-trail");
-  if (!cursor || !trail) return;
+  const ring = document.querySelector(".custom-cursor");
+  const dot  = document.querySelector(".custom-cursor-dot");
+  if (!ring || !dot) return;
 
-  let x = 0, y = 0;          // target position
-  let tx = 0, ty = 0;        // trail (lagged) position
-  let shown = false;
+  let x = 0, y = 0;      // target (mouse)
+  let dx = 0, dy = 0;    // lagged dot position
 
-  // Show/hide on enter/leave
-  window.addEventListener("mouseenter", () => {
-    shown = true;
-    cursor.style.opacity = "1";
-    trail.style.opacity  = "1";
-  });
-  window.addEventListener("mouseleave", () => {
-    shown = false;
-    cursor.style.opacity = "0";
-    trail.style.opacity  = "0";
-  });
+  const lerp = (a, b, n) => (1 - n) * a + n * b;
 
-  // Track mouse
+  const show = () => { ring.style.opacity = "1"; dot.style.opacity = "1"; };
+  const hide = () => { ring.style.opacity = "0"; dot.style.opacity = "0"; };
+
+  window.addEventListener("mouseenter", show);
+  window.addEventListener("mouseleave", hide);
+
   window.addEventListener("mousemove", (e) => {
     x = e.clientX;
     y = e.clientY;
-    if (!shown) {
-      shown = true;
-      cursor.style.opacity = "1";
-      trail.style.opacity  = "1";
-    }
+    show();
   });
 
-  // Smooth follow (trail lags behind)
-  const lerp = (a, b, n) => (1 - n) * a + n * b;
-
   function render() {
-    // Cursor snaps to mouse
-    cursor.style.transform = `translate(${x}px, ${y}px)`;
+    // Keep CSS translate(-50%,-50%) by setting left/top only
+    ring.style.left = x + "px";
+    ring.style.top  = y + "px";
 
-    // Trail eases toward mouse (increase factor for snappier motion)
-    tx = lerp(tx, x, 0.15);
-    ty = lerp(ty, y, 0.15);
-    trail.style.transform = `translate(${tx}px, ${ty}px)`;
+    // Dot trails behind
+    dx = lerp(dx, x, 0.12);   // lower = more lag (try 0.10–0.18)
+    dy = lerp(dy, y, 0.12);
+    dot.style.left = dx + "px";
+    dot.style.top  = dy + "px";
 
     requestAnimationFrame(render);
   }
   render();
 });
-// reserved for page interactions// reserved for page interactions
