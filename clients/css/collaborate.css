@@ -19,40 +19,25 @@
 .custom-cursor {
   width: 22px;
   height: 22px;
-  border: 2px solid var(--brand-red);
+  border: 2px solid var(--brand-red);  /* main red ring */
   border-radius: 50%;
   position: fixed;
   top: 0; left: 0;
-  transform: translate(-50%, -50%);   /* keep centering */
+  transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 20000;
   opacity: 0;
   transition: opacity .3s ease;
 }
 
-/* Center dot inside the main ring */
+/* DOT inside the ring */
 .custom-cursor::after {
   content: "";
   position: absolute;
-  width: 6px;               /* tweak to match your main pages */
+  width: 6px;
   height: 6px;
-  background: var(--brand-red);
+  background: var(--brand-red);  /* solid dot */
   border-radius: 50%;
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-}
-
-/* GHOST TRAIL (bigger + softer so it doesn't look like a 2nd ring) */
-.custom-cursor-trail {
-  width: 38px;              /* bigger than main ring */
-  height: 38px;
-  border: 2px solid rgba(231,76,60,.35);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  transform: translate(-50%, -50%);   /* keep centering */
-  pointer-events: none;
-  z-index: 19999;
-  opacity: 0;               /* JS will fade it in */
-  transition: opacity .3s ease;
 }
