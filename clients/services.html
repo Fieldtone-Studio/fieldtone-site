@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services & Process — Fieldtone Studio</title>
+  <meta name="description" content="From whitecards to final films: stills, emotive frames, and cinematic shorts. Clear phases, clean handovers, on-time delivery." />
+  <link rel="canonical" href="https://fieldtone-studio.com/clients/services.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Services & Process — Fieldtone Studio" />
+  <meta property="og:description" content="From whitecards to final films: stills, emotive frames, and cinematic shorts. Clear phases, clean handovers, on-time delivery." />
+  <meta property="og:image" content="https://fieldtone-studio.com/assets/SEO/SEO-services.png" />
+  <meta property="og:url" content="https://fieldtone-studio.com/clients/services.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://fieldtone-studio.com/assets/SEO/SEO-services.png" />
+  <!-- Global styles are in repo root -->
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://fieldtone-studio.com/clients/services.html#webpage","url":"https://fieldtone-studio.com/clients/services.html","name":"Services & Process \u2014 Fieldtone Studio","description":"From whitecards to final films: stills, emotive frames, and cinematic shorts. Clear phases, clean handovers, on-time delivery.","isPartOf":{"@id":"https://fieldtone-studio.com/#organization"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://fieldtone-studio.com/"},{"@type":"ListItem","position":2,"name":"Clients","item":"https://fieldtone-studio.com/clients/"},{"@type":"ListItem","position":3,"name":"Services & Process","item":"https://fieldtone-studio.com/clients/services.html"}]},"inLanguage":"en"}</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">
+    <a href="../index.html" aria-label="Fieldtone Home"></a>
+  </div>
+
+  <button class="menu-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="menu-overlay" aria-hidden="true"></div>
+
+  <nav class="menu" id="site-menu">
+    <a href="../archvizography.html">Archvizography</a>
+    <a href="../ethos.html">Ethos</a>
+    <a href="../work.html">Work</a>
+    <a href="../showreel.html">Showreel</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+
+    <!-- Clients dropdown -->
+    <div class="dropdown">
+      <a href="#">Clients ▾</a>
+      <div class="dropdown-menu">
+        <a href="./collaborate.html">Collaborate</a>
+        <a href="./developers.html">Developers</a>
+        <a href="./services.html">Services</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const nav=document.querySelector('header.nav');
+  const btn=nav.querySelector('.menu-toggle');
+  const overlay=nav.querySelector('.menu-overlay');
+  function close(){ nav.classList.remove('menu-open'); btn.setAttribute('aria-expanded','false'); }
+  function open(){ nav.classList.add('menu-open'); btn.setAttribute('aria-expanded','true'); }
+  btn.addEventListener('click',()=>{ nav.classList.contains('menu-open')?close():open(); });
+  overlay.addEventListener('click',close);
+});
+</script>
+
+
+<main class="page-services">
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>From whitecards to final films — <br>the Fieldtone <span class="accent">process</span>.</h1>
+      <p>Clear phases, clean handovers, and on-time delivery — every time.</p>
+    </div>
+  </section>
+
+  <section class="offer">
+    <h2>What we offer</h2>
+    <div class="grid4">
+      <div>Exterior / Interior Hero Stills</div>
+      <div>Emotive Frames</div>
+      <div>Cinematic Short Films</div>
+      <div>Walkthroughs (as needed)</div>
+    </div>
+  </section>
+
+  <section class="phases">
+    <h2>Phases</h2>
+    <ol class="steps">
+      <li><strong>Whitecards:</strong> cameras, composition, light logic.</li>
+      <li><strong>Color & Reflections:</strong> materials intent, glass/metal.</li>
+      <li><strong>Materials → Final:</strong> textures, detailing, delivery.</li>
+    </ol>
+  </section>
+
+  <section class="faq">
+    <h2>FAQs</h2>
+    <details><summary>How many feedback rounds?</summary><p>Clearly scoped per package to protect timelines and quality.</p></details>
+    <details><summary>What formats do you deliver?</summary><p>High-res stills (PNG/JPG), film (MP4), and layered requests on demand.</p></details>
+    <details><summary>Do you work under NDAs?</summary><p>Yes — strict confidentiality and clean file handovers.</p></details>
+  </section>
+
+  <section class="cta-wide">
+    <h2>Next step</h2>
+    <p>Tell us your scope and dates — we’ll shape the right bundle for you.</p>
+    <a class="btn btn--quote" href="../contact.html">Get a tailored plan</a>
+  </section>
+</main>
+<link rel="stylesheet" href="./css/services.css">
+<script src="./js/services.js" defer></script>
+
+</body>
+</html>

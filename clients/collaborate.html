@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Collaborate — Fieldtone Studio (For Design Offices)</title>
+  <meta name="description" content="Partner with Fieldtone to turn evolving designs into cinematic visuals — from whitecards to final films. Built for architects and interior studios." />
+  <link rel="canonical" href="https://fieldtone-studio.com/clients/collaborate.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Collaborate — Fieldtone Studio (For Design Offices)" />
+  <meta property="og:description" content="Partner with Fieldtone to turn evolving designs into cinematic visuals — from whitecards to final films. Built for architects and interior studios." />
+  <meta property="og:image" content="https://fieldtone-studio.com/assets/SEO/SEO-collaborate.png" />
+  <meta property="og:url" content="https://fieldtone-studio.com/clients/collaborate.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://fieldtone-studio.com/assets/SEO/SEO-collaborate.png" />
+  <!-- Global styles are in repo root -->
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://fieldtone-studio.com/clients/collaborate.html#webpage","url":"https://fieldtone-studio.com/clients/collaborate.html","name":"Collaborate \u2014 Fieldtone Studio (For Design Offices)","description":"Partner with Fieldtone to turn evolving designs into cinematic visuals \u2014 from whitecards to final films. Built for architects and interior studios.","isPartOf":{"@id":"https://fieldtone-studio.com/#organization"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://fieldtone-studio.com/"},{"@type":"ListItem","position":2,"name":"Clients","item":"https://fieldtone-studio.com/clients/"},{"@type":"ListItem","position":3,"name":"Collaborate","item":"https://fieldtone-studio.com/clients/collaborate.html"}]},"inLanguage":"en"}</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">
+    <a href="../index.html" aria-label="Fieldtone Home"></a>
+  </div>
+
+  <button class="menu-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="menu-overlay" aria-hidden="true"></div>
+
+  <nav class="menu" id="site-menu">
+    <a href="../archvizography.html">Archvizography</a>
+    <a href="../ethos.html">Ethos</a>
+    <a href="../work.html">Work</a>
+    <a href="../showreel.html">Showreel</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+
+    <!-- Clients dropdown -->
+    <div class="dropdown">
+      <a href="#">Clients ▾</a>
+      <div class="dropdown-menu">
+        <a href="./collaborate.html">Collaborate</a>
+        <a href="./developers.html">Developers</a>
+        <a href="./services.html">Services</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const nav=document.querySelector('header.nav');
+  const btn=nav.querySelector('.menu-toggle');
+  const overlay=nav.querySelector('.menu-overlay');
+  function close(){ nav.classList.remove('menu-open'); btn.setAttribute('aria-expanded','false'); }
+  function open(){ nav.classList.add('menu-open'); btn.setAttribute('aria-expanded','true'); }
+  btn.addEventListener('click',()=>{ nav.classList.contains('menu-open')?close():open(); });
+  overlay.addEventListener('click',close);
+});
+</script>
+
+
+<main class="page-collab">
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Your design. <span class="accent">Our cinema.</span></h1>
+      <p>We plug into your team to turn evolving designs into clear, cinematic decisions — fast.</p>
+      <div class="cta">
+        <a class="btn btn--quote" href="../contact.html">Request a proposal</a>
+        <a class="btn" href="../work.html">See work</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="slots">
+    <h2>How we slot into your team</h2>
+    <ul class="bullets">
+      <li>Embedded workflow • mirrors your calendar, file structure, comments</li>
+      <li>Fast iteration • whitecards in 48–72h, clear composition + light logic</li>
+      <li>Calm reliability • named versions, on-time drops, clean handovers</li>
+    </ul>
+  </section>
+
+  <section class="pipeline">
+    <h2>Three-phase pipeline</h2>
+    <div class="cols">
+      <div><h3>1) Whitecards</h3><p>Composition, massing, light logic.</p></div>
+      <div><h3>2) Color & Reflections</h3><p>Material intent, glass/metal realism.</p></div>
+      <div><h3>3) Materials → Final</h3><p>Textures, micro-imperfections, delivery.</p></div>
+    </div>
+  </section>
+
+  <section class="deliverables">
+    <h2>What we deliver</h2>
+    <div class="grid">
+      <div>Hero stills (ext/int)</div>
+      <div>Emotive frames</div>
+      <div>Cinematic short films</div>
+      <div>Walkthroughs</div>
+    </div>
+  </section>
+
+  <section class="cta-wide">
+    <h2>Start a collaboration</h2>
+    <p>Send us your brief, timeline, and target outcomes. We’ll reply with a scoped plan.</p>
+    <a class="btn btn--quote" href="../contact.html">Let’s begin</a>
+  </section>
+</main>
+<link rel="stylesheet" href="./css/collaborate.css">
+<script src="./js/collaborate.js" defer></script>
+
+</body>
+</html>
