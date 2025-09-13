@@ -14,27 +14,33 @@
 }
 
 /* ================= CUSTOM CURSOR ================= */
-.custom-cursor,
-.custom-cursor-trail {
+/* Main ring */
+.custom-cursor {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
+  width: 22px; height: 22px;
+  border: 2px solid var(--brand-red);
   border-radius: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* keep centered at pointer */
   pointer-events: none;
   z-index: 20000;
   opacity: 0;
   transition: opacity .3s ease;
 }
 
-.custom-cursor {
-  width: 22px;
-  height: 22px;
-  border: 2px solid var(--brand-red); /* Fieldtone red */
+/* Lagging dot (no ring, just a filled circle) */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  background: var(--brand-red);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 19999;
+  opacity: 0;
+  transition: opacity .3s ease;
 }
 
-.custom-cursor-trail {
-  width: 38px;
-  height: 38px;
-  border: 2px solid rgba(231,76,60,.35); /* softer ghost */
-}
+/* Make sure the OS cursor is hidden (you already have this globally) */
+/* html, body { cursor: none; } */
