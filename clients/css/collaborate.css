@@ -15,6 +15,7 @@
   .page-collab .deliverables .grid{grid-template-columns:repeat(2,1fr)}
 }
 
+/* ================= CUSTOM CURSOR ================= */
 /* Main ring */
 .custom-cursor {
   position: fixed;
