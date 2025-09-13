@@ -1,50 +1,52 @@
-// Fieldtone custom cursor — paste this into collaborate.js / developers.js / services.js
+// Fieldtone custom cursor: one ring + center dot, with a clearly lagging ghost trail
 document.addEventListener("DOMContentLoaded", () => {
   const cursor = document.querySelector(".custom-cursor");
   const trail  = document.querySelector(".custom-cursor-trail");
   if (!cursor || !trail) return;
 
-  let x = 0, y = 0;          // target position
-  let tx = 0, ty = 0;        // trail (lagged) position
-  let shown = false;
+  let x = 0, y = 0;      // target
+  let tx = 0, ty = 0;    // trail (lag)
+  let idleTimer;
 
-  // Show/hide on enter/leave
-  window.addEventListener("mouseenter", () => {
-    shown = true;
+  const lerp = (a, b, n) => (1 - n) * a + n * b;
+
+  const show = () => {
     cursor.style.opacity = "1";
     trail.style.opacity  = "1";
-  });
-  window.addEventListener("mouseleave", () => {
-    shown = false;
+  };
+  const hide = () => {
     cursor.style.opacity = "0";
     trail.style.opacity  = "0";
-  });
+  };
 
-  // Track mouse
+  window.addEventListener("mouseenter", show);
+  window.addEventListener("mouseleave", hide);
+
   window.addEventListener("mousemove", (e) => {
     x = e.clientX;
     y = e.clientY;
-    if (!shown) {
-      shown = true;
-      cursor.style.opacity = "1";
-      trail.style.opacity  = "1";
-    }
+    show();
+
+    // fade the trail when idle so it doesn't sit as a second ring
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      trail.style.opacity = "0.25";  // softer when stopped
+    }, 120);
+    trail.style.opacity = "1";       // vivid while moving
   });
 
-  // Smooth follow (trail lags behind)
-  const lerp = (a, b, n) => (1 - n) * a + n * b;
-
   function render() {
-    // Cursor snaps to mouse
-    cursor.style.transform = `translate(${x}px, ${y}px)`;
+    // Keep CSS translate(-50%,-50%) centering:
+    cursor.style.left = x + "px";
+    cursor.style.top  = y + "px";
 
-    // Trail eases toward mouse (increase factor for snappier motion)
-    tx = lerp(tx, x, 0.15);
-    ty = lerp(ty, y, 0.15);
-    trail.style.transform = `translate(${tx}px, ${ty}px)`;
+    // Make the trail clearly lag behind
+    tx = lerp(tx, x, 0.10);  // lower = more lag
+    ty = lerp(ty, y, 0.10);
+    trail.style.left = tx + "px";
+    trail.style.top  = ty + "px";
 
     requestAnimationFrame(render);
   }
   render();
 });
-// reserved for page interactions
