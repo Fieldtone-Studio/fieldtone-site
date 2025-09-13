@@ -44,3 +44,13 @@
 
 /* Make sure the OS cursor is hidden (you already have this globally) */
 /* html, body { cursor: none; } */
+
+/* ===================== */
+/* DISABLE CUSTOM CURSOR ON TOUCH DEVICES */
+/* ===================== */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none !important;
+  }
+}
