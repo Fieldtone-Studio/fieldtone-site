@@ -1,0 +1,122 @@
+:root{
+  --bg:#0e0e0f;
+  --fg:#e9e9ea;
+  --muted:#a3a3a7;
+  --accent:#c1472f;
+  --card:#151517;
+  --line:rgba(255,255,255,0.08);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background:var(--bg);
+  color:var(--fg);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.preload *{transition:none!important}
+
+.container{max-width:1280px;margin:0 auto;padding:20px 24px}
+
+/* Header */
+.site-header{position:sticky;top:0;background:rgba(14,14,15,0.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
+.header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.brand-logo{height:28px;width:auto;display:block}
+.brand-name{font-weight:600;opacity:.95}
+.site-nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+.site-nav a:hover,.site-nav a.active{color:var(--fg)}
+
+/* Hero */
+.hero{padding:40px 0;border-bottom:1px solid var(--line)}
+.hero-inner{display:grid;grid-template-columns:1.1fr 1.6fr;gap:24px}
+.hero-copy h1{font-size:clamp(28px,3.5vw,56px);letter-spacing:-.01em;margin:0 0 8px}
+.hero-copy p{margin:0;opacity:.9}
+.hero-media img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line)}
+@media(max-width:980px){
+  .hero-inner{grid-template-columns:1fr;gap:16px}
+}
+
+/* Layout: left reel nav + main */
+.layout{display:grid;grid-template-columns:220px 1fr;gap:28px;margin-top:18px}
+@media(max-width:1100px){ .layout{grid-template-columns:1fr} }
+
+/* Reel Nav (desktop) */
+.reel-nav{position:sticky;top:90px;height:max-content;display:block}
+.reel-nav ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.pill{
+  display:block;
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  text-decoration:none;
+  color:var(--fg);
+  background:transparent;
+  cursor:pointer;
+  transition:background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.pill:hover{transform:translateY(-1px);border-color:var(--fg)}
+.pill.active,[aria-current="true"]{background:var(--fg);color:#151517}
+
+/* Mobile pills row */
+.reel-pills{display:none;position:sticky;top:64px;z-index:45;background:rgba(14,14,15,0.7);backdrop-filter:blur(10px);padding:10px;border-bottom:1px solid var(--line)}
+.reel-pills .pill{display:inline-block;margin:4px 6px 4px 0}
+@media(max-width:1100px){
+  .reel-nav{display:none}
+  .reel-pills{display:block}
+}
+
+/* Chapters */
+.chapter{padding:28px 0;border-bottom:1px solid var(--line)}
+.chapter:last-of-type{border-bottom:none}
+.chapter-head h2{margin:0;font-size:clamp(22px,2.8vw,34px)}
+.chapter-sub{margin:6px 0 12px;color:var(--muted)}
+
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.frame{
+  grid-column:span 12;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+}
+.frame img{width:100%;height:auto;display:block}
+@media(min-width:900px){ .frame.half{grid-column:span 6} }
+@media(min-width:1280px){ .frame.third{grid-column:span 4} }
+
+.comingsoon{
+  display:grid;place-items:center;
+  min-height:220px;
+  border:1px dashed var(--line);
+  border-radius:16px;
+  background:#111214;
+  color:var(--muted);
+  font-weight:600;
+}
+
+/* Footer */
+.site-footer{border-top:1px solid var(--line);margin-top:32px}
+.noscript-msg{opacity:.8;margin-top:12px}
+
+/* ===== Custom Cursor (Fieldtone standard) ===== */
+.custom-cursor{
+  position:fixed;top:0;left:0;width:22px;height:22px;
+  border:2px solid var(--accent);border-radius:50%;
+  transform:translate(-50%,-50%);pointer-events:none;z-index:20000;opacity:0;transition:opacity .3s ease
+}
+.custom-cursor-dot{
+  position:fixed;top:0;left:0;width:6px;height:6px;background:var(--accent);
+  border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:19999;opacity:0;transition:opacity .3s ease
+}
+body.has-custom-cursor{cursor:none}
+@media(hover:none) and (pointer:coarse){.custom-cursor,.custom-cursor-dot{display:none!important} body{cursor:auto}}
+
+/* Motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
