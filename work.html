@@ -39,7 +39,7 @@
       "@type": "Organization",
       "name": "Fieldtone Studio",
       "url": "https://fieldtone-studio.com",
-      "logo": "https://fieldtone-studio.com/FIELDTONE_Primary _Colored_Logo.png",
+      "logo": "https://fieldtone-studio.com/assets/FIELDTONE_Primary _Colored_Logo.png",
       "slogan": "Cinematic visuals that move hearts and move properties"
     }
   }
@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="work.css" />
 </head>
 <body class="preload">
-  <!-- ===== Custom Cursor (standard Fieldtone) ===== -->
+  <!-- ===== Custom Cursor ===== -->
   <div class="custom-cursor" aria-hidden="true"></div>
   <div class="custom-cursor-dot" aria-hidden="true"></div>
 
@@ -68,11 +68,11 @@
     </div>
   </div>
 
+  <!-- ===== Header ===== -->
   <header class="site-header" role="banner">
     <div class="container header-wrap">
       <a class="brand" href="/" aria-label="Fieldtone Studio — Home">
-        <img src="/FIELDTONE_Primary _Colored_Logo.png" alt="Fieldtone Studio Logo" class="brand-logo" />
-        <span class="brand-name">Fieldtone Studio</span>
+        <img src="/assets/FIELDTONE_Primary _Colored_Logo.png" alt="Fieldtone Studio Logo" class="brand-logo" />
       </a>
       <nav class="site-nav" role="navigation" aria-label="Primary">
         <a href="/archvizography.html">Archvizography</a>
@@ -83,89 +83,90 @@
     </div>
   </header>
 
-  <main id="main" role="main">
-    <section class="hero">
-      <div class="container">
-        <h1>Work</h1>
-        <p>Casa Sol Tardío — explore exteriors, interiors, emotives, and upcoming film work crafted with Fieldtone’s Archvizography.</p>
-      </div>
-    </section>
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="container">
+      <h1>Work</h1>
+      <p>Casa Sol Tardío — explore exteriors, interiors, emotives, and upcoming film work crafted with Fieldtone’s Archvizography.</p>
+    </div>
+  </section>
 
-    <section class="container">
-      <div class="grid" id="ftGrid">
-        <!-- ===== Exteriors ===== -->
-        <article class="card" tabindex="0" role="button"
-          data-case="/projects/casa-sol-tardio-exteriors.html"
-          data-title="Casa Sol Tardío"
-          data-subtitle="Exteriors">
-          <figure class="media">
-            <img src="/assets/exterior.png" alt="Casa Sol Tardío — Exteriors" loading="lazy" width="960" height="720" />
-          </figure>
-          <div class="meta">
-            <div class="tag">Exteriors</div>
-            <div class="title">Casa Sol Tardío</div>
-          </div>
-        </article>
+  <!-- ===== Grid ===== -->
+  <section class="container">
+    <div class="grid" id="ftGrid">
+      <!-- Exteriors -->
+      <article class="card" tabindex="0" role="button"
+        data-case="/projects/casa-sol-tardio.html#exteriors"
+        data-title="Casa Sol Tardío"
+        data-subtitle="Exteriors">
+        <figure class="media">
+          <img src="/assets/exterior.png" alt="Casa Sol Tardío — Exteriors" loading="lazy" width="960" height="720" />
+        </figure>
+        <div class="meta">
+          <div class="tag">Exteriors</div>
+          <div class="title">Casa Sol Tardío</div>
+        </div>
+      </article>
 
-        <!-- ===== Interiors ===== -->
-        <article class="card" tabindex="0" role="button"
-          data-case="/projects/casa-sol-tardio-interiors.html"
-          data-title="Casa Sol Tardío"
-          data-subtitle="Interiors">
-          <figure class="media">
-            <img src="/assets/interior.png" alt="Casa Sol Tardío — Interiors" loading="lazy" width="960" height="720" />
-          </figure>
-          <div class="meta">
-            <div class="tag">Interiors</div>
-            <div class="title">Casa Sol Tardío</div>
-          </div>
-        </article>
+      <!-- Interiors -->
+      <article class="card" tabindex="0" role="button"
+        data-case="/projects/casa-sol-tardio.html#interiors"
+        data-title="Casa Sol Tardío"
+        data-subtitle="Interiors">
+        <figure class="media">
+          <img src="/assets/interior.png" alt="Casa Sol Tardío — Interiors" loading="lazy" width="960" height="720" />
+        </figure>
+        <div class="meta">
+          <div class="tag">Interiors</div>
+          <div class="title">Casa Sol Tardío</div>
+        </div>
+      </article>
 
-        <!-- ===== Emotives ===== -->
-        <article class="card" tabindex="0" role="button"
-          data-case="/projects/casa-sol-tardio-emotives.html"
-          data-title="Casa Sol Tardío"
-          data-subtitle="Emotives">
-          <figure class="media">
-            <img src="/assets/emotive.png" alt="Casa Sol Tardío — Emotives" loading="lazy" width="960" height="720" />
-          </figure>
-          <div class="meta">
-            <div class="tag">Emotives</div>
-            <div class="title">Casa Sol Tardío</div>
-          </div>
-        </article>
+      <!-- Emotives -->
+      <article class="card" tabindex="0" role="button"
+        data-case="/projects/casa-sol-tardio.html#emotives"
+        data-title="Casa Sol Tardío"
+        data-subtitle="Emotives">
+        <figure class="media">
+          <img src="/assets/emotive.png" alt="Casa Sol Tardío — Emotives" loading="lazy" width="960" height="720" />
+        </figure>
+        <div class="meta">
+          <div class="tag">Emotives</div>
+          <div class="title">Casa Sol Tardío</div>
+        </div>
+      </article>
 
-        <!-- ===== Trailer (Coming Soon) ===== -->
-        <article class="card" tabindex="0" role="button"
-          data-case="/projects/casa-sol-tardio-trailer.html"
-          data-title="Casa Sol Tardío"
-          data-subtitle="Trailer — Coming Soon">
-          <figure class="media comingsoon">
-            <div class="coming-soon-text">Trailer — Coming Soon</div>
-          </figure>
-          <div class="meta">
-            <div class="tag">Film</div>
-            <div class="title">Casa Sol Tardío — Trailer</div>
-          </div>
-        </article>
+      <!-- Trailer -->
+      <article class="card" tabindex="0" role="button"
+        data-case="/projects/casa-sol-tardio.html#trailer"
+        data-title="Casa Sol Tardío"
+        data-subtitle="Trailer — Coming Soon">
+        <figure class="media comingsoon">
+          <div class="coming-soon-text">Trailer — Coming Soon</div>
+        </figure>
+        <div class="meta">
+          <div class="tag">Film</div>
+          <div class="title">Casa Sol Tardío — Trailer</div>
+        </div>
+      </article>
 
-        <!-- ===== Short Film (Coming Soon) ===== -->
-        <article class="card" tabindex="0" role="button"
-          data-case="/projects/casa-sol-tardio-short-film.html"
-          data-title="Casa Sol Tardío"
-          data-subtitle="Short Film — Coming Soon">
-          <figure class="media comingsoon">
-            <div class="coming-soon-text">Short Film — Coming Soon</div>
-          </figure>
-          <div class="meta">
-            <div class="tag">Film</div>
-            <div class="title">Casa Sol Tardío — Short Film</div>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
+      <!-- Short Film -->
+      <article class="card" tabindex="0" role="button"
+        data-case="/projects/casa-sol-tardio.html#film"
+        data-title="Casa Sol Tardío"
+        data-subtitle="Short Film — Coming Soon">
+        <figure class="media comingsoon">
+          <div class="coming-soon-text">Short Film — Coming Soon</div>
+        </figure>
+        <div class="meta">
+          <div class="tag">Film</div>
+          <div class="title">Casa Sol Tardío — Short Film</div>
+        </div>
+      </article>
+    </div>
+  </section>
 
+  <!-- ===== Footer ===== -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       © <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties.
