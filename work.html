@@ -6,7 +6,7 @@
 
   <!-- ================= Primary SEO ================= -->
   <title>Work — Fieldtone Studio</title>
-  <meta name="description" content="Explore Fieldtone Studio’s cinematic architectural visualization work — from whitecards to final films, crafted with Archvizography." />
+  <meta name="description" content="Casa Sol Tardío — Fieldtone Studio’s cinematic flagship. Explore exteriors, interiors, emotives, and upcoming film work crafted with Archvizography." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fieldtone-studio.com/work.html" />
 
@@ -14,15 +14,17 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://fieldtone-studio.com/work.html" />
   <meta property="og:title" content="Work — Fieldtone Studio" />
-  <meta property="og:description" content="Explore Fieldtone Studio’s cinematic architectural visualization work — from whitecards to final films, crafted with Archvizography." />
-  <meta property="og:image" content="https://fieldtone-studio.com/assets/SEO/work.png" />
+  <meta property="og:description" content="Casa Sol Tardío — Fieldtone Studio’s cinematic flagship. Explore exteriors, interiors, emotives, and upcoming film work crafted with Archvizography." />
+  <meta property="og:image" content="https://fieldtone-studio.com/assets/SEO/SEO-work.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
   <!-- ================= Twitter Card ================= -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://fieldtone-studio.com/work.html" />
   <meta name="twitter:title" content="Work — Fieldtone Studio" />
-  <meta name="twitter:description" content="Explore Fieldtone Studio’s cinematic architectural visualization work — from whitecards to final films, crafted with Archvizography." />
-  <meta name="twitter:image" content="https://fieldtone-studio.com/assets/SEO/work.png" />
+  <meta name="twitter:description" content="Casa Sol Tardío — Fieldtone Studio’s cinematic flagship. Explore exteriors, interiors, emotives, and upcoming film work crafted with Archvizography." />
+  <meta name="twitter:image" content="https://fieldtone-studio.com/assets/SEO/SEO-work.png" />
 
   <!-- ================= JSON-LD Schema ================= -->
   <script type="application/ld+json">
@@ -30,85 +32,28 @@
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     "name": "Work — Fieldtone Studio",
-    "description": "Explore Fieldtone Studio’s cinematic architectural visualization work — from whitecards to final films, crafted with Archvizography.",
+    "description": "Casa Sol Tardío — Fieldtone Studio’s cinematic flagship. Explore exteriors, interiors, emotives, and upcoming film work crafted with Archvizography.",
     "url": "https://fieldtone-studio.com/work.html",
-    "image": "https://fieldtone-studio.com/assets/SEO/work.png",
+    "image": "https://fieldtone-studio.com/assets/SEO/SEO-work.png",
     "creator": {
       "@type": "Organization",
       "name": "Fieldtone Studio",
       "url": "https://fieldtone-studio.com",
-      "logo": "https://fieldtone-studio.com/FIELDTONE_Primary_Colored_Logo.png"
+      "logo": "https://fieldtone-studio.com/FIELDTONE_Primary_Colored_Logo.png",
+      "slogan": "Cinematic visuals that move hearts and move properties"
     }
   }
   </script>
 
   <link rel="preload" href="/assets/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/work/work.css" />
-  <style>
-    :root { --brand-red:#c1472f; }
-    html, body { cursor:none; }
-    /* Cursor (from your approved snippet) */
-    .custom-cursor{position:fixed;top:0;left:0;width:22px;height:22px;border:2px solid var(--brand-red);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:20000;opacity:0;transition:opacity .3s ease;}
-    .custom-cursor-dot{position:fixed;top:0;left:0;width:6px;height:6px;background:var(--brand-red);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:19999;opacity:0;transition:opacity .3s ease;}
-    @media (hover:none) and (pointer:coarse){.custom-cursor,.custom-cursor-dot{display:none!important;} html,body{cursor:auto;}}
-
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0e0e0e;color:#eaeaea;line-height:1.5;}
-    .container{max-width:1280px;margin:0 auto;padding:24px;}
-    header.site-header{display:flex;align-items:center;justify-content:space-between;gap:16px;}
-    header .brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
-    header .brand img{height:28px;width:auto;display:block;}
-    header nav a{color:#eaeaea;text-decoration:none;opacity:.9;margin-left:20px;}
-    header nav a:hover{opacity:1;}
-    .hero{padding:80px 0 40px;display:grid;gap:12px;}
-    .hero h1{font-size:clamp(28px,5vw,54px);letter-spacing:-.02em;margin:0;}
-    .hero p{max-width:74ch;opacity:.85;margin:0;}
-
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;}
-    .card{grid-column:span 6;background:#121212;border:1px solid #1e1e1e;border-radius:18px;overflow:hidden;transition:transform .25s ease,border-color .25s ease;cursor:pointer;}
-    .card:hover{transform:translateY(-2px);border-color:#2a2a2a;}
-    .card figure{margin:0;aspect-ratio:16/9;background:#0a0a0a;display:grid;place-items:center;}
-    .card img{width:100%;height:100%;object-fit:cover;display:block;}
-    .card .meta{padding:12px 14px 16px;}
-    .tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#aaa;}
-    .title{font-size:18px;margin:6px 0 4px;}
-    .desc{font-size:14px;opacity:.8;}
-    @media(max-width:900px){.card{grid-column:span 12;}}
-    footer{border-top:1px solid #1e1e1e;margin-top:48px;padding:32px 0;opacity:.8;font-size:14px;}
-
-    /* ---------- Cinematic transition overlay ---------- */
-    .ft-transition{
-      position:fixed;inset:0;z-index:30000;pointer-events:none;opacity:0;display:grid;place-items:center;
-      background:rgba(0,0,0,0); transition:opacity .25s ease;
-    }
-    .ft-transition.active{opacity:1;pointer-events:auto;background:#000;}
-    .ft-bars{
-      position:absolute;inset:0;display:grid;grid-template-rows:1fr auto 1fr;overflow:hidden;
-    }
-    .ft-bar-top,.ft-bar-bot{background:#000;transform:translateY(-100%);}
-    .ft-bar-bot{transform:translateY(100%);}
-    .ft-title{
-      display:grid;place-items:center;padding:24px 16px;opacity:0;transform:translateY(8px);
-      text-align:center;
-    }
-    .ft-title h2{margin:0;font-size:clamp(22px,4vw,40px);letter-spacing:.02em;}
-    .ft-title p{margin:8px 0 0;opacity:.8;}
-    .ft-title .brand-line{width:80px;height:2px;background:var(--brand-red);margin:14px auto 0;}
-    /* keyframes */
-    @keyframes slideTop { from { transform:translateY(-100%);} to { transform:translateY(0);} }
-    @keyframes slideBot { from { transform:translateY(100%);} to { transform:translateY(0);} }
-    @keyframes fadeUp  { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:translateY(0);} }
-    .ft-transition.active .ft-bar-top{animation:slideTop .45s ease forwards;}
-    .ft-transition.active .ft-bar-bot{animation:slideBot .45s ease forwards;}
-    .ft-transition.active .ft-title{animation:fadeUp .45s ease .35s forwards;}
-  </style>
+  <link rel="stylesheet" href="work.css" />
 </head>
-<body>
-  <!-- Custom Cursor -->
+<body class="preload">
+  <!-- ===== Custom Cursor (standard Fieldtone) ===== -->
   <div class="custom-cursor" aria-hidden="true"></div>
   <div class="custom-cursor-dot" aria-hidden="true"></div>
 
-  <!-- Cinematic transition overlay -->
+  <!-- ===== Cinematic Transition Overlay ===== -->
   <div class="ft-transition" id="ftTransition" aria-hidden="true">
     <div class="ft-bars">
       <div class="ft-bar-top"></div>
@@ -123,119 +68,116 @@
     </div>
   </div>
 
-  <header class="site-header container">
-    <a class="brand" href="/" aria-label="Fieldtone Studio — Home">
-      <img src="/FIELDTONE_Primary_Colored_Logo.png" alt="Fieldtone Studio Logo" />
-      <span style="font-weight:600;">Fieldtone Studio</span>
-    </a>
-    <nav>
-      <a href="/archvizography.html">Archvizography</a>
-      <a href="/showreel.html">Showreel</a>
-      <a href="/clients/collaborate.html">Collaborate</a>
-      <a href="/contact/index.html">Contact</a>
-    </nav>
+  <header class="site-header" role="banner">
+    <div class="container header-wrap">
+      <a class="brand" href="/" aria-label="Fieldtone Studio — Home">
+        <img src="/FIELDTONE_Primary_Colored_Logo.png" alt="Fieldtone Studio Logo" class="brand-logo" />
+        <span class="brand-name">Fieldtone Studio</span>
+      </a>
+      <nav class="site-nav" role="navigation" aria-label="Primary">
+        <a href="/archvizography.html">Archvizography</a>
+        <a href="/ethos.html">Ethos</a>
+        <a class="active" aria-current="page" href="/work.html">Work</a>
+        <a href="/contact/index.html">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section class="hero container">
-      <h1>Work</h1>
-      <p>Selected projects across exterior, interior, and film — crafted with Fieldtone’s cinematic methodology from <em>whitecards</em> to final <em>Archvizography</em> stills and trailers.</p>
+  <main id="main" role="main">
+    <section class="hero">
+      <div class="container">
+        <h1>Work</h1>
+        <p>Casa Sol Tardío — explore exteriors, interiors, emotives, and upcoming film work crafted with Fieldtone’s Archvizography.</p>
+      </div>
     </section>
 
     <section class="container">
       <div class="grid" id="ftGrid">
-        <!-- Each card now has data-case (target URL) and data-title (overlay title) -->
-        <article class="card" tabindex="0"
-          data-case="/work/case/casa-sol-tardio.html"
+        <!-- ===== Exteriors ===== -->
+        <article class="card" tabindex="0" role="button"
+          data-case="/projects/casa-sol-tardio-exteriors.html"
           data-title="Casa Sol Tardío"
-          data-subtitle="Cinematic villa • Night pool sequences">
-          <figure>
-            <img src="/assets/work/casa-sol-tardio-hero.jpg" alt="Casa Sol Tardío — Hero Still" loading="lazy">
+          data-subtitle="Exteriors">
+          <figure class="media">
+            <img src="/assets/exterior.png" alt="Casa Sol Tardío — Exteriors" loading="lazy" width="960" height="720" />
           </figure>
           <div class="meta">
-            <div class="tag">Residential · Exterior</div>
+            <div class="tag">Exteriors</div>
             <div class="title">Casa Sol Tardío</div>
-            <div class="desc">Mediterranean villa with a central courtyard and cinematic night pool sequences.</div>
           </div>
         </article>
 
-        <article class="card" tabindex="0"
-          data-case="/work/case/chatswood.html"
-          data-title="Victoria Avenue — Chatswood"
-          data-subtitle="Urban commercial • Foliage realism">
-          <figure>
-            <img src="/assets/work/chatswood-commercial.jpg" alt="Chatswood Redevelopment — Exterior" loading="lazy">
+        <!-- ===== Interiors ===== -->
+        <article class="card" tabindex="0" role="button"
+          data-case="/projects/casa-sol-tardio-interiors.html"
+          data-title="Casa Sol Tardío"
+          data-subtitle="Interiors">
+          <figure class="media">
+            <img src="/assets/interior.png" alt="Casa Sol Tardío — Interiors" loading="lazy" width="960" height="720" />
           </figure>
           <div class="meta">
-            <div class="tag">Commercial · Exterior</div>
-            <div class="title">Victoria Avenue — Chatswood</div>
-            <div class="desc">Urban streetscape realism with advanced foliage and refined metal/glass materials.</div>
+            <div class="tag">Interiors</div>
+            <div class="title">Casa Sol Tardío</div>
           </div>
         </article>
 
-        <article class="card" tabindex="0"
-          data-case="/work/case/interior-golden-hour.html"
-          data-title="Interior — Golden Hour"
-          data-subtitle="Residential interior • Intimate realism">
-          <figure>
-            <img src="/assets/work/interior-lounge.jpg" alt="Cinematic Interior — Lounge" loading="lazy">
+        <!-- ===== Emotives ===== -->
+        <article class="card" tabindex="0" role="button"
+          data-case="/projects/casa-sol-tardio-emotives.html"
+          data-title="Casa Sol Tardío"
+          data-subtitle="Emotives">
+          <figure class="media">
+            <img src="/assets/emotive.png" alt="Casa Sol Tardío — Emotives" loading="lazy" width="960" height="720" />
           </figure>
           <div class="meta">
-            <div class="tag">Residential · Interior</div>
-            <div class="title">Interior — Golden Hour</div>
-            <div class="desc">Soft indirect light, micro-imperfections, and tangible materials for intimate realism.</div>
+            <div class="tag">Emotives</div>
+            <div class="title">Casa Sol Tardío</div>
           </div>
         </article>
 
-        <article class="card" tabindex="0"
-          data-case="/work/case/rain-study.html"
-          data-title="Rain Study — Night Street"
-          data-subtitle="Film lookdev • Neon reflections">
-          <figure>
-            <img src="/assets/work/night-rain-street.jpg" alt="Rainy Cinematic Street — Film Still" loading="lazy">
+        <!-- ===== Trailer (Coming Soon) ===== -->
+        <article class="card" tabindex="0" role="button"
+          data-case="/projects/casa-sol-tardio-trailer.html"
+          data-title="Casa Sol Tardío"
+          data-subtitle="Trailer — Coming Soon">
+          <figure class="media comingsoon">
+            <div class="coming-soon-text">Trailer — Coming Soon</div>
           </figure>
           <div class="meta">
-            <div class="tag">Film · Lookdev</div>
-            <div class="title">Rain Study — Night Street</div>
-            <div class="desc">Neon reflections, wet asphalt, and low-angle depth — a testbed for cinematic motion.</div>
+            <div class="tag">Film</div>
+            <div class="title">Casa Sol Tardío — Trailer</div>
+          </div>
+        </article>
+
+        <!-- ===== Short Film (Coming Soon) ===== -->
+        <article class="card" tabindex="0" role="button"
+          data-case="/projects/casa-sol-tardio-short-film.html"
+          data-title="Casa Sol Tardío"
+          data-subtitle="Short Film — Coming Soon">
+          <figure class="media comingsoon">
+            <div class="coming-soon-text">Short Film — Coming Soon</div>
+          </figure>
+          <div class="meta">
+            <div class="tag">Film</div>
+            <div class="title">Casa Sol Tardío — Short Film</div>
           </div>
         </article>
       </div>
     </section>
   </main>
 
-  <footer class="container">
-    © <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties.
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      © <span id="year"></span> Fieldtone Studio — Cinematic visuals that move hearts and move properties.
+    </div>
   </footer>
 
   <noscript>
-    <div class="container" style="margin-top:16px; opacity:.8;">
-      JavaScript is off — project links will open directly without the cinematic transition.
+    <div class="container noscript-msg">
+      JavaScript is disabled — clicking a card will open the page directly without the cinematic transition.
     </div>
   </noscript>
 
-  <script src="/work/work.js" defer></script>
-  <script>
-    // Cursor JS (from your approved snippet)
-    document.addEventListener("DOMContentLoaded", () => {
-      const ring=document.querySelector(".custom-cursor");
-      const dot=document.querySelector(".custom-cursor-dot");
-      if(!ring||!dot) return;
-      let x=0,y=0,dx=0,dy=0;
-      const lerp=(a,b,n)=> (1-n)*a + n*b;
-      const show=()=>{ring.style.opacity="1"; dot.style.opacity="1";};
-      const hide=()=>{ring.style.opacity="0"; dot.style.opacity="0";};
-      window.addEventListener("mouseenter",show);
-      window.addEventListener("mouseleave",hide);
-      window.addEventListener("mousemove",(e)=>{x=e.clientX; y=e.clientY; show();});
-      function render(){
-        ring.style.left=x+"px"; ring.style.top=y+"px";
-        dx=lerp(dx,x,0.12); dy=lerp(dy,y,0.12);
-        dot.style.left=dx+"px"; dot.style.top=dy+"px";
-        requestAnimationFrame(render);
-      } render();
-      document.getElementById("year").textContent=new Date().getFullYear();
-    });
-  </script>
+  <script defer src="work.js"></script>
 </body>
 </html>
