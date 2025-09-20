@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Work — Fieldtone Studio</title>
+  <meta name="description" content="Cinematic architectural visuals — a curated selection of Fieldtone Studio projects across exteriors, interiors, and films." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fieldtone-studio.com/work.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Work — Fieldtone Studio" />
+  <meta property="og:description" content="Cinematic architectural visuals — a curated selection of Fieldtone Studio projects across exteriors, interiors, and films." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fieldtone-studio.com/work.html" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Work — Fieldtone Studio" />
+  <meta name="twitter:description" content="Cinematic architectural visuals — a curated selection of Fieldtone Studio projects across exteriors, interiors, and films." />
+
+  <link rel="preload" href="work.css" as="style" />
+  <link rel="stylesheet" href="work.css" />
+</head>
+<body class="preload">
+  <!-- Custom Cursor (from repo standard) -->
+  <div class="custom-cursor" aria-hidden="true"></div>
+  <div class="custom-cursor-dot" aria-hidden="true"></div>
+
+  <header class="site-header" role="banner">
+    <a class="brand" href="/" aria-label="Fieldtone Studio Home">
+      <img src="/FIELDTONE_Primary_Colored_Logo.png" alt="Fieldtone Studio" class="brand-logo" width="160" height="34" />
+    </a>
+    <nav class="site-nav" role="navigation" aria-label="Primary">
+      <a href="/archvizography.html">Archvizography</a>
+      <a href="/ethos.html">Ethos</a>
+      <a class="active" aria-current="page" href="/work.html">Work</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" class="main" role="main">
+    <section class="intro">
+      <h1>Work</h1>
+      <p class="lede">Cinematic visuals that move hearts and move properties.</p>
+      <div class="filters" role="tablist" aria-label="Filter projects">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-btn" data-filter="exterior" role="tab" aria-selected="false">Exteriors</button>
+        <button class="filter-btn" data-filter="interior" role="tab" aria-selected="false">Interiors</button>
+        <button class="filter-btn" data-filter="film" role="tab" aria-selected="false">Films</button>
+      </div>
+    </section>
+
+    <section class="grid" aria-live="polite">
+      <!-- Project Card Template (replace src with your thumbnails/videos) -->
+      <article class="card" data-category="exterior">
+        <a href="/projects/casa-sol-tardio.html" class="card-link">
+          <figure class="media">
+            <img data-src="https://picsum.photos/seed/fieldtone1/960/720" alt="Casa Sol Tardío — Exterior dusk shot" class="lazy" width="960" height="720" />
+          </figure>
+          <header class="card-meta">
+            <h2 class="card-title">Casa Sol Tardío</h2>
+            <p class="card-tag">Exterior</p>
+          </header>
+        </a>
+      </article>
+
+      <article class="card" data-category="interior">
+        <a href="/projects/casa-sol-tardio-interior.html" class="card-link">
+          <figure class="media">
+            <img data-src="https://picsum.photos/seed/fieldtone2/960/720" alt="Casa Sol Tardío — Interior daylight" class="lazy" width="960" height="720" />
+          </figure>
+          <header class="card-meta">
+            <h2 class="card-title">Casa Sol Tardío — Interior</h2>
+            <p class="card-tag">Interior</p>
+          </header>
+        </a>
+      </article>
+
+      <article class="card" data-category="film">
+        <a href="/projects/casa-sol-tardio-film.html" class="card-link">
+          <figure class="media">
+            <img data-src="https://picsum.photos/seed/fieldtone3/960/720" alt="Casa Sol Tardío — Film frames" class="lazy" width="960" height="720" />
+          </figure>
+          <header class="card-meta">
+            <h2 class="card-title">Casa Sol Tardío — Trailer</h2>
+            <p class="card-tag">Film</p>
+          </header>
+        </a>
+      </article>
+
+      <article class="card" data-category="exterior">
+        <a href="/projects/duncan-street.html" class="card-link">
+          <figure class="media">
+            <img data-src="https://picsum.photos/seed/fieldtone4/960/720" alt="Duncan Street — Commercial exterior" class="lazy" width="960" height="720" />
+          </figure>
+          <header class="card-meta">
+            <h2 class="card-title">Duncan Street</h2>
+            <p class="card-tag">Exterior</p>
+          </header>
+        </a>
+      </article>
+
+      <article class="card" data-category="interior">
+        <a href="/projects/serene-nook.html" class="card-link">
+          <figure class="media">
+            <img data-src="https://picsum.photos/seed/fieldtone5/960/720" alt="A Serene Nook — Interior vignette" class="lazy" width="960" height="720" />
+          </figure>
+          <header class="card-meta">
+            <h2 class="card-title">A Serene Nook</h2>
+            <p class="card-tag">Interior</p>
+          </header>
+        </a>
+      </article>
+
+      <article class="card" data-category="film">
+        <a href="/projects/showreel.html" class="card-link">
+          <figure class="media">
+            <img data-src="https://picsum.photos/seed/fieldtone6/960/720" alt="Fieldtone — Showreel" class="lazy" width="960" height="720" />
+          </figure>
+          <header class="card-meta">
+            <h2 class="card-title">Fieldtone Showreel</h2>
+            <p class="card-tag">Film</p>
+          </header>
+        </a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>&copy; <span id="year"></span> Fieldtone Studio — Cairo · Melbourne</p>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Work — Fieldtone Studio",
+    "description": "Curated portfolio of Fieldtone Studio projects across exteriors, interiors, and films.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Fieldtone Studio",
+      "url": "https://fieldtone-studio.com"
+    }
+  }
+  </script>
+
+  <script defer src="work.js"></script>
+</body>
+</html>

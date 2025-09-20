@@ -1,0 +1,117 @@
+:root{
+  --bg:#0e0e0f;
+  --fg:#e9e9ea;
+  --muted:#a3a3a7;
+  --accent:#c1472f; /* Fieldtone accent */
+  --brand-red:#c1472f; /* used by standard cursor */
+  --card:#151517;
+  --line: rgba(255,255,255,0.08);
+  --radius: 18px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
+  background:var(--bg);
+  color:var(--fg);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.preload *{transition:none!important}
+
+.site-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(14,14,15,0.7);backdrop-filter:blur(10px);z-index:20
+}
+.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.brand-logo{height:34px;width:auto;display:block}
+.site-nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+.site-nav a.active,.site-nav a:hover{color:var(--fg)}
+
+.main{padding:48px 24px;max-width:1400px;margin:0 auto}
+.intro{display:grid;gap:8px;margin-bottom:20px}
+h1{font-family: Playfair Display, Georgia, serif;font-weight:700;margin:0;font-size:clamp(2rem,3vw,3rem)}
+.lede{color:var(--muted);margin-top:6px}
+
+.filters{display:flex;gap:10px;margin:18px 0 24px;flex-wrap:wrap}
+.filter-btn{
+  background:transparent;color:var(--fg);border:1px solid var(--line);
+  padding:10px 14px;border-radius:999px;cursor:pointer;transition:transform .2s ease, border-color .2s ease, color .2s ease, background-color .2s ease
+}
+.filter-btn:hover{transform:translateY(-1px);border-color:var(--fg)}
+.filter-btn.active{background:var(--fg);color:#151517}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+}
+.card{
+  grid-column:span 6;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  will-change:transform;
+}
+@media(min-width:1200px){ .card{ grid-column: span 4; } }
+@media(max-width:700px){ .card{ grid-column: span 12; } }
+
+.card-link{display:block;color:inherit;text-decoration:none}
+.media{margin:0;aspect-ratio:4/3;background:#0b0b0c;overflow:hidden}
+.media img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.02)}
+.card-meta{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-top:1px solid var(--line)}
+.card-title{font-size:1.05rem;margin:0}
+.card-tag{margin:0;color:var(--muted)}
+
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.35);border-color:rgba(255,255,255,0.16)}
+
+/* ============== CUSTOM CURSOR (repo standard) ============== */
+/* Main ring */
+.custom-cursor{
+  position: fixed;
+  top: 0; left: 0;
+  width: 22px; height: 22px;
+  border: 2px solid var(--brand-red);
+  border-radius: 50%;
+  transform: translate(-50%,-50%); /* center at pointer */
+  pointer-events: none;
+  z-index: 20000;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+/* Lagging dot (filled circle) */
+.custom-cursor-dot{
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  background: var(--brand-red);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  z-index: 19999;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+/* Hide OS cursor when custom active (desktop only) */
+body.has-custom-cursor { cursor:none; }
+
+/* Disable custom cursor on touch / coarse pointers */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor, .custom-cursor-dot { display:none !important; }
+  body { cursor:auto; }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+/* Footer */
+.site-footer{border-top:1px solid var(--line);padding:20px 24px;color:var(--muted);margin-top:40px;text-align:center}
